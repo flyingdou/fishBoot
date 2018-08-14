@@ -36,4 +36,20 @@ public interface FishingGroundMapper {
 	 * @return
 	 */
 	List<Map<String, Object>> getFishingGroundList(Map<String, Object> queryParam);
+
+	/**
+	 * 查询钓场详情
+	 * 
+	 * @param param
+	 * @return
+	 */
+	Map<String, Object> getFishingGroundDetail(Map<String, Object> param);
+
+	/**
+	 * 根据钓场Id查询钓场所属的活动和垂钓券
+	 * 
+	 * @param param
+	 * @return
+	 */
+	List<Map<String, Object>> getFishingTicketByFishingGroundId(Map<String, Object> param);
 }

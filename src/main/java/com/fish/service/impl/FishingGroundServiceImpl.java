@@ -1,7 +1,6 @@
 package com.fish.service.impl;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -86,7 +85,10 @@ public class FishingGroundServiceImpl implements FishingGroundService {
 	 */
 	@Override
 	public Map<String, Object> getFishingGroundDetail(JSONObject param) {
-		Map<String, Object> resultMap = new HashMap<>();
+		// 查询钓场详情
+		Map<String, Object> resultMap = fishingGroundMapper.getFishingGroundDetail(param);
+		List<Map<String, Object>> fishingTickets = fishingGroundMapper.getFishingTicketByFishingGroundId(param);
+		resultMap.put("fishingTickets", fishingTickets);
 		return resultMap;
 	}
 

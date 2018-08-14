@@ -262,4 +262,24 @@
 		order by distance desc
 	</if>
   </select>
+  
+  <!-- 查询钓场详情 -->
+  <select id="getFishingGroundDetail" parameterType="Map" resultType="Map">
+  	select t.*, 
+	(select count(id) from tb_sign where fishing_ground = t.id) userCount,
+	(select count(l.fishing_count) from tb_fishing_logs l inner join tb_sign s on l.sign = s.id where s.fishing_ground = t.id) fishingCount,
+	(select IFNULL(sum(l.fishing_weight), 0) from tb_fishing_logs l inner join tb_sign s on l.sign = s.id where s.fishing_ground = t.id) fishingSumWeight,
+	(select IFNULL(max(l.fishing_weight), 0) from tb_fishing_logs l inner join tb_sign s on l.sign = s.id where s.fishing_ground = t.id) fishingMaxWeight,
+	ROUND(6378.138 * 2 * ASIN(SQRT(POW(SIN((t.latitude * PI() / 180 - t.mLatitude * PI() / 180) / 2),2) + COS(t.mLatitude * PI() / 180) *
+	COS(t.latitude * PI() / 180) * POW(SIN((t.longitude * PI() / 180 - t.mLongitude * PI() / 180) / 2),2))) * 1000) AS distance
+	from (select id,name,poster,city,type,water_area,water_deep,longitude,latitude,#{longitude} mLongitude,#{latitude} mLatitude 
+	from tb_fishing_ground where id = #{fishingGroundId}) t
+  </select>
+  
+  <!-- 根据钓场Id查询钓场所属的活动和垂钓券 -->
+  <select id="getFishingTicketByFishingGroundId" parameterType="Map" resultType="Map">
+  	select id,name,poster from tb_active where fishing_ground = #{fishingGroundId}
+	UNION ALL
+	select id,name,poster from tb_fishing_ticket where fit_fish_ground = #{fishingGroundId}
+  </select>
  </mapper>
