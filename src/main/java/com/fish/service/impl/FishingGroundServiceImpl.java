@@ -49,10 +49,11 @@ public class FishingGroundServiceImpl implements FishingGroundService {
 		fishingGround.setCity(param.getString("city"));
 		fishingGround.setWechat_audit(Constants.APPLY_STATUS_AUDITING);
 		fishingGround.setAutoDate(new Date());
-
+		
 		// 保存到数据库
 		fishingGroundMapper.insertSelective(fishingGround);
 
+		// 返回结果
 		JSONObject result = new JSONObject();
 		result.fluentPut("success", true).fluentPut("fishingGround", fishingGround);
 		return result;
@@ -62,6 +63,7 @@ public class FishingGroundServiceImpl implements FishingGroundService {
 	 * 查询钓场列表
 	 */
 	public JSONObject getFishingGroundList(JSONObject param) {
+		// 添加参数
 		param.fluentPut("audit", Constants.APPLY_STATUS_PASS);
 		if (param.containsKey("name")) {
 			if (param.containsKey("city")) {
@@ -71,6 +73,7 @@ public class FishingGroundServiceImpl implements FishingGroundService {
 				param.remove("type");
 			}
 		}
+		// 查询钓场
 		List<Map<String, Object>> fishingGroundList = fishingGroundMapper.getFishingGroundList(param);
 		JSONObject result = new JSONObject();
 		result.fluentPut("success", true).fluentPut("fishingGroundList", fishingGroundList);

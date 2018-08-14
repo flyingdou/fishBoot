@@ -18,6 +18,12 @@ public class FishingGroundController {
 	@Autowired
 	private FishingGroundService fishingGroundService;
 
+	/**
+	 * 发布钓场
+	 * 
+	 * @param json
+	 * @return
+	 */
 	@RequestMapping("/release")
 	@ResponseBody
 	public String release(String json) {
@@ -31,6 +37,12 @@ public class FishingGroundController {
 		}
 	}
 
+	/**
+	 * 查询钓场列表
+	 * 
+	 * @param json
+	 * @return
+	 */
 	@RequestMapping("/getFishingGroundList")
 	@ResponseBody
 	public String getFishingGroundList(String json) {
