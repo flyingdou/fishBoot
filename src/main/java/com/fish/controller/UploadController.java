@@ -6,7 +6,7 @@ import java.util.Date;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSON;
@@ -15,6 +15,7 @@ import com.fish.constants.Constants;
 import com.fish.util.commentsUtil;
 
 @Controller
+@RestController
 public class UploadController {
 
 	/**
@@ -46,7 +47,6 @@ public class UploadController {
 	 * @param myfile
 	 */
 	@RequestMapping("/uploadFile")
-	@ResponseBody
 	public String uploadFile(MultipartFile myfile) {
 		try {
 			JSONObject result = new JSONObject();

@@ -5,7 +5,7 @@ import java.net.URLDecoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -19,6 +19,7 @@ import com.fish.service.TicketService;
  */
 @Controller
 @RequestMapping("/ticket")
+@RestController
 public class TicketController {
 
 	@Autowired
@@ -31,7 +32,6 @@ public class TicketController {
 	 * @return
 	 */
 	@RequestMapping("/release")
-	@ResponseBody
 	public String release(String json) {
 		try {
 			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
@@ -49,7 +49,6 @@ public class TicketController {
 	 * @return
 	 */
 	@RequestMapping("/getTicketList")
-	@ResponseBody
 	public String getTicketList(String json) {
 		try {
 			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
@@ -68,7 +67,6 @@ public class TicketController {
 	 * @return
 	 */
 	@RequestMapping("/getTicketById")
-	@ResponseBody
 	public String getTicketById(String json) {
 		try {
 			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
@@ -87,7 +85,6 @@ public class TicketController {
 	 * @return
 	 */
 	@RequestMapping("/addCard")
-	@ResponseBody
 	public String addCard(String json) {
 		try {
 			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
@@ -106,7 +103,6 @@ public class TicketController {
 	 * @return
 	 */
 	@RequestMapping("/consume")
-	@ResponseBody
 	public String consume(String json) {
 		try {
 			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
