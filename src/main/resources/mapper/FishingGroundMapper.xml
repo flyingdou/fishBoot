@@ -270,7 +270,7 @@
 	(select count(l.fishing_count) from tb_fishing_logs l inner join tb_sign s on l.sign = s.id where s.fishing_ground = t.id) fishingCount,
 	(select IFNULL(sum(l.fishing_weight), 0) from tb_fishing_logs l inner join tb_sign s on l.sign = s.id where s.fishing_ground = t.id) fishingSumWeight,
 	(select IFNULL(max(l.fishing_weight), 0) from tb_fishing_logs l inner join tb_sign s on l.sign = s.id where s.fishing_ground = t.id) fishingMaxWeight
-	from (select id,name,poster,city,address,type,water_area,water_deep,longitude,latitude
+	from (select id,name,poster,city,address,telephone,type,water_area,water_deep,longitude,latitude,remark
 	from tb_fishing_ground where id = #{fishingGroundId}) t
   </select>
   
