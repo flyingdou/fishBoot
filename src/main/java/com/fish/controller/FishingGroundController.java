@@ -1,6 +1,7 @@
 package com.fish.controller;
 
 import java.net.URLDecoder;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,7 +64,10 @@ public class FishingGroundController {
 	@RequestMapping("/getFishingGroundDetail")
 	public String getFishingGroundDetail(String json) {
 		try {
-			return null;
+			JSONObject param = JSONObject.parseObject(json);
+			Map<String, Object> result = fishingGroundService.getFishingGroundDetail(param);
+			result.put("success", true);
+			return JSON.toJSONStringWithDateFormat(result, "yyyy-MM-dd HH:mm");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return JSON.toJSONString(e);

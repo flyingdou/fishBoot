@@ -1,6 +1,7 @@
 package com.fish.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,7 +50,7 @@ public class FishingGroundServiceImpl implements FishingGroundService {
 		fishingGround.setCity(param.getString("city"));
 		fishingGround.setWechat_audit(Constants.APPLY_STATUS_AUDITING);
 		fishingGround.setAutoDate(new Date());
-		
+
 		// 保存到数据库
 		fishingGroundMapper.insertSelective(fishingGround);
 
@@ -78,6 +79,15 @@ public class FishingGroundServiceImpl implements FishingGroundService {
 		JSONObject result = new JSONObject();
 		result.fluentPut("success", true).fluentPut("fishingGroundList", fishingGroundList);
 		return result;
+	}
+
+	/**
+	 * 查询钓场详情
+	 */
+	@Override
+	public Map<String, Object> getFishingGroundDetail(JSONObject param) {
+		Map<String, Object> resultMap = new HashMap<>();
+		return resultMap;
 	}
 
 }

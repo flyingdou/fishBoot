@@ -1,5 +1,7 @@
 package com.fish.service;
 
+import java.util.Map;
+
 import com.alibaba.fastjson.JSONObject;
 
 /**
@@ -23,4 +25,12 @@ public interface FishingGroundService {
 	 * @return
 	 */
 	public JSONObject getFishingGroundList(JSONObject param);
+
+	/**
+	 * 查询钓场详情
+	 * 
+	 * @param param
+	 * @return
+	 */
+	public Map<String, Object> getFishingGroundDetail(JSONObject param);
 }
