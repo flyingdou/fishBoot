@@ -62,7 +62,7 @@ public class FishingGroundController {
 	@RequestMapping("/getFishingGroundDetail")
 	public String getFishingGroundDetail(String json) {
 		try {
-			JSONObject param = JSONObject.parseObject(json);
+			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
 			Map<String, Object> result = fishingGroundService.getFishingGroundDetail(param);
 			result.put("success", true);
 			return JSON.toJSONStringWithDateFormat(result, "yyyy-MM-dd HH:mm");

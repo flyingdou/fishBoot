@@ -33,7 +33,7 @@ public class CityController {
 			List<City> cityList = cityService.getCityList(param);
 			JSONObject result = new JSONObject();
 			result.fluentPut("success", true).fluentPut("cityList", cityList);
-			return JSON.toJSONStringWithDateFormat(cityList, "yyyy-MM-dd");
+			return JSON.toJSONStringWithDateFormat(result, "yyyy-MM-dd");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return JSON.toJSONString(e);
