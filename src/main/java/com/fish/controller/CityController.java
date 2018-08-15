@@ -34,6 +34,7 @@ public class CityController {
 			JSONObject result = new JSONObject();
 			result.fluentPut("success", true).fluentPut("cityList", cityList);
 			return JSON.toJSONStringWithDateFormat(result, "yyyy-MM-dd");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return JSON.toJSONString(e);
