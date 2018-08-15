@@ -87,14 +87,22 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   
-  <!-- getCityList -->
+  <!-- 查询城市列表 -->
   <select id="getCityList" parameterType="Map" resultMap="BaseResultMap">
   	select 
     <include refid="Base_Column_List" />
     from tb_city
     where 1=1 
+    
+    <!-- 如果有查询字段就添加查询条件并做拼音匹配 -->
     <if test="city != null and city != ''">
-    	and city like "%${city}%" or pinyin like "${city}%"
+    	and city like "%${city}%" 
+    	
+    	union all
+    
+	    select c.id, c.city, c.longitude, c.latitude, c.create_date, c.update_date 
+		from tb_city c inner join tb_city_pinyin p on c.id = p.city 
+		where p.pinyin = #{city}
     </if>
   </select>
 </mapper>
