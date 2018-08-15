@@ -86,4 +86,15 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- getCityList -->
+  <select id="getCityList" parameterType="Map" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from tb_city
+    where 1=1 
+    <if test="city != null and city != ''">
+    	and city like "%${city}%"
+    </if>
+  </select>
 </mapper>
