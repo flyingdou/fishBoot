@@ -94,7 +94,7 @@
     from tb_city
     where 1=1 
     <if test="city != null and city != ''">
-    	and city like "%${city}%" or pinyin like "%${city}%"
+    	and city like "%${city}%" or pinyin like "${city}%"
     </if>
   </select>
 </mapper>
