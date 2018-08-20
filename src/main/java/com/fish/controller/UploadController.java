@@ -88,7 +88,6 @@ public class UploadController {
 	public String uploadBase64File(String imageData) {
 		try {
 			// 通过base64来转化图片
-			imageData = URLDecoder.decode(imageData, "UTF-8");
 			imageData = imageData.replaceAll("data:image/jpeg;base64,", "");
 			// BASE64Decoder decoder = new BASE64Decoder();
 
