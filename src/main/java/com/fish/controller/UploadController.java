@@ -3,6 +3,7 @@ package com.fish.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.net.URLDecoder;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,6 @@ import com.fish.util.commentsUtil;
 
 import sun.misc.BASE64Decoder;
 
-@SuppressWarnings("restriction")
 @RestController
 public class UploadController {
 
@@ -88,6 +88,7 @@ public class UploadController {
 	public String uploadBase64File(String imageData) {
 		try {
 			// 通过base64来转化图片
+			imageData = URLDecoder.decode(imageData, "UTF-8");
 			imageData = imageData.replaceAll("data:image/jpeg;base64,", "");
 			BASE64Decoder decoder = new BASE64Decoder();
 
