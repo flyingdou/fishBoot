@@ -3,9 +3,7 @@ package com.fish.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.util.Date;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +13,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fish.constants.Constants;
 import com.fish.util.commentsUtil;
+
+import sun.misc.BASE64Decoder;
 
 @RestController
 public class UploadController {
@@ -64,7 +64,7 @@ public class UploadController {
 			// 生成新的文件名
 			String suiff = myfile.getOriginalFilename().substring(myfile.getOriginalFilename().lastIndexOf("."),
 					myfile.getOriginalFilename().length());
-			originalFilename = commentsUtil.dateFormat(new Date(), "yyyyMMdd") + commentsUtil.getRandomName(4) + suiff;
+			originalFilename = commentsUtil.getRandomName(4) + suiff;
 			// 这里不必处理IO流关闭的问题,因为FileUtils.copyInputStreamToFile()方法内部会自动把用到的IO流关掉
 			// 此处也可以使用Spring提供的MultipartFile.transferTo(File dest)方法实现文件的上传
 			FileUtils.copyInputStreamToFile(myfile.getInputStream(), new File(filePath, originalFilename));
@@ -88,17 +88,17 @@ public class UploadController {
 		try {
 			// 通过base64来转化图片
 			imageData = imageData.replaceAll("data:image/jpeg;base64,", "");
-			// BASE64Decoder decoder = new BASE64Decoder();
+			BASE64Decoder decoder = new BASE64Decoder();
 
 			// Base64解码
-			byte[] imageByte = Base64.decodeBase64(imageData);
+			byte[] imageByte = decoder.decodeBuffer(imageData);
 			for (int i = 0; i < imageByte.length; ++i) {
 				if (imageByte[i] < 0) {// 调整异常数据
 					imageByte[i] += 256;
 				}
 			}
 			// 生成文件名
-			String fileName = commentsUtil.dateFormat(new Date(), "yyyyMMdd") + commentsUtil.getRandomName(4) + ".jpg";
+			String fileName = commentsUtil.getRandomName(4) + ".jpg";
 			String filePath = Constants.PICTURE_UPLOAD_PATH + "/" + fileName;
 			// 生成文件
 			File imageFile = new File(filePath);
