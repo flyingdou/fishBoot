@@ -3,10 +3,9 @@ package com.fish.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.net.URLDecoder;
-import java.util.Base64;
 import java.util.Date;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -92,7 +91,7 @@ public class UploadController {
 			// BASE64Decoder decoder = new BASE64Decoder();
 
 			// Base64解码
-			byte[] imageByte = Base64.getDecoder().decode(imageData);
+			byte[] imageByte = Base64.decodeBase64(imageData);
 			for (int i = 0; i < imageByte.length; ++i) {
 				if (imageByte[i] < 0) {// 调整异常数据
 					imageByte[i] += 256;
