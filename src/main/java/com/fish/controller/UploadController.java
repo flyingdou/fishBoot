@@ -16,6 +16,7 @@ import com.fish.util.commentsUtil;
 
 import sun.misc.BASE64Decoder;
 
+@SuppressWarnings("restriction")
 @RestController
 public class UploadController {
 
