@@ -99,7 +99,7 @@ public class UploadController {
 			}
 			// 生成文件名
 			String fileName = commentsUtil.dateFormat(new Date(), "yyyyMMdd") + commentsUtil.getRandomName(4) + ".jpg";
-			String filePath = Constants.PICTURE_UPLOAD_PATH + fileName;
+			String filePath = Constants.PICTURE_UPLOAD_PATH + "/" + fileName;
 			// 生成文件
 			File imageFile = new File(filePath);
 			imageFile.createNewFile();
