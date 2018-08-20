@@ -100,7 +100,7 @@ public class UploadController {
 				}
 			}
 			// 生成文件名
-			String fileName = commentsUtil.getRandomName(4) + ".jpg";
+			String fileName = commentsUtil.getRandomName(4) + ".png";
 			String filePath = Constants.PICTURE_UPLOAD_PATH + "/" + fileName;
 			// 生成文件
 			File imageFile = new File(filePath);
