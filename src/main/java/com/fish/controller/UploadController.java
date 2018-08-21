@@ -1,9 +1,6 @@
 package com.fish.controller;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.net.URLDecoder;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +11,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fish.constants.Constants;
 import com.fish.util.commentsUtil;
-
-import sun.misc.BASE64Decoder;
 
 @RestController
 public class UploadController {
@@ -72,47 +67,6 @@ public class UploadController {
 			// 图片压缩
 			result.fluentPut("success", true).fluentPut("picture", originalFilename);
 			return JSON.toJSONString(result);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return JSON.toJSONString(e);
-		}
-	}
-
-	/**
-	 * 上传单个文件(base64字符串转文件上传)
-	 * 
-	 * @param imageData
-	 * @return
-	 */
-	@RequestMapping("/uploadBase64File")
-	public String uploadBase64File(String imageData) {
-		try {
-			// 通过base64来转化图片
-			imageData = URLDecoder.decode(imageData, "UTF-8");
-			// imageData = imageData.replaceAll("data:image/jpeg;base64,", "");
-			BASE64Decoder decoder = new BASE64Decoder();
-
-			// Base64解码
-			byte[] imageByte = decoder.decodeBuffer(imageData);
-			for (int i = 0; i < imageByte.length; ++i) {
-				if (imageByte[i] < 0) {// 调整异常数据
-					imageByte[i] += 256;
-				}
-			}
-			// 生成文件名
-			String fileName = commentsUtil.getRandomName(4) + ".png";
-			String filePath = Constants.PICTURE_UPLOAD_PATH + "/" + fileName;
-			// 生成文件
-			File imageFile = new File(filePath);
-			imageFile.createNewFile();
-			if (!imageFile.exists()) {
-				imageFile.createNewFile();
-			}
-			OutputStream imageStream = new FileOutputStream(imageFile);
-			imageStream.write(imageByte);
-			imageStream.flush();
-			imageStream.close();
-			return new JSONObject().fluentPut("success", true).fluentPut("picture", fileName).toJSONString();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return JSON.toJSONString(e);
