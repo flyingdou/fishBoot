@@ -15,5 +15,13 @@ public interface UserService {
 	 * @return
 	 */
 	public JSONObject wechatLogin (JSONObject param) throws Exception;
+	
+	
+	/**
+	 * 查询用户垂钓基本信息
+	 * @param param
+	 * @return
+	 */
+	public JSONObject getUserFishInfo (JSONObject param);
 
 }
