@@ -1,9 +1,5 @@
 package com.fish.service.impl;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -192,56 +188,56 @@ public class TicketServiceImpl implements TicketService {
 	 * @param cardId：需要领取的卡券的cardId
 	 * @return
 	 */
-	private static Map<String, Object> sign(String api_ticket, String cardId) {
-		Map<String, Object> ret = new HashMap<String, Object>();
-		String nonce_str = UUID.randomUUID().toString();
-		String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
-		String signature = "";
-
-		String param[] = new String[4];
-
-		param[0] = nonce_str;
-		param[1] = timestamp;
-		param[2] = api_ticket;
-		param[3] = cardId;
-
-		Arrays.sort(param);// 对参数的value值进行字符串的字典序排序
-
-		StringBuilder sb = new StringBuilder();
-		for (String b : param) {
-			sb.append(b);
-		}
-		// 对上面拼接的字符串进行sha1加密，得到signature
-		try {
-			char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
-			MessageDigest crypt = MessageDigest.getInstance("SHA-1");
-			crypt.reset();
-			crypt.update(sb.toString().getBytes("UTF-8"));
-
-			byte[] md = crypt.digest();
-			int j = md.length;
-			char buf[] = new char[j * 2];
-			int k = 0;
-			for (int i = 0; i < j; i++) {
-				byte byte0 = md[i];
-				buf[k++] = hexDigits[byte0 >>> 4 & 0xf];
-				buf[k++] = hexDigits[byte0 & 0xf];
-			}
-			signature = new String(buf);
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-
-		// 返回领取卡券需要的参数，其中nonceStr和timestamp必须和签名中的保持一致
-		ret.put("card_id", cardId);
-		ret.put("api_ticket", api_ticket);
-		ret.put("nonceStr", nonce_str);
-		ret.put("timestamp", timestamp);
-		ret.put("signature", signature);
-
-		return ret;
-	}
+//	private static Map<String, Object> sign(String api_ticket, String cardId) {
+//		Map<String, Object> ret = new HashMap<String, Object>();
+//		String nonce_str = UUID.randomUUID().toString();
+//		String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
+//		String signature = "";
+//
+//		String param[] = new String[4];
+//
+//		param[0] = nonce_str;
+//		param[1] = timestamp;
+//		param[2] = api_ticket;
+//		param[3] = cardId;
+//
+//		Arrays.sort(param);// 对参数的value值进行字符串的字典序排序
+//
+//		StringBuilder sb = new StringBuilder();
+//		for (String b : param) {
+//			sb.append(b);
+//		}
+//		// 对上面拼接的字符串进行sha1加密，得到signature
+//		try {
+//			char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+//			MessageDigest crypt = MessageDigest.getInstance("SHA-1");
+//			crypt.reset();
+//			crypt.update(sb.toString().getBytes("UTF-8"));
+//
+//			byte[] md = crypt.digest();
+//			int j = md.length;
+//			char buf[] = new char[j * 2];
+//			int k = 0;
+//			for (int i = 0; i < j; i++) {
+//				byte byte0 = md[i];
+//				buf[k++] = hexDigits[byte0 >>> 4 & 0xf];
+//				buf[k++] = hexDigits[byte0 & 0xf];
+//			}
+//			signature = new String(buf);
+//		} catch (NoSuchAlgorithmException e) {
+//			e.printStackTrace();
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
+//
+//		// 返回领取卡券需要的参数，其中nonceStr和timestamp必须和签名中的保持一致
+//		ret.put("card_id", cardId);
+//		ret.put("api_ticket", api_ticket);
+//		ret.put("nonceStr", nonce_str);
+//		ret.put("timestamp", timestamp);
+//		ret.put("signature", signature);
+//
+//		return ret;
+//	}
 
 }
