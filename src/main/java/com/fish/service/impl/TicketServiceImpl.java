@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.fish.constants.Constants;
 import com.fish.dao.FishingGroundMapper;
@@ -43,50 +42,61 @@ public class TicketServiceImpl implements TicketService {
 	 * 发布垂钓券
 	 */
 	public JSONObject release(JSONObject param) {
-		// // 创建微信卡券
-		// // 请求access_token
-		JSONObject getAccessTokenResult = WeChatAPI.getAccessToken(Constants.APPID_EVENT, Constants.APP_SECRET_EVENT);
-		String accessToken = getAccessTokenResult.getString("access_token");
-		// 上传卡券logo
-		String filePath = Constants.PICTURE_UPLOAD_PATH + "/" + param.getString("poster");
-		JSONObject uploadImageResult = WeChatAPI.uploadImageToWechatServer(accessToken, filePath);
-		filePath = uploadImageResult.getString("url");
-		// 调用创建微信卡券方法
-		JSONObject createdWeChatTicketParam = new JSONObject();
-		JSONObject weChatCard = new JSONObject();
-		JSONObject cash = new JSONObject();
-		JSONObject base_info = new JSONObject();
-		JSONObject sku = new JSONObject();
-		JSONObject date_info = new JSONObject();
-		JSONArray location_id_list = new JSONArray();
-
-		// sku
-		sku.fluentPut("quantity", 50);
-
-		// date_info
-		date_info.fluentPut("type", "DATE_TYPE_FIX_TERM").fluentPut("fixed_term", param.getInteger("period"))
-				.fluentPut("fixed_begin_term", 0);
-
-		// location_id_list
-		List<String> poi_id_list = fishingGroundMapper.getPoiIdListByIdList(param.getString("fitFishingGround"));
-		location_id_list.addAll(poi_id_list);
-
-		// base_info
-		base_info.fluentPut("logo_url", filePath).fluentPut("code_type", "CODE_TYPE_QRCODE")
-				.fluentPut("brand_name", "鱼惑").fluentPut("title", param.get("name")).fluentPut("color", "Color010")
-				.fluentPut("notice", "请出示二维码").fluentPut("description", "不可与其他优惠同享").fluentPut("sku", sku)
-				.fluentPut("date_info", date_info).fluentPut("location_id_list", location_id_list);
-
-		// cash
-		cash.fluentPut("base_info", base_info).fluentPut("least_cost", 0).fluentPut("reduce_cost",
-				param.getDouble("price") * 100);
-
-		// weChatCard
-		weChatCard.fluentPut("card_type", "CASH").fluentPut("cash", cash);
-
-		// createdWeChatTicket
-		createdWeChatTicketParam.fluentPut("card", weChatCard);
-		JSONObject createdWeChatTicketResult = WeChatAPI.createdWeChatTicket(accessToken, createdWeChatTicketParam);
+		// // // 创建微信卡券
+		// // // 请求access_token
+		// JSONObject getAccessTokenResult =
+		// WeChatAPI.getAccessToken(Constants.APPID_EVENT, Constants.APP_SECRET_EVENT);
+		// String accessToken = getAccessTokenResult.getString("access_token");
+		// // 上传卡券logo
+		// String filePath = Constants.PICTURE_UPLOAD_PATH + "/" +
+		// param.getString("poster");
+		// JSONObject uploadImageResult =
+		// WeChatAPI.uploadImageToWechatServer(accessToken, filePath);
+		// filePath = uploadImageResult.getString("url");
+		// // 调用创建微信卡券方法
+		// JSONObject createdWeChatTicketParam = new JSONObject();
+		// JSONObject weChatCard = new JSONObject();
+		// JSONObject cash = new JSONObject();
+		// JSONObject base_info = new JSONObject();
+		// JSONObject sku = new JSONObject();
+		// JSONObject date_info = new JSONObject();
+		// JSONArray location_id_list = new JSONArray();
+		//
+		// // sku
+		// sku.fluentPut("quantity", 50);
+		//
+		// // date_info
+		// date_info.fluentPut("type", "DATE_TYPE_FIX_TERM").fluentPut("fixed_term",
+		// param.getInteger("period"))
+		// .fluentPut("fixed_begin_term", 0);
+		//
+		// // location_id_list
+		// List<String> poi_id_list =
+		// fishingGroundMapper.getPoiIdListByIdList(param.getString("fitFishingGround"));
+		// location_id_list.addAll(poi_id_list);
+		//
+		// // base_info
+		// base_info.fluentPut("logo_url", filePath).fluentPut("code_type",
+		// "CODE_TYPE_QRCODE")
+		// .fluentPut("brand_name", "鱼惑").fluentPut("title",
+		// param.get("name")).fluentPut("color", "Color010")
+		// .fluentPut("notice", "请出示二维码").fluentPut("description",
+		// "不可与其他优惠同享").fluentPut("sku", sku)
+		// .fluentPut("date_info", date_info).fluentPut("location_id_list",
+		// location_id_list);
+		//
+		// // cash
+		// cash.fluentPut("base_info", base_info).fluentPut("least_cost",
+		// 0).fluentPut("reduce_cost",
+		// param.getDouble("price") * 100);
+		//
+		// // weChatCard
+		// weChatCard.fluentPut("card_type", "CASH").fluentPut("cash", cash);
+		//
+		// // createdWeChatTicket
+		// createdWeChatTicketParam.fluentPut("card", weChatCard);
+		// JSONObject createdWeChatTicketResult =
+		// WeChatAPI.createdWeChatTicket(accessToken, createdWeChatTicketParam);
 
 		// 创建一条垂钓券数据
 		FishingTicket fishingTicket = new FishingTicket();
@@ -97,7 +107,7 @@ public class TicketServiceImpl implements TicketService {
 		fishingTicket.setPrice(param.getBigDecimal("price"));
 		fishingTicket.setCreator(param.getInteger("creator"));
 		fishingTicket.setRemark(param.getString("remark"));
-		fishingTicket.setCardId(createdWeChatTicketResult.getString("card_id"));
+		fishingTicket.setCardId(UUID.randomUUID().toString());
 		fishingTicket.setIsOpen(Constants.OPEN_STATUS);
 		fishingTicket.setStatus(Constants.APPLY_STATUS_PASS);
 		fishingTicket.setAuto_date(new Date());
@@ -139,26 +149,6 @@ public class TicketServiceImpl implements TicketService {
 		JSONObject result = new JSONObject();
 		result.fluentPut("success", true).fluentPut("fishingTicket", fishingTicket);
 		return result;
-	}
-
-	/**
-	 * 领取卡券
-	 */
-	public JSONObject addCard(JSONObject param) {
-		if (param.containsKey("code")) {
-			fishingTicketMapper.addUserTicket(param);
-			return new JSONObject().fluentPut("success", true);
-		} else {
-			// 请求access_token
-			JSONObject getAccessTokenResult = WeChatAPI.getAccessToken(Constants.APPID_EVENT,
-					Constants.APP_SECRET_EVENT);
-			String accessToken = getAccessTokenResult.getString("access_token");
-			// 获取卡券的card_id(微信卡券标识)
-			String card_id = fishingTicketMapper.getTicketCardIdById(param.getString("ticketId"));
-			JSONObject getApiTicketResult = WeChatAPI.getApiTicket(accessToken);
-			Map<String, Object> sign = sign(getApiTicketResult.getString("ticket"), card_id);
-			return new JSONObject(sign);
-		}
 	}
 
 	/**
