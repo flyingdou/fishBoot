@@ -1,11 +1,20 @@
 package com.fish.wechat;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+
+import org.apache.commons.codec.binary.Base64;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fish.util.HttpRequestUtils;
 
+/**
+ * 与微信服务器交互
+ * 
+ * @author dou
+ *
+ */
 public class WeChatAPI {
 
 	/**
@@ -58,6 +67,9 @@ public class WeChatAPI {
 
 	/**
 	 * 获取领取微信卡券的token
+	 * 
+	 * @param accessToken
+	 * @return
 	 */
 	public static JSONObject getApiTicket(String accessToken) {
 		String getApiTicketURL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=" + accessToken
@@ -91,4 +103,21 @@ public class WeChatAPI {
 		JSONObject consumeWeChatCardResult = HttpRequestUtils.httpPost(consumeWeChatCardURL, param);
 		return consumeWeChatCardResult;
 	}
+
+	/**
+	 * 创建小程序二维码B类
+	 * 
+	 * @param accessToken
+	 * @param qrCodeRequest
+	 * @return
+	 * @throws UnsupportedEncodingException 
+	 */
+	public static String createQRCodeB(String accessToken, QRCodeRequest qrCodeRequest) {
+		// 拼接请求url
+		String reqUrl = qrCodeRequest.getReqUrl().replace("ACCESS_TOKEN", accessToken);
+		// 得到返回的二进制流
+		byte [] imageByte  = HttpRequestUtils.httpPostToByte(reqUrl, qrCodeRequest.getParam());
+		return Base64.encodeBase64String(imageByte);
+	}
+
 }

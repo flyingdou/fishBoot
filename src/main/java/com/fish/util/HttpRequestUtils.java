@@ -265,4 +265,44 @@ public class HttpRequestUtils {
 		}
 		return null;
 	}
+	
+	
+	
+	
+	/**
+	 * post请求返回二进制
+	 * 
+	 * @param url
+	 *            url地址
+	 * @param jsonParam
+	 *            参数
+	 * @param noNeedResponse
+	 *            不需要返回结果
+	 * @return
+	 */
+	@SuppressWarnings({ "resource" })
+	public static byte[] httpPostToByte(String url, JSONObject jsonParam) {
+		// post请求返回结果
+		DefaultHttpClient httpClient = new DefaultHttpClient();
+		HttpPost method = new HttpPost(url);
+		try {
+			if (null != jsonParam) {
+				// 解决中文乱码问题
+				StringEntity entity = new StringEntity(jsonParam.toString(), "utf-8");
+				entity.setContentEncoding("UTF-8");
+				entity.setContentType("application/json");
+				method.setEntity(entity);
+			}
+			HttpResponse result = httpClient.execute(method);
+			url = URLDecoder.decode(url, "UTF-8");
+			/** 请求发送成功，并得到响应 **/
+			if (result.getStatusLine().getStatusCode() == 200) {
+				return EntityUtils.toByteArray(result.getEntity());
+			}
+		} catch (IOException e) {
+			logger.error("post请求提交失败:" + url, e);
+		}
+		return null;
+	}
+	
 }

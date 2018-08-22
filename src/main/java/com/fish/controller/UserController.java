@@ -40,7 +40,6 @@ public class UserController {
 			// 处理请求参数
 			JSONObject param = JSONObject.parseObject(json);
 			ret = userService.wechatLogin(param);
-
 		} catch (Exception e) {
 			ret.fluentPut("success", false)
 			   .fluentPut("message", e.toString())
@@ -71,6 +70,32 @@ public class UserController {
 			e.printStackTrace();
 			return JSON.toJSONString(e);
 		}
+		
+		// 返回数据
+		return JSON.toJSONString(ret);
+	}
+	
+	
+	/**
+	 * 生成小程序二维码
+	 * @param json
+	 * @return
+	 */
+	@RequestMapping("/createQRCode")
+	public String createQRCodeB(String json) {
+		JSONObject ret = new JSONObject();
+		try {
+			// 处理请求参数
+			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
+			String result = userService.createQRCodeB(param);
+			ret.fluentPut("success", true)
+			   .fluentPut("qrCode", result)
+			   ;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return JSON.toJSONString(e);
+		}
+		
 		
 		// 返回数据
 		return JSON.toJSONString(ret);

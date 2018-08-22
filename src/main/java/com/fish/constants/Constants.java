@@ -138,4 +138,18 @@ public class Constants {
 	 * 用户性别 女
 	 */
 	public static final String USER_SEX_FEMALE = "F";
+	
+	/**
+	 * 小程序二维码path路径
+	 */
+	public static final String QRCODE_SHARE_PATH = "pages/mine/mine";
+	
+	
+	/**
+	 * base64图片前缀
+	 */
+	public static final String BASE64_IMAGE_PREFIX = "data:image/jpg;base64,";
+	
+	
+	
 }

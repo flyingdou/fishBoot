@@ -17,6 +17,8 @@ import com.fish.pojo.User;
 import com.fish.service.UserService;
 import com.fish.util.commentsUtil;
 import com.fish.wechat.GetUserInfoResponse;
+import com.fish.wechat.QRCodeRequest;
+import com.fish.wechat.WeChatAPI;
 
 /**
  * 
@@ -105,6 +107,17 @@ public class UserServiceImpl implements UserService {
 	public JSONObject getUserFishInfo(JSONObject param) {
 		Map<String, Object> userInfoMap = userMaper.getUserFishInfo(param);
 		return JSON.parseObject(JSON.toJSONString(userInfoMap));
+	}
+
+
+	@Override
+	public String createQRCodeB(JSONObject param) {
+		String path = Constants.QRCODE_SHARE_PATH;
+		String id = param.getString("userId");
+		String accessToken = WeChatAPI.getAccessToken(Constants.APPID, Constants.APP_SECRET).getString("access_token");
+		QRCodeRequest qrCodeRequest = new QRCodeRequest(path, id);
+		String result = Constants.BASE64_IMAGE_PREFIX + WeChatAPI.createQRCodeB(accessToken, qrCodeRequest);
+		return result;
 	}
 
 }
