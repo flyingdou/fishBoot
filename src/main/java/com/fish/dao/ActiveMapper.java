@@ -8,7 +8,7 @@ import com.fish.pojo.Active;
 /**
  * 活动表数据操作接口类
  * 
- * @author Administrator
+ * @author 华文
  *
  */
 public interface ActiveMapper {

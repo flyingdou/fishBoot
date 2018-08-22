@@ -5,6 +5,11 @@ import java.util.Map;
 
 import com.fish.pojo.FishingGround;
 
+/**
+ * 
+ * @author 华文
+ *
+ */
 public interface FishingGroundMapper {
 	int deleteByPrimaryKey(Integer id);
 

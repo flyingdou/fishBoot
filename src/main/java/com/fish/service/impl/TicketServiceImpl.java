@@ -21,7 +21,7 @@ import com.fish.wechat.WeChatAPI;
 /**
  * 卡券业务接口实现类
  * 
- * @author Administrator
+ * @author 华文
  *
  */
 @Service

@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 /**
  * 钓场业务接口
  * 
- * @author Administrator
+ * @author 华文
  *
  */
 public interface FishingGroundService {

@@ -11,6 +11,11 @@ import com.fish.dao.CityMapper;
 import com.fish.pojo.City;
 import com.fish.service.CityService;
 
+/**
+ * 
+ * @author 华文
+ *
+ */
 @Service
 @Transactional
 public class CityServiceImpl implements CityService {

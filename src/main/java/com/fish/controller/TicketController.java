@@ -13,7 +13,7 @@ import com.fish.service.TicketService;
 /**
  * 卡券业务controller
  * 
- * @author Administrator
+ * @author 华文
  *
  */
 @RestController

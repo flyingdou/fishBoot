@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 /**
  * 卡券业务接口
  * 
- * @author Administrator
+ * @author 华文
  *
  */
 public interface TicketService {

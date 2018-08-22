@@ -5,6 +5,11 @@ import java.util.Map;
 
 import com.fish.pojo.FishingTicket;
 
+/**
+ * 
+ * @author 华文
+ *
+ */
 public interface FishingTicketMapper {
 
 	int deleteByPrimaryKey(Integer id);

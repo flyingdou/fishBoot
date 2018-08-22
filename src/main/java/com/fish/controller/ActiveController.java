@@ -13,7 +13,7 @@ import com.fish.service.ActiveService;
 /**
  * 活动controller
  * 
- * @author Administrator
+ * @author 华文
  *
  */
 @RestController

@@ -11,6 +11,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fish.service.FishingGroundService;
 
+/**
+ * 
+ * @author 华文
+ *
+ */
 @RestController
 @RequestMapping("/fishingGround")
 public class FishingGroundController {

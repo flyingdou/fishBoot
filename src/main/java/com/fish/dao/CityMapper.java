@@ -5,6 +5,11 @@ import java.util.Map;
 
 import com.fish.pojo.City;
 
+/**
+ * 
+ * @author 华文
+ *
+ */
 public interface CityMapper {
 
 	/**

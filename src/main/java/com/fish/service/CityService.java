@@ -5,6 +5,11 @@ import java.util.List;
 import com.alibaba.fastjson.JSONObject;
 import com.fish.pojo.City;
 
+/**
+ * 
+ * @author 华文
+ *
+ */
 public interface CityService {
 
 	/**

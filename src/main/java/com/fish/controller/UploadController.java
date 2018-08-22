@@ -12,6 +12,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.fish.constants.Constants;
 import com.fish.util.commentsUtil;
 
+/**
+ * 
+ * @author 华文
+ *
+ */
 @RestController
 public class UploadController {
 

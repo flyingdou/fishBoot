@@ -17,7 +17,7 @@ import com.fish.service.FishingGroundService;
 /**
  * 钓场业务接口实现类
  * 
- * @author Administrator
+ * @author 华文
  *
  */
 @Service

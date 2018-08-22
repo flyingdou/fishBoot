@@ -23,7 +23,7 @@ import com.fish.util.commentsUtil;
 /**
  * 活动业务实现类
  * 
- * @author Administrator
+ * @author 华文
  *
  */
 @Service
