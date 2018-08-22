@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fish.dao.LiveMapper">
+
+	<!-- 结果集映射 -->
+	<resultMap id="BaseResultMap" type="com.fish.pojo.Live">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="member" property="member" jdbcType="INTEGER" />
+		<result column="live_name" property="liveName"
+			jdbcType="VARCHAR" />
+		<result column="live_cost" property="liveCost"
+			jdbcType="DOUBLE" />
+		<result column="live_image" property="liveImage"
+			jdbcType="VARCHAR" />
+		<result column="live_notice" property="liveNotice"
+			jdbcType="VARCHAR" />
+		<result column="live_state" property="liveState"
+			jdbcType="INTEGER" />
+		<result column="live_history_time" property="liveHistoryTime"
+			jdbcType="TIMESTAMP" />
+		<result column="live_number" property="liveNumber"
+			jdbcType="VARCHAR" />
+		<result column="time_out" property="timeOut" jdbcType="VARCHAR" />
+		<result column="start_time" property="startTime"
+			jdbcType="VARCHAR" />
+		<result column="tribe_id" property="tribeId" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 公共sql -->
+	<sql id="Base_Column_List">
+		id, member, live_name, live_cost, live_image, live_notice,
+		live_state,
+		live_history_time,
+		live_number, time_out, start_time,
+		tribe_id
+	</sql>
+
+	<!-- 根据id查询一条数据 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from tb_live
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+
+	<!-- 根据id删除一条数据 -->
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from tb_live
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<!-- 添加一条数据 -->
+	<insert id="insertSelective" parameterType="com.fish.pojo.User"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into tb_live
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="member != null">
+				member,
+			</if>
+			<if test="liveName != null">
+				live_name,
+			</if>
+			<if test="liveCost != null">
+				live_cost,
+			</if>
+			<if test="liveImage != null">
+				live_image,
+			</if>
+			<if test="liveNotice != null">
+				live_notice,
+			</if>
+			<if test="liveState != null">
+				live_state,
+			</if>
+			<if test="liveHistoryTime != null">
+				live_history_time,
+			</if>
+			<if test="liveNumber != null">
+				live_number,
+			</if>
+			<if test="timeOut != null">
+				time_out,
+			</if>
+			<if test="startTime != null">
+				start_time,
+			</if>
+			<if test="tribeId != null">
+				tribe_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="member != null">
+				#{member,jdbcType=VARCHAR},
+			</if>
+			<if test="liveName != null">
+				#{liveName,jdbcType=VARCHAR},
+			</if>
+			<if test="liveCost != null">
+				#{liveCost,jdbcType=VARCHAR},
+			</if>
+			<if test="liveImage != null">
+				#{liveImage,jdbcType=TIMESTAMP},
+			</if>
+			<if test="liveNotice != null">
+				#{liveNotice,jdbcType=TIMESTAMP},
+			</if>
+			<if test="liveState != null">
+				#{liveState,jdbcType=VARCHAR},
+			</if>
+			<if test="liveHistoryTime != null">
+				#{liveHistoryTime,jdbcType=VARCHAR},
+			</if>
+			<if test="liveNumber != null">
+				#{liveNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="timeOut != null">
+				#{timeOut,jdbcType=INTEGER},
+			</if>
+			<if test="startTime != null">
+				#{startTime,jdbcType=VARCHAR},
+			</if>
+			<if test="tribeId != null">
+				#{tribeId,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 根据id修改一条数据 -->
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.fish.pojo.User">
+		update tb_user
+		<set>
+			<if test="nick != null">
+				nick = #{nick,jdbcType=VARCHAR},
+			</if>
+			<if test="member != null">
+				member = #{member,jdbcType=VARCHAR},
+			</if>
+			<if test="liveName != null">
+				live_name = #{liveName,jdbcType=VARCHAR},
+			</if>
+			<if test="liveCost != null">
+				live_cost = #{liveCost,jdbcType=TIMESTAMP},
+			</if>
+			<if test="liveImage != null">
+				live_image = #{liveImage,jdbcType=TIMESTAMP},
+			</if>
+			<if test="liveNotice != null">
+				live_notice = #{liveNotice,jdbcType=VARCHAR},
+			</if>
+			<if test="liveState != null">
+				live_state = #{liveState,jdbcType=VARCHAR},
+			</if>
+			<if test="liveHistoryTime != null">
+				live_history_time = #{liveHistoryTime,jdbcType=VARCHAR},
+			</if>
+			<if test="liveNumber != null">
+				live_number = #{liveNumber,jdbcType=INTEGER},
+			</if>
+			<if test="timeOut != null">
+				time_out = #{timeOut,jdbcType=VARCHAR},
+			</if>
+			<if test="startTime != null">
+				start_time = #{startTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="tribeId != null">
+				tribe_id = #{tribeId,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 查询直播列表 -->
+	<select id="getLiveList" resultMap="BaseResultMap">
+		select l.id, u.nam memberName, l.live_name, l.live_cost, l.live_image, l.live_notice,
+		l.live_state, l.live_history_time, l.live_number, l.time_out, l.start_time, l.tribe_id
+		from tb_live l inner join tb_user u on l.member = u.id
+		where live_state in(0,1) order by l.live_state desc
+	</select>
+</mapper>

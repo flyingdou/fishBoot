@@ -150,6 +150,13 @@ public class Constants {
 	 */
 	public static final String BASE64_IMAGE_PREFIX = "data:image/jpg;base64,";
 	
+	/**
+	 * 直播状态(直播中)
+	 */
+	public static final String LIVE_STATUS_ON = "1";
 	
-	
+	/**
+	 * 直播状态(未直播)
+	 */
+	public static final String LIVE_STATUS_NOT = "0";
 }
