@@ -35,4 +35,11 @@ public interface LiveService {
 	 * @param param
 	 */
 	void changeLiveStatus(JSONObject param);
+
+	/**
+	 * 查询视频列表
+	 * 
+	 * @return
+	 */
+	List<Map<String, Object>> getVideoList();
 }

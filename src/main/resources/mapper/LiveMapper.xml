@@ -185,4 +185,9 @@
 		from tb_live l inner join tb_user u on l.member = u.id
 		where live_state in(0,1) order by l.live_state desc
 	</select>
+	
+	<!-- 查询视频列表 -->
+	<select id="getVideoList" resultType="Map">
+		select id, name, vid, image, release_date from tb_video
+	</select>
 </mapper>

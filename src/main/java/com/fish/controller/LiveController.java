@@ -62,4 +62,21 @@ public class LiveController {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * 查询视频列表
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/getVideoList")
+	public String getVideoList() {
+		try {
+			List<Map<String, Object>> videoList = liveService.getVideoList();
+			ResultUtil result = ResultUtil.success(videoList);
+			return JSON.toJSONStringWithDateFormat(result, "yyyy-MM-dd HH:mm");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return JSON.toJSONString(e);
+		}
+	}
 }

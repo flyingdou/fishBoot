@@ -197,4 +197,13 @@ public class LiveServiceImpl implements LiveService {
 		return new String(out);
 	}
 
+	/**
+	 * 查询视频列表
+	 */
+	@Override
+	public List<Map<String, Object>> getVideoList() {
+
+		return liveMapper.getVideoList();
+	}
+
 }

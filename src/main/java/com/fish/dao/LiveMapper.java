@@ -68,4 +68,11 @@ public interface LiveMapper {
 	 * @return
 	 */
 	Live getLiveByLiveNumber(Map<String, Object> param);
+
+	/**
+	 * 查询视频列表
+	 * 
+	 * @return
+	 */
+	List<Map<String, Object>> getVideoList();
 }
