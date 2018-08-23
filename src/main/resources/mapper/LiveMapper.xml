@@ -188,6 +188,6 @@
 	
 	<!-- 查询视频列表 -->
 	<select id="getVideoList" resultType="Map">
-		select id, name, vid, image, release_date from tb_video
+		select id, name, vid, image, release_date from tb_video order by release_date desc
 	</select>
 </mapper>
