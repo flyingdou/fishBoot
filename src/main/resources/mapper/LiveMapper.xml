@@ -179,7 +179,7 @@
 	</update>
 
 	<!-- 查询直播列表 -->
-	<select id="getLiveList" resultMap="Map">
+	<select id="getLiveList" resultType="Map">
 		select l.id, u.nick, l.live_name, l.live_cost, l.live_image, l.live_notice,
 		l.live_state, l.live_history_time, l.live_number, l.time_out, l.start_time, l.tribe_id
 		from tb_live l inner join tb_user u on l.member = u.id
