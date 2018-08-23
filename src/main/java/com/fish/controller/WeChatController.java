@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
-import com.fish.util.AES;
+import com.fish.util.commentsUtil;
 
 import net.sf.json.JSONObject;
 
@@ -28,7 +28,7 @@ public class WeChatController {
 			String encryptedData = detail.getString("encryptedData");
 			String session_key = param.getString("session_key");
 			String iv = detail.getString("iv");
-			String result = AES.wxDecrypt(encryptedData, session_key, iv);
+			String result = commentsUtil.wxDecrypt(encryptedData, session_key, iv);
 			return result;
 		} catch (Exception e) {
 			e.printStackTrace();

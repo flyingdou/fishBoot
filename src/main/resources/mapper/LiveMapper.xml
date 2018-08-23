@@ -52,7 +52,7 @@
 	</delete>
 
 	<!-- 添加一条数据 -->
-	<insert id="insertSelective" parameterType="com.fish.pojo.User"
+	<insert id="insertSelective" parameterType="com.fish.pojo.Live"
 		useGeneratedKeys="true" keyProperty="id">
 		insert into tb_live
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -135,7 +135,7 @@
 
 	<!-- 根据id修改一条数据 -->
 	<update id="updateByPrimaryKeySelective"
-		parameterType="com.fish.pojo.User">
+		parameterType="com.fish.pojo.Live">
 		update tb_user
 		<set>
 			<if test="nick != null">

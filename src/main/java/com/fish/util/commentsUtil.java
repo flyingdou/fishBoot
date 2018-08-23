@@ -1,5 +1,6 @@
 package com.fish.util;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -28,6 +29,8 @@ import org.apache.commons.codec.binary.Base64;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+
+import com.alibaba.fastjson.JSONObject;
 
 public class commentsUtil {
 
@@ -233,7 +236,8 @@ public class commentsUtil {
 	}
 
 	/**
-	 * 获取reques流中的xml转换成map
+	 * 获取request流中的xml转换成map
+	 * 
 	 * @param request
 	 * @return
 	 */
@@ -262,7 +266,28 @@ public class commentsUtil {
 
 		return map;
 	}
-	
+
+	/**
+	 * 获取request流转换成JSONObject
+	 * 
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	public static JSONObject getInputStreamToJSONObject(HttpServletRequest request) throws Exception {
+		InputStream inStream = request.getInputStream();
+		ByteArrayOutputStream outSteam = new ByteArrayOutputStream();
+		byte[] buffer = new byte[1024];
+		int len = 0;
+		while ((len = inStream.read(buffer)) != -1) {
+			outSteam.write(buffer, 0, len);
+		}
+		outSteam.close();
+		inStream.close();
+		String resultStr = new String(outSteam.toByteArray(), "utf-8");
+		return JSONObject.parseObject(resultStr);
+	}
+
 	/**
 	 * 获取客户端公网ip
 	 */
@@ -301,7 +326,6 @@ public class commentsUtil {
 		return ip;
 	}
 
-	
 	/**
 	 * MD5加密
 	 * 

@@ -3,6 +3,7 @@ package com.fish.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.fish.pojo.Live;
 import com.fish.pojo.User;
 
 /**
@@ -43,7 +44,7 @@ public interface LiveMapper {
 	 * @param record
 	 * @return
 	 */
-	int updateByPrimaryKeySelective(User record);
+	int updateByPrimaryKeySelective(Live record);
 
 	/**
 	 * 查询直播间列表
@@ -51,4 +52,20 @@ public interface LiveMapper {
 	 * @return
 	 */
 	List<Map<String, Object>> getLiveList();
+
+	/**
+	 * 根据用户查询直播数据
+	 * 
+	 * @param param
+	 * @return
+	 */
+	Live getLiveByUser(Map<String, Object> param);
+
+	/**
+	 * 根据直播码查询直播数据
+	 * 
+	 * @param param
+	 * @return
+	 */
+	Live getLiveByLiveNumber(Map<String, Object> param);
 }

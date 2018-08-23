@@ -3,21 +3,24 @@ package com.fish.service.impl;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.fish.constants.Constants;
 import com.fish.dao.LiveMapper;
+import com.fish.dao.UserMapper;
 import com.fish.pojo.Live;
+import com.fish.pojo.User;
 import com.fish.service.LiveService;
 import com.fish.util.HttpRequestUtils;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 /**
  * 
@@ -52,6 +55,9 @@ public class LiveServiceImpl implements LiveService {
 	@Autowired
 	private LiveMapper liveMapper;
 
+	@Autowired
+	private UserMapper userMapper;
+
 	/**
 	 * 查询直播间列表
 	 */
@@ -72,6 +78,64 @@ public class LiveServiceImpl implements LiveService {
 	}
 
 	/**
+	 * 获得直播推流URL
+	 */
+	@Override
+	public String liveUrl(JSONObject param) throws Exception {
+		User user = userMapper.selectByPrimaryKey(param.getInteger("userId"));
+		// 过期时间戳(当前时间加上24个小时)
+		long time = (System.currentTimeMillis() + (24 * 60 * 60 * 1000)) / 1000;
+
+		// 根据当前登录用户查询对应直播数据
+		Live live = liveMapper.getLiveByUser(param);
+
+		// 每次推流不改变直播码, 只更新时间
+		if (StringUtils.isEmpty(live.getLiveName())) {
+			// 生成随机码
+			StringBuilder str = new StringBuilder();
+			str.append(user.getId()).append(BIZID).append(Math.round(Math.random() * 10000));
+			String randomCode = Long.toHexString(Long.valueOf(str.toString()));
+
+			// 生成直播码
+			String liveNumber = new StringBuilder().append(BIZID).append("_").append(randomCode).toString();
+
+			live.setLiveNumber(liveNumber);
+		}
+		// 更新历史直播时间和过期时间并持久化
+		Timestamp history = new Timestamp(System.currentTimeMillis());
+		live.setTimeOut(String.valueOf(time));
+		live.setLiveHistoryTime(history);
+		liveMapper.updateByPrimaryKeySelective(live);
+
+		// 生成直播推流url(签名生成部分url)
+		String input = new StringBuilder().append(KEY).append(live.getLiveNumber())
+				.append(Long.toHexString(time).toUpperCase()).toString();
+		MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+		String sign = byteArrayToHexString(messageDigest.digest(input.getBytes("UTF-8")));
+		String signURL = new StringBuilder().append("txSecret=").append(sign).append("&").append("txTime=")
+				.append(Long.toHexString(time).toUpperCase()).toString();
+
+		// 生成直播推流url(最后拼接完整url)
+		String liveUrl = new StringBuilder("rtmp://").append(BIZID).append(".livepush.myqcloud.com/live/")
+				.append(live.getLiveName()).append("?bizid=").append(BIZID).append("&").append(signURL).toString();
+
+		return liveUrl;
+	}
+
+	/**
+	 * 改变直播状态
+	 */
+	@Override
+	public void changeLiveStatus(JSONObject param) {
+		// 更新直播历史时间和直播状态
+		Live live = liveMapper.getLiveByLiveNumber(param);
+		Timestamp history = new Timestamp(System.currentTimeMillis());
+		live.setLiveHistoryTime(history);
+		live.setLiveState(param.getInteger("liveStatus"));
+		liveMapper.updateByPrimaryKeySelective(live);
+	}
+
+	/**
 	 * 获取直播观看人数
 	 */
 	private String getUserCount(String streamId) {
@@ -84,12 +148,12 @@ public class LiveServiceImpl implements LiveService {
 		url.append("&sign=").append(getSign(API_KEY, time));
 		url.append("&t=").append(time);
 		String result = HttpRequestUtils.httpReques(url.toString(), null);
-		JSONObject res = JSONObject.fromObject(result);
+		JSONObject res = JSONObject.parseObject(result);
 		try {
 			if (!"null".equals(String.valueOf(res.get("output")))) {
-				JSONObject outputJson = JSONObject.fromObject(res.get("output"));
-				JSONArray streamInfo = JSONArray.fromObject(outputJson.get("stream_info"));
-				result = streamInfo.getJSONObject(0).get("online").toString();
+				JSONObject outputJson = JSONObject.parseObject(res.getString("out_put"));
+				JSONArray streamInfo = JSONArray.parseArray(outputJson.getString("stream_info"));
+				result = streamInfo.getJSONObject(0).getString("online");
 			} else {
 				// 未直播直接返回人数0
 				result = "0";
