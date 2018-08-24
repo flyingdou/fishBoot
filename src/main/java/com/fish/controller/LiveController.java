@@ -1,5 +1,6 @@
 package com.fish.controller;
 
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.fish.pojo.Live;
 import com.fish.service.LiveService;
 import com.fish.util.ResultUtil;
 import com.fish.util.commentsUtil;
@@ -27,6 +29,25 @@ public class LiveController {
 
 	@Autowired
 	private LiveService liveService;
+
+	/**
+	 * 保存直播数据(发布或修改)
+	 * 
+	 * @param json
+	 * @return
+	 */
+	@RequestMapping("/saveLive")
+	public String saveLive(String json) {
+		try {
+			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
+			Live live = liveService.saveLive(param);
+			ResultUtil result = ResultUtil.success(live);
+			return JSON.toJSONStringWithDateFormat(result, "yyyy-MM-dd HH:mm");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return JSON.toJSONString(e);
+		}
+	}
 
 	/**
 	 * 查询直播列表

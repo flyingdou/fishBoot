@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.fish.pojo.Live;
-import com.fish.pojo.User;
 
 /**
  * 
@@ -28,7 +27,7 @@ public interface LiveMapper {
 	 * @param record
 	 * @return
 	 */
-	int insertSelective(User record);
+	int insertSelective(Live record);
 
 	/**
 	 * 根据id查询单条数据
@@ -36,7 +35,7 @@ public interface LiveMapper {
 	 * @param id
 	 * @return
 	 */
-	User selectByPrimaryKey(Integer id);
+	Live selectByPrimaryKey(Integer id);
 
 	/**
 	 * 根据id修改一条数据

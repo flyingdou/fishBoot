@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,28 @@ public class LiveServiceImpl implements LiveService {
 
 	@Autowired
 	private UserMapper userMapper;
+
+	/**
+	 * 保存直播数据(发布或修改)
+	 */
+	@Override
+	public Live saveLive(JSONObject param) {
+		Live live = liveMapper.getLiveByUser(param);
+		if (live == null) {
+			live = JSONObject.toJavaObject(param, Live.class);
+			live.setLiveState(Integer.valueOf(Constants.LIVE_STATUS_CLOSE));
+			live.setTribeId(UUID.randomUUID().toString().substring(0, 10));
+			liveMapper.insertSelective(live);
+		} else {
+			int liveId = live.getId();
+			live = JSONObject.toJavaObject(param, Live.class);
+			live.setId(liveId);
+			live.setLiveState(Integer.valueOf(Constants.LIVE_STATUS_CLOSE));
+			live.setTribeId(UUID.randomUUID().toString().substring(0, 10));
+			liveMapper.updateByPrimaryKeySelective(live);
+		}
+		return live;
+	}
 
 	/**
 	 * 查询直播间列表
@@ -205,5 +228,4 @@ public class LiveServiceImpl implements LiveService {
 
 		return liveMapper.getVideoList();
 	}
-
 }

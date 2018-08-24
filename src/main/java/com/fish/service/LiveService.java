@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fish.pojo.Live;
 
 /**
  * 
@@ -12,6 +13,14 @@ import com.alibaba.fastjson.JSONObject;
  *
  */
 public interface LiveService {
+
+	/**
+	 * 保存直播数据(发布或修改)
+	 * 
+	 * @param param
+	 * @return
+	 */
+	Live saveLive(JSONObject param);
 
 	/**
 	 * 查询直播间列表
