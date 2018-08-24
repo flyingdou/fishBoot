@@ -125,6 +125,7 @@ public class LiveServiceImpl implements LiveService {
 
 			live.setLiveNumber(liveNumber);
 		}
+		
 		// 更新历史直播时间和过期时间并持久化
 		Timestamp history = new Timestamp(System.currentTimeMillis());
 		live.setTimeOut(String.valueOf(time));
