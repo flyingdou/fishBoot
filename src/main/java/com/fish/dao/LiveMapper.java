@@ -58,7 +58,7 @@ public interface LiveMapper {
 	 * @param param
 	 * @return
 	 */
-	Live getLiveByUser(Map<String, Object> param);
+	Live getLiveByUser(Integer userId);
 
 	/**
 	 * 根据直播码查询直播数据
@@ -74,4 +74,20 @@ public interface LiveMapper {
 	 * @return
 	 */
 	List<Map<String, Object>> getVideoList();
+
+	/**
+	 * 查询直播数据
+	 * 
+	 * @param param
+	 * @return
+	 */
+	Map<String, Object> getLiveDetailById(Map<String, Object> param);
+
+	/**
+	 * 检查用户是否有观看直播的权限
+	 * 
+	 * @param param
+	 * @return
+	 */
+	boolean checkUserPlayLivePower(Map<String, Object> param);
 }

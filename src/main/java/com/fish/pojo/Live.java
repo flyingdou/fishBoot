@@ -39,8 +39,8 @@ public class Live {
 	// 直播过期时间
 	private String timeOut;
 
-	// 直播开始时间
-	private String startTime;
+	// 有效期(月)
+	private Integer months;
 
 	// 群组id
 	private String tribeId;
@@ -125,12 +125,12 @@ public class Live {
 		this.timeOut = timeOut;
 	}
 
-	public String getStartTime() {
-		return startTime;
+	public Integer getMonths() {
+		return months;
 	}
 
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
+	public void setMonths(Integer months) {
+		this.months = months;
 	}
 
 	public String getTribeId() {

@@ -100,4 +100,61 @@ public class LiveController {
 			return JSON.toJSONString(e);
 		}
 	}
+
+	/**
+	 * 获得直播推流URL
+	 * 
+	 * @param json
+	 * @return
+	 */
+	@RequestMapping("/liveUrl")
+	public String liveUrl(String json) {
+		try {
+			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
+			String url = liveService.liveUrl(param);
+			ResultUtil result = ResultUtil.success(url);
+			return JSON.toJSONString(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return JSON.toJSONString(e);
+		}
+	}
+
+	/**
+	 * 查询直播数据
+	 * 
+	 * @param json
+	 * @return
+	 */
+	@RequestMapping("/getLiveDetailById")
+	public String getLiveDetailById(String json) {
+		try {
+			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
+			Map<String, Object> map = liveService.getLiveDetailById(param);
+			ResultUtil result = ResultUtil.success(map);
+			return JSON.toJSONString(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return JSON.toJSONString(e);
+		}
+	}
+
+	/**
+	 * 获取直播播放的Url
+	 * 
+	 * @param json
+	 * @return
+	 */
+	@RequestMapping("/play")
+	public String play(String json) {
+		try {
+			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
+			Map<String, Object> map = liveService.play(param);
+			ResultUtil result = map == null ? ResultUtil.fail("未付费") : ResultUtil.success(map);
+			return JSON.toJSONString(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return JSON.toJSONString(e);
+		}
+	}
 }

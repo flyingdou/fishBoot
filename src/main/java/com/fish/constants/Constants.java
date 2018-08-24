@@ -164,4 +164,19 @@ public class Constants {
 	 * 直播状态(已关闭: 后台管理系统关闭)
 	 */
 	public static final String LIVE_STATUS_CLOSE = "2";
+	
+	/**
+	 * 小程序客服消息类型(用户在小程序“客服会话按钮”进入客服会话)
+	 */
+	public static final String MSG_TYPE_EVENT = "event";
+
+	/**
+	 * 小程序欢迎消息模板
+	 */
+	public static final String FISH_MINI_PROGRAM_WELLCOME_MESSAGE = "欢迎来到钓鱼日记";
+
+	/**
+	 * 小程序普通消息模板
+	 */
+	public static final String FISH_MINI_PROGRAM_PUBLIC_MESSAGE = "您好，钓鱼日记小程序【客服001号】正在为您服务";
 }

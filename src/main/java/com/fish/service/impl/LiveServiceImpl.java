@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -64,7 +65,7 @@ public class LiveServiceImpl implements LiveService {
 	 */
 	@Override
 	public Live saveLive(JSONObject param) {
-		Live live = liveMapper.getLiveByUser(param);
+		Live live = liveMapper.getLiveByUser(param.getInteger("member"));
 		if (live == null) {
 			live = JSONObject.toJavaObject(param, Live.class);
 			live.setLiveState(Integer.valueOf(Constants.LIVE_STATUS_CLOSE));
@@ -110,7 +111,7 @@ public class LiveServiceImpl implements LiveService {
 		long time = (System.currentTimeMillis() + (24 * 60 * 60 * 1000)) / 1000;
 
 		// 根据当前登录用户查询对应直播数据
-		Live live = liveMapper.getLiveByUser(param);
+		Live live = liveMapper.getLiveByUser(param.getInteger("userId"));
 
 		// 每次推流不改变直播码, 只更新时间
 		if (StringUtils.isEmpty(live.getLiveName())) {
@@ -143,6 +144,31 @@ public class LiveServiceImpl implements LiveService {
 				.append(live.getLiveName()).append("?bizid=").append(BIZID).append("&").append(signURL).toString();
 
 		return liveUrl;
+	}
+
+	/**
+	 * 查询直播数据
+	 */
+	@Override
+	public Map<String, Object> getLiveDetailById(JSONObject param) {
+		return liveMapper.getLiveDetailById(param);
+	}
+
+	/**
+	 * 获取直播播放Url
+	 */
+	@Override
+	public Map<String, Object> play(JSONObject param) {
+		Map<String, Object> resultMap = new HashMap<>();
+		Live live = liveMapper.getLiveByUser(param.getInteger("anchor"));
+		// 检查用户是否有观看直播的权限
+		if (!liveMapper.checkUserPlayLivePower(param)) {
+			return null;
+		}
+		// 拼接播放url
+		resultMap.put("RTMP", new StringBuilder("rtmp://").append(BIZID).append(".liveplay.myqcloud.com/live/")
+				.append(live.getLiveNumber()).toString());
+		return resultMap;
 	}
 
 	/**

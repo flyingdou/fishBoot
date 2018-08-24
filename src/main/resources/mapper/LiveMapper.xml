@@ -21,8 +21,8 @@
 		<result column="live_number" property="liveNumber"
 			jdbcType="VARCHAR" />
 		<result column="time_out" property="timeOut" jdbcType="VARCHAR" />
-		<result column="start_time" property="startTime"
-			jdbcType="VARCHAR" />
+		<result column="months" property="months"
+			jdbcType="INTEGER" />
 		<result column="tribe_id" property="tribeId" jdbcType="VARCHAR" />
 	</resultMap>
 
@@ -31,7 +31,7 @@
 		id, member, live_name, live_cost, live_image, live_notice,
 		live_state,
 		live_history_time,
-		live_number, time_out, start_time,
+		live_number, time_out, months,
 		tribe_id
 	</sql>
 
@@ -86,8 +86,8 @@
 			<if test="timeOut != null">
 				time_out,
 			</if>
-			<if test="startTime != null">
-				start_time,
+			<if test="months != null">
+				months,
 			</if>
 			<if test="tribeId != null">
 				tribe_id,
@@ -124,8 +124,8 @@
 			<if test="timeOut != null">
 				#{timeOut,jdbcType=INTEGER},
 			</if>
-			<if test="startTime != null">
-				#{startTime,jdbcType=VARCHAR},
+			<if test="months != null">
+				#{months,jdbcType=VARCHAR},
 			</if>
 			<if test="tribeId != null">
 				#{tribeId,jdbcType=TIMESTAMP},
@@ -169,7 +169,7 @@
 				time_out = #{timeOut,jdbcType=VARCHAR},
 			</if>
 			<if test="startTime != null">
-				start_time = #{startTime,jdbcType=TIMESTAMP},
+				months = #{months,jdbcType=TIMESTAMP},
 			</if>
 			<if test="tribeId != null">
 				tribe_id = #{tribeId,jdbcType=INTEGER},
@@ -181,7 +181,7 @@
 	<!-- 查询直播列表 -->
 	<select id="getLiveList" resultType="Map">
 		select l.id, u.nick, l.live_name, l.live_cost, l.live_image, l.live_notice,
-		l.live_state, l.live_history_time, l.live_number, l.time_out, l.start_time, l.tribe_id
+		l.live_state, l.live_history_time, l.live_number, l.time_out, l.months, l.tribe_id
 		from tb_live l inner join tb_user u on l.member = u.id
 		where live_state in(0,1) order by l.live_state desc
 	</select>
@@ -189,5 +189,15 @@
 	<!-- 查询视频列表 -->
 	<select id="getVideoList" resultType="Map">
 		select id, name, vid, image, release_date from tb_video order by release_date desc
+	</select>
+	
+	<!-- 查询直播数据 -->
+	<select id="getLiveDetailById" parameterType="Map" resultType="Map">
+		
+	</select>
+	
+	<!-- 检查用户是否有观看直播的权限 -->
+	<select id="checkUserPlayLivePower" parameterType="Map" resultType="Boolean">
+	
 	</select>
 </mapper>
