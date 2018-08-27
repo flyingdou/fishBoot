@@ -136,7 +136,7 @@
 	<!-- 根据id修改一条数据 -->
 	<update id="updateByPrimaryKeySelective"
 		parameterType="com.fish.pojo.Live">
-		update tb_user
+		update tb_live
 		<set>
 			<if test="member != null">
 				member = #{member,jdbcType=VARCHAR},
