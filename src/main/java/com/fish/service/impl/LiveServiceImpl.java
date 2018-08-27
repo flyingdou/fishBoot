@@ -65,7 +65,7 @@ public class LiveServiceImpl implements LiveService {
 	 */
 	@Override
 	public Live saveLive(JSONObject param) {
-		Live live = liveMapper.getLiveByUser(param.getInteger("userId"));
+		Live live = liveMapper.getLiveByUser(param.getInteger("member"));
 		if (live == null) {
 			live = JSONObject.toJavaObject(param, Live.class);
 			live.setLiveState(Integer.valueOf(Constants.LIVE_STATUS_CLOSE));
