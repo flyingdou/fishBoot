@@ -191,6 +191,18 @@
 		select id, name, vid, image, release_date from tb_video order by release_date desc
 	</select>
 	
+	<!-- 根据用户查询直播数据 -->
+	<select id="getLiveByUser" parameterType="Integer" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List"></include>
+		from tb_live where member = #{userId}
+	</select>
+	
+	<!-- 根据直播码查询直播数据 -->
+	<select id="getLiveByLiveNumber" parameterType="Map" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List"></include>
+		from tb_live where live_number = #{liveNumber}
+	</select>
+	
 	<!-- 查询直播数据 -->
 	<select id="getLiveDetailById" parameterType="Map" resultType="Map">
 		
