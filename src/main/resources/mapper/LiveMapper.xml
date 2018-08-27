@@ -165,7 +165,7 @@
 			<if test="timeOut != null">
 				time_out = #{timeOut,jdbcType=VARCHAR},
 			</if>
-			<if test="startTime != null">
+			<if test="months != null">
 				months = #{months,jdbcType=TIMESTAMP},
 			</if>
 			<if test="tribeId != null">
