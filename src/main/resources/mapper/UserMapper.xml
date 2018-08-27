@@ -192,7 +192,7 @@
   <!-- 查询用户垂钓信息 -->
   <select id="getUserFishInfo" parameterType="Map" resultType="Map">
 		  select 
-	                u.id, u.image, u.nick, u.city, u.county, '渔翁' as level, 
+	                u.id, u.image, u.nick, u.city, u.county, '渔翁' as level, u.telephone,
 					IFNULL(TIMESTAMPDIFF(YEAR,u.frist_fishing_date, now()), 0) as fishAge,
 					count(p.id) as fishCount, IFNULL(sum(fl.fishing_count), 0) as totalCount,
 					IFNULL(sum(fl.fishing_weight), 0) as totalWeight, 
