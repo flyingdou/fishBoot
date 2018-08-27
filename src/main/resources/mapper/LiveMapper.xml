@@ -138,9 +138,6 @@
 		parameterType="com.fish.pojo.Live">
 		update tb_user
 		<set>
-			<if test="nick != null">
-				nick = #{nick,jdbcType=VARCHAR},
-			</if>
 			<if test="member != null">
 				member = #{member,jdbcType=VARCHAR},
 			</if>
