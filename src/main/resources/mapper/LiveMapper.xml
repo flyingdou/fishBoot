@@ -203,7 +203,7 @@
 	<!-- 检查用户是否有观看直播的权限 -->
 	<select id="checkUserPlayLivePower" parameterType="Map" resultType="Boolean">
 		select count(o.id) from tb_order o inner join tb_live l on o.product_id = l.id 
-		where l.member = #{userId} and o.produtType = 'L' and o.status > 0 
+		where l.member = #{userId} and o.product_type = 'L' and o.status > 0 
 		and o.end_date >= SYSDATE()
 	</select>
 </mapper>
