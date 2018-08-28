@@ -177,8 +177,8 @@
 
 	<!-- 查询直播列表 -->
 	<select id="getLiveList" resultType="Map">
-		select l.id, u.id userId, u.nick, l.live_name, l.live_cost, l.live_image, l.live_notice,
-		l.live_state, l.live_history_time, l.live_number, l.time_out, l.months, l.tribe_id
+		select l.id, u.id userId, u.nick, l.live_name liveName, l.live_cost liveCost, l.live_image liveImage, 
+		l.live_notice liveNotice, l.live_state liveState, l.months, l.tribe_id tribeId
 		from tb_live l inner join tb_user u on l.member = u.id
 		where live_state in(0,1) order by l.live_state desc
 	</select>
