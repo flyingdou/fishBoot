@@ -14,6 +14,10 @@ public class Constants {
 	public static String APPID = "wx2e8d35be5f888eb3";
 
 	public static String APP_SECRET = "c46624d7b33293cd30a7e008986e4cd2";
+	
+	public static String MCH_ID = "";
+	
+	public static String KEY = "";
 
 	/**
 	 * event APPID APP_SECRET
@@ -98,6 +102,11 @@ public class Constants {
 	 * 商品类型(卡券)
 	 */
 	public static final String PRODUCT_TYPE_TICKET = "F";
+	
+	/**
+	 * 商品类型(直播)
+	 */
+	public static final String PRODUCT_TYPE_LIVE = "L";
 
 	/**
 	 * 订单状态(未付款)

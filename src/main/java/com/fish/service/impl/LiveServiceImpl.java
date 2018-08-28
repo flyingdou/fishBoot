@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,11 +19,14 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.fish.constants.Constants;
 import com.fish.dao.LiveMapper;
+import com.fish.dao.OrderMapper;
 import com.fish.dao.UserMapper;
 import com.fish.pojo.Live;
+import com.fish.pojo.Order;
 import com.fish.pojo.User;
 import com.fish.service.LiveService;
 import com.fish.util.HttpRequestUtils;
+import com.fish.util.commentsUtil;
 
 /**
  * 
@@ -59,6 +63,9 @@ public class LiveServiceImpl implements LiveService {
 
 	@Autowired
 	private UserMapper userMapper;
+
+	@Autowired
+	private OrderMapper orderMapper;
 
 	/**
 	 * 保存直播数据(发布或修改)
@@ -151,6 +158,14 @@ public class LiveServiceImpl implements LiveService {
 	}
 
 	/**
+	 * 查询视频列表
+	 */
+	@Override
+	public List<Map<String, Object>> getVideoList() {
+		return liveMapper.getVideoList();
+	}
+
+	/**
 	 * 查询直播数据
 	 */
 	@Override
@@ -186,6 +201,28 @@ public class LiveServiceImpl implements LiveService {
 		live.setLiveHistoryTime(history);
 		live.setLiveState(param.getInteger("liveStatus"));
 		liveMapper.updateByPrimaryKeySelective(live);
+	}
+
+	/**
+	 * 生成直播订单
+	 */
+	@Override
+	public Order createLiveOrder(JSONObject param) {
+		Live live = liveMapper.selectByPrimaryKey(param.getInteger("liveId"));
+		// 计算订单结束时间
+		Date endDate = commentsUtil.addDate(new Date(), live.getMonths() * 30);
+
+		// 订单生成所需参数
+		param.fluentPut("no", commentsUtil.getRandomName(4)).fluentPut("money", live.getLiveCost())
+				.fluentPut("productType", Constants.PRODUCT_TYPE_LIVE).fluentPut("productId", live.getId())
+				.fluentPut("status", Constants.ORDER_STATUS_BEPAY).fluentPut("toUse", live.getMember())
+				.fluentPut("autoDate", new Date()).fluentPut("endDate", endDate);
+
+		// 生成订单
+		liveMapper.createLiveOrder(param);
+
+		// 返回订单
+		return orderMapper.selectByPrimaryKey(param.getInteger("id"));
 	}
 
 	/**
@@ -248,14 +285,5 @@ public class LiveServiceImpl implements LiveService {
 			out[j++] = DIGITS_LOWER[0x0F & data[i]];
 		}
 		return new String(out);
-	}
-
-	/**
-	 * 查询视频列表
-	 */
-	@Override
-	public List<Map<String, Object>> getVideoList() {
-
-		return liveMapper.getVideoList();
 	}
 }

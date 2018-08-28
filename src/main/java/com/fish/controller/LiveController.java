@@ -12,10 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.fish.constants.Constants;
 import com.fish.pojo.Live;
+import com.fish.pojo.Order;
 import com.fish.service.LiveService;
 import com.fish.util.ResultUtil;
 import com.fish.util.commentsUtil;
+import com.fish.wechat.PayManager;
+import com.fish.wechat.PayRequest;
 
 /**
  * 
@@ -171,6 +175,27 @@ public class LiveController {
 			Live live = liveService.getLiveDetailById(param);
 			ResultUtil result = ResultUtil.success(live.getLiveState());
 			return JSON.toJSONString(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return JSON.toJSONString(e);
+		}
+	}
+
+	/**
+	 * 生成直播订单
+	 * 
+	 * @param json
+	 * @return
+	 */
+	@RequestMapping("/createLiveOrder")
+	public String createLiveOrder(String json, HttpServletRequest request) {
+		try {
+			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
+			Order order = liveService.createLiveOrder(param);
+			PayRequest payRequest = new PayRequest(Constants.APPID, Constants.MCH_ID, Constants.KEY,
+					param.getString("openId"));
+			PayManager payManager = new PayManager(request);
+			return payManager.paySign(payRequest, order);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return JSON.toJSONString(e);

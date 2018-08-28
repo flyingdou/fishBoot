@@ -82,4 +82,12 @@ public interface LiveMapper {
 	 * @return
 	 */
 	boolean checkUserPlayLivePower(Map<String, Object> param);
+
+	/**
+	 * 生成直播订单
+	 * 
+	 * @param param
+	 * @return
+	 */
+	int createLiveOrder(Map<String, Object> param);
 }

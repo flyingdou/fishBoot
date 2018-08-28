@@ -206,4 +206,79 @@
 		where l.member = #{userId} and o.product_type = 'L' and o.status > 0 
 		and o.end_date >= SYSDATE()
 	</select>
+	
+	<!-- 生成直播订单 -->
+	<insert id="createLiveOrder" parameterType="Map" useGeneratedKeys="true" keyProperty="id">
+	    insert into tb_order
+	    <trim prefix="(" suffix=")" suffixOverrides="," >
+	      <if test="id != null" >
+	        id,
+	      </if>
+	      <if test="no != null" >
+	        no,
+	      </if>
+	      <if test="money != null" >
+	        money,
+	      </if>
+	      <if test="productType != null" >
+	        product_type,
+	      </if>
+	      <if test="productId != null" >
+	        product_id,
+	      </if>
+	      <if test="status != null" >
+	        status,
+	      </if>
+	      <if test="payTime != null" >
+	        pay_time,
+	      </if>
+	      <if test="fromUser != null" >
+	        from_user,
+	      </if>
+	      <if test="toUser != null" >
+	        to_user,
+	      </if>
+	      <if test="autoDate != null" >
+	        auto_date,
+	      </if>
+	      <if test="endDate != null" >
+	        end_date,
+	      </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	      <if test="id != null" >
+	        #{id,jdbcType=INTEGER},
+	      </if>
+	      <if test="no != null" >
+	        #{no,jdbcType=VARCHAR},
+	      </if>
+	      <if test="money != null" >
+	        #{money,jdbcType=DECIMAL},
+	      </if>
+	      <if test="productType != null" >
+	        #{productType,jdbcType=VARCHAR},
+	      </if>
+	      <if test="productId != null" >
+	        #{productId,jdbcType=INTEGER},
+	      </if>
+	      <if test="status != null" >
+	        #{status,jdbcType=INTEGER},
+	      </if>
+	      <if test="payTime != null" >
+	        #{payTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="fromUser != null" >
+	        #{fromUser,jdbcType=INTEGER},
+	      </if>
+	      <if test="toUser != null" >
+	        #{toUser,jdbcType=INTEGER},
+	      </if>
+	      <if test="autoDate != null" >
+	        #{autoDate,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="endDate != null" >
+	        #{endDate,jdbcType=TIMESTAMP},
+	      </if>
+	    </trim>
+	  </insert>
 </mapper>

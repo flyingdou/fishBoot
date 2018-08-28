@@ -234,6 +234,24 @@ public class commentsUtil {
 		os.close();
 		is.close();
 	}
+	
+	/**
+	 * 时间相加的方法
+	 * 
+	 * @param date
+	 * @param day
+	 * @return
+	 */
+	public static Date addDate(Date date, long day) {
+		// 得到指定日期的毫秒数
+		long time = date.getTime();
+		// 要加上的天数转换成毫秒数
+		day = day * 24 * 60 * 60 * 1000;
+		// 相加得到新的毫秒数
+		time += day;
+		// 将毫秒数转换成日期
+		return new Date(time);
+	}
 
 	/**
 	 * 获取request流中的xml转换成map

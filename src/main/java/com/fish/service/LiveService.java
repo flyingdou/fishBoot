@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fish.pojo.Live;
+import com.fish.pojo.Order;
 
 /**
  * 
@@ -67,4 +68,12 @@ public interface LiveService {
 	 * @return
 	 */
 	Map<String, Object> play(JSONObject param);
+
+	/**
+	 * 生成直播订单
+	 * 
+	 * @param param
+	 * @return
+	 */
+	Order createLiveOrder(JSONObject param);
 }
