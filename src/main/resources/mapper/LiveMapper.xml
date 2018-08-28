@@ -177,7 +177,7 @@
 
 	<!-- 查询直播列表 -->
 	<select id="getLiveList" resultType="Map">
-		select l.id, u.id userId, u.nick, l.live_name liveName, l.live_cost liveCost, l.live_image liveImage, 
+		select l.id, u.id member, u.nick, l.live_name liveName, l.live_cost liveCost, l.live_image liveImage, 
 		l.live_notice liveNotice, l.live_state liveState, l.months, l.tribe_id tribeId
 		from tb_live l inner join tb_user u on l.member = u.id
 		where live_state in(0,1) order by l.live_state desc
@@ -202,8 +202,8 @@
 	
 	<!-- 检查用户是否有观看直播的权限 -->
 	<select id="checkUserPlayLivePower" parameterType="Map" resultType="Boolean">
-		select count(o.id) from tb_order o inner join tb_live l
-		on o.product_id = l.id and o.product_type = 'L'
-		where l.member = #{userId} and o.end_date >= SYSDATE()
+		select count(o.id) from tb_order o inner join tb_live l on o.product_id = l.id 
+		where l.member = #{userId} and o.produtType = 'L' and o.status > 0 
+		and o.end_date >= SYSDATE()
 	</select>
 </mapper>
