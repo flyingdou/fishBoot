@@ -58,7 +58,7 @@ public interface LiveService {
 	 * @param param
 	 * @return
 	 */
-	Map<String, Object> getLiveDetailById(JSONObject param);
+	Live getLiveDetailById(JSONObject param);
 
 	/**
 	 * 获取直播播放的Url

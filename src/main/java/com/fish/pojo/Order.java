@@ -5,135 +5,134 @@ import java.util.Date;
 
 /**
  * 
- * @author dou
- * 订单(tb_order)
+ * @author dou 订单(tb_order)
  *
  */
 public class Order {
-    private Integer id;
+	private Integer id;
 
-    /**
-     * 订单编号
-     */
-    private String no;
+	/**
+	 * 订单编号
+	 */
+	private String no;
 
-    /**
-     * 订单金额
-     */
-    private BigDecimal money;
+	/**
+	 * 订单金额
+	 */
+	private BigDecimal money;
 
-    /**
-     * 商品类型(A拜师    B参加活动    C打赏     D结算   E提现 F卡券)
-     */
-    private String productType;
+	/**
+	 * 商品类型(A:拜师, B:参加活动, C:打赏, D:结算, E:提现, F:卡券, L:直播)
+	 */
+	private String productType;
 
-    /**
-     * 商品Id(对应类型的主键)
-     */
-    private Integer productId;
+	/**
+	 * 商品Id(对应类型的主键)
+	 */
+	private Integer productId;
 
-    /**
-     * 订单状态(0未付款    1已付款    2已结算     3结算金额分配      4提现支出)
-     */
-    private Integer status;
+	/**
+	 * 订单状态(0未付款 1已付款 2已结算 3结算金额分配 4提现支出)
+	 */
+	private Integer status;
 
-    /**
-     * 支付时间
-     */
-    private Date payTime;
+	/**
+	 * 支付时间
+	 */
+	private Date payTime;
 
-    /**
-     * 付款者
-     */
-    private Integer fromUser;
+	/**
+	 * 付款者
+	 */
+	private Integer fromUser;
 
-    /**
-     * 收款者
-     */
-    private Integer toUser;
+	/**
+	 * 收款者
+	 */
+	private Integer toUser;
 
-    /**
-     * 订单时间
-     */
-    private Date autoDate;
-    
-    public Integer getId() {
-        return id;
-    }
+	/**
+	 * 订单时间
+	 */
+	private Date autoDate;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getNo() {
-        return no;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setNo(String no) {
-        this.no = no == null ? null : no.trim();
-    }
+	public String getNo() {
+		return no;
+	}
 
-    public BigDecimal getMoney() {
-        return money;
-    }
+	public void setNo(String no) {
+		this.no = no == null ? null : no.trim();
+	}
 
-    public void setMoney(BigDecimal money) {
-        this.money = money;
-    }
+	public BigDecimal getMoney() {
+		return money;
+	}
 
-    public String getProductType() {
-        return productType;
-    }
+	public void setMoney(BigDecimal money) {
+		this.money = money;
+	}
 
-    public void setProductType(String productType) {
-        this.productType = productType == null ? null : productType.trim();
-    }
+	public String getProductType() {
+		return productType;
+	}
 
-    public Integer getProductId() {
-        return productId;
-    }
+	public void setProductType(String productType) {
+		this.productType = productType == null ? null : productType.trim();
+	}
 
-    public void setProductId(Integer productId) {
-        this.productId = productId;
-    }
+	public Integer getProductId() {
+		return productId;
+	}
 
-    public Integer getStatus() {
-        return status;
-    }
+	public void setProductId(Integer productId) {
+		this.productId = productId;
+	}
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
+	public Integer getStatus() {
+		return status;
+	}
 
-    public Date getPayTime() {
-        return payTime;
-    }
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
-    public void setPayTime(Date payTime) {
-        this.payTime = payTime;
-    }
+	public Date getPayTime() {
+		return payTime;
+	}
 
-    public Integer getFromUser() {
-        return fromUser;
-    }
+	public void setPayTime(Date payTime) {
+		this.payTime = payTime;
+	}
 
-    public void setFromUser(Integer fromUser) {
-        this.fromUser = fromUser;
-    }
+	public Integer getFromUser() {
+		return fromUser;
+	}
 
-    public Integer getToUser() {
-        return toUser;
-    }
+	public void setFromUser(Integer fromUser) {
+		this.fromUser = fromUser;
+	}
 
-    public void setToUser(Integer toUser) {
-        this.toUser = toUser;
-    }
+	public Integer getToUser() {
+		return toUser;
+	}
 
-    public Date getAutoDate() {
-        return autoDate;
-    }
+	public void setToUser(Integer toUser) {
+		this.toUser = toUser;
+	}
 
-    public void setAutoDate(Date autoDate) {
-        this.autoDate = autoDate;
-    }
+	public Date getAutoDate() {
+		return autoDate;
+	}
+
+	public void setAutoDate(Date autoDate) {
+		this.autoDate = autoDate;
+	}
 }

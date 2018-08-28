@@ -76,14 +76,6 @@ public interface LiveMapper {
 	List<Map<String, Object>> getVideoList();
 
 	/**
-	 * 查询直播数据
-	 * 
-	 * @param param
-	 * @return
-	 */
-	Map<String, Object> getLiveDetailById(Map<String, Object> param);
-
-	/**
 	 * 检查用户是否有观看直播的权限
 	 * 
 	 * @param param

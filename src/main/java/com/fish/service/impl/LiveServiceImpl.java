@@ -145,7 +145,7 @@ public class LiveServiceImpl implements LiveService {
 
 		// 生成直播推流url(最后拼接完整url)
 		String liveUrl = new StringBuilder("rtmp://").append(BIZID).append(".livepush.myqcloud.com/live/")
-				.append(live.getLiveName()).append("?bizid=").append(BIZID).append("&").append(signURL).toString();
+				.append(live.getLiveNumber()).append("?bizid=").append(BIZID).append("&").append(signURL).toString();
 
 		return liveUrl;
 	}
@@ -154,8 +154,8 @@ public class LiveServiceImpl implements LiveService {
 	 * 查询直播数据
 	 */
 	@Override
-	public Map<String, Object> getLiveDetailById(JSONObject param) {
-		return liveMapper.getLiveDetailById(param);
+	public Live getLiveDetailById(JSONObject param) {
+		return liveMapper.selectByPrimaryKey(param.getInteger("liveId"));
 	}
 
 	/**

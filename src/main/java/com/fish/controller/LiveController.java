@@ -130,9 +130,9 @@ public class LiveController {
 	public String getLiveDetailById(String json) {
 		try {
 			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
-			Map<String, Object> map = liveService.getLiveDetailById(param);
-			ResultUtil result = ResultUtil.success(map);
-			return JSON.toJSONString(result);
+			Live live = liveService.getLiveDetailById(param);
+			ResultUtil result = ResultUtil.success(live);
+			return JSON.toJSONStringWithDateFormat(result, "yyyy-MM-dd HH:mm");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return JSON.toJSONString(e);
@@ -151,6 +151,25 @@ public class LiveController {
 			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
 			Map<String, Object> map = liveService.play(param);
 			ResultUtil result = map == null ? ResultUtil.fail("未付费") : ResultUtil.success(map);
+			return JSON.toJSONString(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return JSON.toJSONString(e);
+		}
+	}
+
+	/**
+	 * 获取直播状态
+	 * 
+	 * @param json
+	 * @return
+	 */
+	@RequestMapping("/getLiveStatus")
+	public String getLiveStatus(String json) {
+		try {
+			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
+			Live live = liveService.getLiveDetailById(param);
+			ResultUtil result = ResultUtil.success(live.getLiveState());
 			return JSON.toJSONString(result);
 		} catch (Exception e) {
 			e.printStackTrace();

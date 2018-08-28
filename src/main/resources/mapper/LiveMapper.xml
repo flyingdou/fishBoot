@@ -200,13 +200,10 @@
 		from tb_live where live_number = #{liveNumber}
 	</select>
 	
-	<!-- 查询直播数据 -->
-	<select id="getLiveDetailById" parameterType="Map" resultType="Map">
-		
-	</select>
-	
 	<!-- 检查用户是否有观看直播的权限 -->
 	<select id="checkUserPlayLivePower" parameterType="Map" resultType="Boolean">
-	
+		select count(o.id) from tb_order o inner join tb_live l
+		on o.product_id = l.id and o.product_type = 'L'
+		where l.member = #{userId} and o.end_date >= SYSDATE()
 	</select>
 </mapper>
