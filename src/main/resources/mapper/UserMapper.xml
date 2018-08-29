@@ -235,22 +235,22 @@
 		group by u.id 
 	) t
 	
-	<if test="fishCount != null and fishCount != ''">
+	<if test="limit == 'fishCount'">
 		order by t.fishCount desc
 	</if>
-	<if test="totalCount != null and totalCount != ''">
+	<if test="limit == 'totalCount'">
 		order by t.totalCount desc
 	</if>
-	<if test="totalWeight != null and totalWeight != ''">
+	<if test="limit == 'totalWeight'">
 		order by t.totalWeight desc
 	</if>
-	<if test="singleMaxWeight != null and singleMaxWeight != ''">
+	<if test="limit == 'singleMaxWeight'">
 		order by t.singleMaxWeight desc
 	</if>
-	<if test="pleaseCount != null and pleaseCount != ''">
+	<if test="limit == 'share'">
 		order by t.pleaseCount desc
 	</if>
-	<if test="income != null and income != ''">
+	<if test="limit == 'income'">
 		order by t.income desc
 	</if>
   </select>
