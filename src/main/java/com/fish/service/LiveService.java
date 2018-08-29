@@ -60,6 +60,14 @@ public interface LiveService {
 	 * @return
 	 */
 	Live getLiveDetailById(JSONObject param);
+	
+	/**
+	 * 根据用户查询直播数据
+	 * 
+	 * @param param
+	 * @return
+	 */
+	Live getLiveDetailByUser(JSONObject param);
 
 	/**
 	 * 获取直播播放的Url

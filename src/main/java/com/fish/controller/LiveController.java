@@ -144,6 +144,25 @@ public class LiveController {
 	}
 
 	/**
+	 * 查询直播数据
+	 * 
+	 * @param json
+	 * @return
+	 */
+	@RequestMapping("/getLiveDetailByUser")
+	public String getLiveDetailByUser(String json) {
+		try {
+			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
+			Live live = liveService.getLiveDetailByUser(param);
+			ResultUtil result = ResultUtil.success(live);
+			return JSON.toJSONStringWithDateFormat(result, "yyyy-MM-dd HH:mm");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return JSON.toJSONString(e);
+		}
+	}
+
+	/**
 	 * 获取直播播放的Url
 	 * 
 	 * @param json

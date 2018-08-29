@@ -174,6 +174,14 @@ public class LiveServiceImpl implements LiveService {
 	}
 
 	/**
+	 * 根据查询直播数据
+	 */
+	@Override
+	public Live getLiveDetailByUser(JSONObject param) {
+		return liveMapper.getLiveByUser(param.getInteger("userId"));
+	}
+
+	/**
 	 * 获取直播播放Url
 	 */
 	@Override
