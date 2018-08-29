@@ -248,7 +248,7 @@
 	<if test="limit == 'singleMaxWeight'">
 		order by singleMaxWeight desc
 	</if>
-	<if test="limit == 'share'">
+	<if test="limit == 'pleaseCount'">
 		order by pleaseCount desc
 	</if>
 	<if test="limit == 'income'">
