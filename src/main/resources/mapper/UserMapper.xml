@@ -236,22 +236,22 @@
 	) t
 	
 	<if test="limit == 'fishCount'">
-		order by t.fishCount desc
+		order by fishCount desc
 	</if>
 	<if test="limit == 'totalCount'">
-		order by t.totalCount desc
+		order by totalCount desc
 	</if>
 	<if test="limit == 'totalWeight'">
-		order by t.totalWeight desc
+		order by totalWeight desc
 	</if>
 	<if test="limit == 'singleMaxWeight'">
-		order by t.singleMaxWeight desc
+		order by singleMaxWeight desc
 	</if>
 	<if test="limit == 'share'">
-		order by t.pleaseCount desc
+		order by pleaseCount desc
 	</if>
 	<if test="limit == 'income'">
-		order by t.income desc
+		order by income desc
 	</if>
   </select>
 </mapper>
