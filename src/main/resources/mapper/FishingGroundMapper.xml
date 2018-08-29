@@ -261,6 +261,9 @@
 	<if test="distance != null">
 		order by distance desc
 	</if>
+	<if test="selectFishingGround">
+		order by distance desc limit 3
+	</if>
   </select>
   
   <!-- 查询钓场详情 -->

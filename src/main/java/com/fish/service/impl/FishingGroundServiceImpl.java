@@ -73,6 +73,10 @@ public class FishingGroundServiceImpl implements FishingGroundService {
 				param.remove("type");
 			}
 		}
+		
+		if (param.containsKey("selectFishingGround")) {
+			param.remove("type");
+		}
 		// 查询钓场
 		List<Map<String, Object>> fishingGroundList = fishingGroundMapper.getFishingGroundList(param);
 		JSONObject result = new JSONObject();
