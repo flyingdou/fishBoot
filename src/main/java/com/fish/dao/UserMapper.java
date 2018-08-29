@@ -1,5 +1,6 @@
 package com.fish.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import com.fish.pojo.User;
@@ -52,5 +53,13 @@ public interface UserMapper {
 	 * @return
 	 */
 	Map<String, Object> getUserFishInfo(Map<String, Object> paramMap);
+
+	/**
+	 * 达人榜
+	 * 
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> getRanking(Map<String, Object> map);
 
 }

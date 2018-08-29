@@ -213,5 +213,45 @@
   
   </select>  
   
-  
+  <!-- 达人榜 -->
+  <select id="getRanking" parameterType="Map" resultType="Map">
+  	select t.*, 5 pleaseCount, 
+	(select IFNULL(sum(money), 0) from tb_order where id = 1 and status > 0) income
+	from (
+		select 
+		u.id, u.image, u.nick, u.city, u.county, '渔翁' as level, u.telephone,
+		IFNULL(TIMESTAMPDIFF(YEAR,u.frist_fishing_date, now()), 0) as fishAge,
+		count(p.id) as fishCount, IFNULL(sum(fl.fishing_count), 0) as totalCount,
+		IFNULL(sum(fl.fishing_weight), 0) as totalWeight, 
+		IFNULL(tell.single_max_weight,0) as singleMaxWeight 		
+		from 
+		tb_user u left join tb_post p ON u.id = p.user 
+		left join tb_fishing_logs fl on fl.post = p.id 
+		left join 
+		(
+			select l.post, l.single_max_weight from tb_fishing_logs l order by l.single_max_weight desc LIMIT 1	
+		) tell ON tell.post = p.id  
+				
+		group by u.id 
+	) t
+	
+	<if test="fishCount != null and fishCount != ''">
+		order by t.fishCount desc
+	</if>
+	<if test="totalCount != null and totalCount != ''">
+		order by t.totalCount desc
+	</if>
+	<if test="totalWeight != null and totalWeight != ''">
+		order by t.totalWeight desc
+	</if>
+	<if test="singleMaxWeight != null and singleMaxWeight != ''">
+		order by t.singleMaxWeight desc
+	</if>
+	<if test="pleaseCount != null and pleaseCount != ''">
+		order by t.pleaseCount desc
+	</if>
+	<if test="income != null and income != ''">
+		order by t.income desc
+	</if>
+  </select>
 </mapper>

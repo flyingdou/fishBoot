@@ -1,5 +1,8 @@
 package com.fish.service;
 
+import java.util.List;
+import java.util.Map;
+
 import com.alibaba.fastjson.JSONObject;
 
 /**
@@ -32,4 +35,11 @@ public interface UserService {
 	 */
 	public String createQRCodeB(JSONObject param);
 
+	/**
+	 * 达人榜
+	 * 
+	 * @param param
+	 * @return
+	 */
+	public List<Map<String, Object>> getRanking(JSONObject param);
 }

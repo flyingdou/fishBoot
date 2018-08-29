@@ -1,6 +1,8 @@
 package com.fish.controller;
 
 import java.net.URLDecoder;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fish.service.UserService;
+import com.fish.util.ResultUtil;
 
 /**
  * 
@@ -101,4 +104,22 @@ public class UserController {
 		return JSON.toJSONString(ret);
 	}
 
+	/**
+	 * 达人榜
+	 * @param json
+	 * @return
+	 */
+	@RequestMapping("/getRanking")
+	public String getRanking(String json) {
+		try {
+			// 处理请求参数
+			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
+			List<Map<String, Object>> list = userService.getRanking(param);
+			ResultUtil result = ResultUtil.success(list);
+			return JSONObject.toJSONStringWithDateFormat(result, "yyyy-MM-dd HH:mm");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return JSON.toJSONString(e);
+		}
+	}
 }
