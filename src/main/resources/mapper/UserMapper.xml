@@ -216,7 +216,8 @@
   <!-- 达人榜 -->
   <select id="getRanking" parameterType="Map" resultType="Map">
   	select t.*, 5 pleaseCount, 
-	(select IFNULL(sum(money), 0) from tb_order where id = 1 and status > 0) income
+	(select IFNULL(sum(money), 0) from tb_order where id = 1 and status > 0) income,
+	6 shareIncome
 	from (
 		select 
 		u.id, u.image, u.nick, u.city, u.county, '渔翁' as level, u.telephone,
@@ -252,6 +253,9 @@
 	</if>
 	<if test="limit == 'income'">
 		order by income desc
+	</if>
+	<if test="limit == 'shareIncome'">
+		order by shareIncome desc
 	</if>
   </select>
 </mapper>
