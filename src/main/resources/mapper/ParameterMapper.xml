@@ -148,17 +148,6 @@
 		       pa.code = #{parent_code} 
   
   </select>
-  
-  <!-- 查询直播开关 -->
-  <select id="getParameter" parameterType="Map" resultType="Map">
-  		SELECT 
-		       p.id, p.name, p.value
-		
-		 FROM  
-		       tb_parameter p 
-		 WHERE
-		       p.code = #{parent_code}
-		        
-  </select>
+
   
 </mapper>

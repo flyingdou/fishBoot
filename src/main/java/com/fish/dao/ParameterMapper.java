@@ -24,11 +24,5 @@ public interface ParameterMapper {
 	 */
 	List<Map<String, Object>> getParameterList(Map<String, Object> map);
 
-	/**
-	 * 查询直播开关
-	 * 
-	 * @param map
-	 * @return
-	 */
-	List<Map<String, Object>> getParamter(Map<String, Object> map);
+	
 }
