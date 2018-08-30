@@ -234,6 +234,14 @@ public class LiveServiceImpl implements LiveService {
 	}
 
 	/**
+	 * 查询直播开关
+	 */
+	@Override
+	public int getLiveSwitch() {
+		return liveMapper.getLiveSwitch();
+	}
+
+	/**
 	 * 获取直播观看人数
 	 */
 	private String getUserCount(String streamId) {

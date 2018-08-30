@@ -60,7 +60,7 @@ public interface LiveService {
 	 * @return
 	 */
 	Live getLiveDetailById(JSONObject param);
-	
+
 	/**
 	 * 根据用户查询直播数据
 	 * 
@@ -84,4 +84,11 @@ public interface LiveService {
 	 * @return
 	 */
 	Order createLiveOrder(JSONObject param);
+
+	/**
+	 * 查询直播开关
+	 * 
+	 * @return
+	 */
+	int getLiveSwitch();
 }

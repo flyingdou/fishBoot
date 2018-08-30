@@ -90,4 +90,10 @@ public interface LiveMapper {
 	 * @return
 	 */
 	int createLiveOrder(Map<String, Object> param);
+
+	/**
+	 * 
+	 * @return
+	 */
+	int getLiveSwitch();
 }

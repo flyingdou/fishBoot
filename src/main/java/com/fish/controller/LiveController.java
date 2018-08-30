@@ -220,4 +220,20 @@ public class LiveController {
 			return JSON.toJSONString(e);
 		}
 	}
+
+	/**
+	 * 查询直播开关
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/getLiveSwitch")
+	public String getLiveSwitch() {
+		try {
+			int liveSwitch = liveService.getLiveSwitch();
+			ResultUtil result = ResultUtil.success(liveSwitch);
+			return JSON.toJSONString(result);
+		} catch (Exception e) {
+			return JSON.toJSONString(e);
+		}
+	}
 }

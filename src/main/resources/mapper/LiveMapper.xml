@@ -281,4 +281,9 @@
 	      </if>
 	    </trim>
 	  </insert>
+	  
+	  <!-- 查询直播开关 -->
+	  <select id="getLiveSwitch" resultType="int">
+	  	  select value from tb_parameter where code = 'live_switch'
+	  </select>
 </mapper>
