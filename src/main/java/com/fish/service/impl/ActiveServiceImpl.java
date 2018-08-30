@@ -18,7 +18,6 @@ import com.fish.dao.FishingGroundMapper;
 import com.fish.pojo.Active;
 import com.fish.pojo.FishingGround;
 import com.fish.service.ActiveService;
-import com.fish.util.commentsUtil;
 
 /**
  * 活动业务实现类
@@ -42,45 +41,12 @@ public class ActiveServiceImpl implements ActiveService {
 	public JSONObject release(JSONObject param) {
 		JSONObject result = new JSONObject();
 		// 创建活动对象, 并补全信息
-		Active active = new Active();
-		if (param.containsKey("memberId") && StringUtils.isNotEmpty(param.getString("memberId"))) {
-			active.setCreator(param.getIntValue("memberId"));
-		}
-		if (param.containsKey("name") && StringUtils.isNotEmpty(param.getString("name"))) {
-			active.setName(param.getString("name"));
-		}
-		if (param.containsKey("poster") && StringUtils.isNotEmpty(param.getString("poster"))) {
-			active.setPoster(param.getString("poster"));
-		}
-		if (param.containsKey("startTime") && StringUtils.isNotEmpty(param.getString("startTime"))) {
-			active.setStartTime(commentsUtil.formatStringToDate(param.getString("startTime")));
-		}
-		if (param.containsKey("endTime") && StringUtils.isNotEmpty(param.getString("endTime"))) {
-			active.setEndTime(commentsUtil.formatStringToDate(param.getString("endTime")));
-		}
-		if (param.containsKey("address") && StringUtils.isNotEmpty(param.getString("address"))) {
-			active.setAddress(param.getString("address"));
-		}
+		Active active = JSONObject.toJavaObject(param, Active.class);
 		if (param.containsKey("fishingGround") && StringUtils.isNotEmpty(param.getString("fishingGround"))) {
 			// 如果用户选择了钓场就把钓场id保存到活动数据中,并把钓场的地址覆盖活动的地址
 			FishingGround fishGround = fishGroundMapper.selectByPrimaryKey(param.getIntValue("fishingGround"));
 			active.setFishingGround(fishGround.getId());
 			active.setAddress(fishGround.getAddress());
-		}
-		if (param.containsKey("telephone") && StringUtils.isNotEmpty(param.getString("telephone"))) {
-			active.setTelephone(param.getString("telephone"));
-		}
-		if (param.containsKey("upperLimit") && StringUtils.isNotEmpty(param.getString("upperLimit"))) {
-			active.setUpperLimit(param.getIntValue("upperLimit"));
-		}
-		if (param.containsKey("price") && StringUtils.isNotEmpty(param.getString("price"))) {
-			active.setPrice(param.getIntValue("price"));
-		}
-		if (param.containsKey("city") && StringUtils.isNotEmpty(param.getString("city"))) {
-			active.setCity(param.getString("city"));
-		}
-		if (param.containsKey("remark") && StringUtils.isNotEmpty(param.getString("remark"))) {
-			active.setRemark(param.getString("remark"));
 		}
 		// 发布默认开启
 		active.setIsOpen(Constants.OPEN_STATUS);
