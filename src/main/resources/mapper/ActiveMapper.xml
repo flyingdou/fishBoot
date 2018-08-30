@@ -135,13 +135,13 @@
 				#{autoDate,jdbcType=TIMESTAMP},
 			</if>
 			<if test="isOpen != null and isOpen != '' ">
-				#{isOpen,jdbcType=TIMESTAMP},
+				#{isOpen,jdbcType=VARCHAR},
 			</if>
 			<if test="status != null and status != '' ">
-				#{status,jdbcType=TIMESTAMP},
+				#{status,jdbcType=INTEGER},
 			</if>
 			<if test="recommend != null and recommend != '' ">
-				#{recommend,jdbcType=TIMESTAMP},
+				#{recommend,jdbcType=INTEGER},
 			</if>
 			<if test="recommendDate != null and recommendDate != '' ">
 				#{recommendDate,jdbcType=TIMESTAMP},
