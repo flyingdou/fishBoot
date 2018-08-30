@@ -38,6 +38,11 @@ public class Post {
     // 纬度
     private Double latitude;
 
+    
+    /**
+     * setter && getter
+     * @return
+     */
     public Integer getId() {
         return id;
     }
