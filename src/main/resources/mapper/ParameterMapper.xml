@@ -140,7 +140,7 @@
   <select id="getParameterList" parameterType="Map" resultType="Map">
   
 		SELECT 
-		       p.id, p.name, p.value, p.memo
+		       p.id, p.code, p.name, p.value, p.memo
 		
 		 FROM  
 		       tb_parameter p INNER JOIN tb_parameter pa ON p.parent = pa.id
