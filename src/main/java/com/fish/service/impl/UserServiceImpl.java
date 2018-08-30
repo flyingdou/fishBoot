@@ -104,6 +104,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public JSONObject getUserFishInfo(JSONObject param) {
+		param.fluentPut("parent_code", Constants.USER_LEVEL_CODE);
 		Map<String, Object> userInfoMap = userMaper.getUserFishInfo(param);
 		return JSON.parseObject(JSON.toJSONString(userInfoMap));
 	}
@@ -120,6 +121,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<Map<String, Object>> getRanking(JSONObject param) {
+		param.fluentPut("parent_code", Constants.USER_LEVEL_CODE);
 		return userMaper.getRanking(param);
 	}
 }

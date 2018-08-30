@@ -179,4 +179,10 @@ public class Constants {
 	 */
 	public static final String FISH_MINI_PROGRAM_PUBLIC_MESSAGE = "您好，钓鱼日记小程序【客服001号】正在为您服务";
 	
+	
+	/**
+	 * 用户等级类型
+	 */
+	public static final String USER_LEVEL_CODE = "user_level";
+	
 }

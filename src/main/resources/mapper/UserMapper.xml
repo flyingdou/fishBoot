@@ -212,23 +212,31 @@
   <!-- 查询用户垂钓信息 -->
   <select id="getUserFishInfo" parameterType="Map" resultType="Map">
 		  select 
-	                u.id, u.image, u.nick, u.city, u.county, '渔翁' as level, u.telephone,
+	                u.id, u.image, u.nick, u.city, u.county, le.name as level, u.telephone,
 					IFNULL(TIMESTAMPDIFF(YEAR,u.frist_fishing_date, now()), 0) as fishAge,
 					count(p.id) as fishCount, IFNULL(sum(fl.fishing_count), 0) as totalCount,
 					IFNULL(sum(fl.fishing_weight), 0) as totalWeight, 
 					IFNULL(tell.single_max_weight,0) as single_max_weight 	
 						
 		  from 
-			        tb_user u INNER JOIN tb_post p ON u.id = p.user 
+			        tb_user u LEFT JOIN tb_post p ON u.id = p.user 
 							  LEFT JOIN tb_fishing_logs fl on fl.post = p.id 
 							  LEFT JOIN 
 							  (
 							  	select l.post, l.single_max_weight from tb_fishing_logs l order by l.single_max_weight desc LIMIT 1	
 							  ) tell ON tell.post = p.id 
+							   LEFT JOIN 
+						      (
+						        select pa.id, pa.name, pa.code from  tb_parameter pa left join tb_parameter prt on pa.parent = prt.id 
+						            where  prt.code = #{parent_code} 
+						      ) le ON u.level = le.code
 					
 					
-		 where 
-			        u.id = #{userId} 
+		 group by 
+		           	u.id 
+		   having 
+		           	u.id = #{userId} 
+			        
   
   
   </select>  
@@ -240,7 +248,7 @@
 	6 shareIncome
 	from (
 		select 
-		u.id, u.image, u.nick, u.city, u.county, '渔翁' as level, u.telephone,
+		u.id, u.image, u.nick, u.city, u.county, le.name as level, u.telephone,
 		IFNULL(TIMESTAMPDIFF(YEAR,u.frist_fishing_date, now()), 0) as fishAge,
 		count(p.id) as fishCount, IFNULL(sum(fl.fishing_count), 0) as totalCount,
 		IFNULL(sum(fl.fishing_weight), 0) as totalWeight, 
@@ -251,7 +259,12 @@
 		left join 
 		(
 			select l.post, l.single_max_weight from tb_fishing_logs l order by l.single_max_weight desc LIMIT 1	
-		) tell ON tell.post = p.id  
+		) tell ON tell.post = p.id 
+		LEFT JOIN 
+        (
+          select pa.id, pa.name, pa.code from  tb_parameter pa left join tb_parameter prt on pa.parent = prt.id 
+             where  prt.code = #{parent_code} 
+        ) le ON u.level = le.code 
 				
 		group by u.id 
 	) t
