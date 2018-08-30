@@ -94,7 +94,13 @@ public class ActiveServiceImpl implements ActiveService {
 	 * 根据id查询活动信息
 	 */
 	public JSONObject getActiveById(JSONObject param) {
-		Map<String, Object> active = activeMapper.getActiveById(param.getString("activeId"));
+		param.fluentPut("orderStatus", Constants.ORDER_STATUS_BEPAY).fluentPut("productType",
+				Constants.PRODUCT_TYPE_ACTIVE);
+
+		// 查询数据
+		Map<String, Object> active = activeMapper.getActiveById(param);
+		List<Map<String, Object>> userList = activeMapper.getJoinActiveUserList(param);
+		active.put("userList", userList);
 		// json序列化并格式化日期
 		JSONObject result = new JSONObject();
 		result.fluentPut("success", true).fluentPut("active", active);

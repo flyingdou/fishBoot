@@ -51,20 +51,28 @@ public interface ActiveMapper {
 	 * @param param
 	 * @return
 	 */
-	List<Map<String, Object>> getActiveListByCity(Map<String, Object> queryParam);
+	List<Map<String, Object>> getActiveListByCity(Map<String, Object> param);
 
 	/**
 	 * 根据推荐查询活动列表
 	 * 
 	 * @return
 	 */
-	List<Map<String, Object>> getActiveListByRecommend(Map<String, Object> queryParam);
+	List<Map<String, Object>> getActiveListByRecommend(Map<String, Object> param);
 
 	/**
 	 * 根据id查询活动信息
 	 * 
 	 * @return
 	 */
-	Map<String, Object> getActiveById(String activeId);
+	Map<String, Object> getActiveById(Map<String, Object> param);
+
+	/**
+	 * 查询活动参加用户列表
+	 * 
+	 * @param map
+	 * @return
+	 */
+	List<Map<String, Object>> getJoinActiveUserList(Map<String, Object> param);
 
 }

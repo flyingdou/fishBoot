@@ -26,7 +26,7 @@ public interface FishingTicketMapper {
 	 * @param queryParam
 	 * @return
 	 */
-	List<Map<String, Object>> getTicketListByCreator(Map<String, Object> queryParam);
+	List<Map<String, Object>> getTicketListByCreator(Map<String, Object> param);
 
 	/**
 	 * 查询有效的卡券列表(审核通过并且是开启状态)
@@ -34,7 +34,7 @@ public interface FishingTicketMapper {
 	 * @param queryParam
 	 * @return
 	 */
-	List<Map<String, Object>> getEffectiveTikcetList(Map<String, Object> queryParam);
+	List<Map<String, Object>> getEffectiveTikcetList(Map<String, Object> param);
 
 	/**
 	 * 通过id查询卡券详细信息
@@ -42,7 +42,7 @@ public interface FishingTicketMapper {
 	 * @param ticketId
 	 * @return
 	 */
-	Map<String, Object> getTicketById(Map<String, Object> queryParam);
+	Map<String, Object> getTicketById(Map<String, Object> param);
 
 	/**
 	 * 通过id查询卡券card_id(微信卡券标识)
@@ -58,7 +58,7 @@ public interface FishingTicketMapper {
 	 * @param addParam
 	 * @return
 	 */
-	int addUserTicket(Map<String, Object> addParam);
+	int addUserTicket(Map<String, Object> param);
 
 	/**
 	 * 检查是否具有核销卡券的权限
@@ -66,5 +66,5 @@ public interface FishingTicketMapper {
 	 * @param queryParam
 	 * @return
 	 */
-	int checkConsumeAuthority(Map<String, Object> queryParam);
+	int checkConsumeAuthority(Map<String, Object> param);
 }

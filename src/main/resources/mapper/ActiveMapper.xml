@@ -244,11 +244,19 @@
 	</select>
 	
 	<!-- 根据id查询活动信息 -->
-	<select id="getActiveById" parameterType="String" resultType="Map">
-		select a.*,(select count(no) from tb_order where status > #{orderStatus}
-		and product_type = #{productType} and product_id = a.id) count from (select id,
-		poster, name, startTime, endTime, address, telephone,city, creator,
-		upper_limit upperLimit,price, remark, fishing_ground fishingGround,
-		auto_date autoDate from tb_active where id = #{activeId}) a
+	<select id="getActiveById" parameterType="Map" resultType="Map">
+		select t.*,(select count(no) from tb_order where status > #{orderStatus}
+		and product_type = #{productType} and product_id = t.id) count from (select a.id,
+		a.poster, a.name, a.startTime, a.endTime, a.address, a.telephone, a.city, u.nick creator,
+		a.upper_limit upperLimit, a.price, a.remark, a.fishing_ground fishingGround,
+		a.auto_date autoDate from tb_active a inner join tb_user u on a.creator = u.id
+		where a.id = #{activeId}) t
+	</select>
+	
+	<!-- 查询活动参加用户列表 -->
+	<select id="getJoinActiveUserList" parameterType="Map" resultType="Map">
+		select u.id, u.nick, u.image from tb_user u inner join tb_order o on u.id = o.from_user 
+		inner join tb_active a on o.product_id = a.id where a.id = #{activeId} and o.product_type = #{productType} 
+		and o.status > #{orderStatus}
 	</select>
 </mapper>
