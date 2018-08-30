@@ -39,55 +39,55 @@
 			<if test="id != null">
 				id,
 			</if>
-			<if test="poster != null and poster != '' ">
+			<if test="poster != null">
 				poster,
 			</if>
-			<if test="name != null  and name !='' ">
+			<if test="name != null">
 				name,
 			</if>
-			<if test="startTime != null and startTime != '' ">
+			<if test="startTime != null">
 				startTime,
 			</if>
-			<if test="endTime != null and endTime != '' ">
+			<if test="endTime != null">
 				endTime,
 			</if>
-			<if test="address != null and address != '' ">
+			<if test="address != null">
 				address,
 			</if>
-			<if test="telephone != null and telephone != '' ">
+			<if test="telephone != null">
 				telephone,
 			</if>
-			<if test="city != null and city != '' ">
+			<if test="city != null">
 				city,
 			</if>
-			<if test="creator != null and creator != '' ">
+			<if test="creator != null">
 				creator,
 			</if>
-			<if test="upperLimit != null and upperLimit != '' ">
+			<if test="upperLimit != null">
 				upper_limit,
 			</if>
-			<if test="price != null and price != '' ">
+			<if test="price != null">
 				price,
 			</if>
-			<if test="remark != null and remark != '' ">
+			<if test="remark != null">
 				remark,
 			</if>
-			<if test="fishingGround != null and fishingGround != '' ">
+			<if test="fishingGround != null">
 				fishing_ground,
 			</if>
-			<if test="autoDate != null and autoDate != '' ">
+			<if test="autoDate != null">
 				auto_date,
 			</if>
-			<if test="isOpen != null and isOpen != '' ">
+			<if test="isOpen != null">
 				is_open,
 			</if>
-			<if test="status != null and tatus != '' ">
+			<if test="status != null">
 				status,
 			</if>
-			<if test="recommend != null and recommend != '' ">
+			<if test="recommend != null">
 				recommend,
 			</if>
-			<if test="recommendDate != null and recommendDate != '' ">
+			<if test="recommendDate != null">
 				recommend_date,
 			</if>
 		</trim>
@@ -95,55 +95,55 @@
 			<if test="id != null">
 				#{id,jdbcType=INTEGER},
 			</if>
-			<if test="poster != null and poster != '' ">
+			<if test="poster != null">
 				#{poster,jdbcType=VARCHAR},
 			</if>
-			<if test="name != null  and name != '' ">
+			<if test="name != null">
 				#{name,jdbcType=VARCHAR},
 			</if>
-			<if test="startTime != null and startTime != '' ">
+			<if test="startTime != null">
 				#{startTime,jdbcType=TIMESTAMP},
 			</if>
-			<if test="endTime != null  and endTime != '' ">
+			<if test="endTime != null">
 				#{endTime,jdbcType=TIMESTAMP},
 			</if>
-			<if test="address != null and address != '' ">
+			<if test="address != null">
 				#{address,jdbcType=VARCHAR},
 			</if>
-			<if test="telephone != null and telephone != '' ">
+			<if test="telephone != null">
 				#{telephone,jdbcType=VARCHAR},
 			</if>
-			<if test="city != null and city != null ">
+			<if test="city != null">
 				#{city,jdbcType=VARCHAR},
 			</if>
-			<if test="creator != null and creator != '' ">
+			<if test="creator != null">
 				#{creator,jdbcType=INTEGER},
 			</if>
-			<if test="upperLimit != null and upperLimit != '' ">
+			<if test="upperLimit != null">
 				#{upperLimit,jdbcType=INTEGER},
 			</if>
-			<if test="price != null and price != '' ">
+			<if test="price != null">
 				#{price,jdbcType=INTEGER},
 			</if>
-			<if test="remark != null and remark != '' ">
+			<if test="remark != null">
 				#{remark,jdbcType=VARCHAR},
 			</if>
-			<if test="fishingGround != null and fishingGround != '' ">
+			<if test="fishingGround != null">
 				#{fishingGround,jdbcType=INTEGER},
 			</if>
-			<if test="autoDate != null and autoDate != '' ">
+			<if test="autoDate != null">
 				#{autoDate,jdbcType=TIMESTAMP},
 			</if>
-			<if test="isOpen != null and isOpen != '' ">
+			<if test="isOpen != null">
 				#{isOpen,jdbcType=VARCHAR},
 			</if>
-			<if test="status != null and status != '' ">
+			<if test="status != null">
 				#{status,jdbcType=INTEGER},
 			</if>
-			<if test="recommend != null and recommend != '' ">
+			<if test="recommend != null">
 				#{recommend,jdbcType=INTEGER},
 			</if>
-			<if test="recommendDate != null and recommendDate != '' ">
+			<if test="recommendDate != null">
 				#{recommendDate,jdbcType=TIMESTAMP},
 			</if>
 		</trim>
@@ -153,55 +153,55 @@
 	<update id="updateByPrimaryKeySelective" parameterType="com.fish.pojo.Active">
 		update tb_active
 		<set>
-			<if test="poster != null and poster != '' ">
+			<if test="poster != null">
 				poster = #{poster,jdbcType=VARCHAR},
 			</if>
-			<if test="name != null and name != '' ">
+			<if test="name != null">
 				name = #{name,jdbcType=VARCHAR},
 			</if>
-			<if test="starttime != null and starttime != '' ">
+			<if test="starttime != null">
 				startTime = #{startTime,jdbcType=TIMESTAMP},
 			</if>
-			<if test="endtime != null and endtime != '' ">
+			<if test="endtime != null">
 				endTime = #{endTime,jdbcType=TIMESTAMP},
 			</if>
-			<if test="address != null and address != '' ">
+			<if test="address != null">
 				address = #{address,jdbcType=VARCHAR},
 			</if>
-			<if test="telephone != null and telephone != '' ">
+			<if test="telephone != null">
 				telephone = #{telephone,jdbcType=VARCHAR},
 			</if>
-			<if test="city != null and city != '' ">
+			<if test="city != null">
 				city = #{city,jdbcType=VARCHAR},
 			</if>
-			<if test="creator != null and creator != '' ">
+			<if test="creator != null">
 				creator = #{creator,jdbcType=INTEGER},
 			</if>
-			<if test="upperLimit != null and upperLimit != '' ">
+			<if test="upperLimit != null">
 				upper_limit = #{upperLimit,jdbcType=INTEGER},
 			</if>
-			<if test="price != null and price != '' ">
+			<if test="price != null">
 				price = #{price,jdbcType=INTEGER},
 			</if>
-			<if test="remark != null and remark != '' ">
+			<if test="remark != null">
 				remark = #{remark,jdbcType=VARCHAR},
 			</if>
-			<if test="fishingGround != null and fishingGround != '' ">
+			<if test="fishingGround != null">
 				fishing_ground = #{fishingGround,jdbcType=INTEGER},
 			</if>
-			<if test="autoDate != null and autoDate != '' ">
+			<if test="autoDate != null">
 				auto_date = #{autoDate,jdbcType=TIMESTAMP},
 			</if>
-			<if test="isOpen != null and isOpen != '' ">
+			<if test="isOpen != null">
 				is_open = #{isOpen,jdbcType=TIMESTAMP},
 			</if>
-			<if test="status != null and status != '' ">
+			<if test="status != null">
 				status = #{status,jdbcType=TIMESTAMP},
 			</if>
-			<if test="recommend != null and recommend != '' ">
+			<if test="recommend != null">
 				recommend = #{recommend,jdbcType=TIMESTAMP},
 			</if>
-			<if test="recommendDate != null and recommendDate != '' ">
+			<if test="recommendDate != null">
 				recommend_date = #{recommendDate,jdbcType=TIMESTAMP},
 			</if>
 		</set>
