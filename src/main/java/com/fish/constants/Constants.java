@@ -178,4 +178,5 @@ public class Constants {
 	 * 小程序普通消息模板
 	 */
 	public static final String FISH_MINI_PROGRAM_PUBLIC_MESSAGE = "您好，钓鱼日记小程序【客服001号】正在为您服务";
+	
 }

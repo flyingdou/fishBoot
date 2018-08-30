@@ -17,10 +17,12 @@
     <result column="tech_fee" property="techFee" jdbcType="INTEGER" />
     <result column="telephone" property="telephone" jdbcType="VARCHAR" />
     <result column="wechat_id" property="wechatId" jdbcType="VARCHAR" />
+    <result column="recommend_user" property="recommend_user" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, nick, image, sex, register_date, login_date, province, city, county, score, type, 
-    frist_fishing_date, tech_fee, telephone, wechat_id
+    frist_fishing_date, tech_fee, telephone, wechat_id, recommend_user, level
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -80,6 +82,12 @@
       <if test="wechatId != null" >
         wechat_id,
       </if>
+      <if test="recommend_user != null" >
+        recommend_user,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -127,6 +135,12 @@
       <if test="wechatId != null" >
         #{wechatId,jdbcType=VARCHAR},
       </if>
+      <if test="recommend_user != null" >
+        #{recommend_user,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.fish.pojo.User" >
@@ -173,6 +187,12 @@
       </if>
       <if test="wechatId != null" >
         wechat_id = #{wechatId,jdbcType=VARCHAR},
+      </if>
+      <if test="recommend_user != null" >
+        wechat_id = #{recommend_user,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        wechat_id = #{level,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}

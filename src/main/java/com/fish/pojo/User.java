@@ -48,7 +48,19 @@ public class User {
 
 	// 微信标识(openId ,unionId)
 	private String wechatId;
+	
+	// 推荐人
+	private String recommend_user;
+	
+	// 用户等级
+	private String level;
+	
+	
 
+	/**
+	 * setter && getter
+	 * @return
+	 */
 	public Integer getId() {
 		return id;
 	}
@@ -167,5 +179,21 @@ public class User {
 
 	public void setWechatId(String wechatId) {
 		this.wechatId = wechatId == null ? null : wechatId.trim();
+	}
+
+	public String getRecommend_user() {
+		return recommend_user;
+	}
+
+	public void setRecommend_user(String recommend_user) {
+		this.recommend_user = recommend_user;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
 	}
 }
