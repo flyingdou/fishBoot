@@ -2,8 +2,12 @@ package com.fish.controller;
 
 import java.io.File;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+
 import org.apache.commons.io.FileUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,6 +15,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fish.constants.Constants;
 import com.fish.util.commentsUtil;
+
+import sun.misc.BASE64Encoder;
 
 /**
  * 
@@ -23,22 +29,18 @@ public class UploadController {
 	/**
 	 * 腾讯云点播服务SECRETID
 	 */
-	@SuppressWarnings("unused")
 	private final String SECRETID = "AKIDFwY5QaLbS5b9WKvc1EF6Sr4BAQc5fLnA";
 	/**
 	 * 腾讯云点播服务SECRETKEY
 	 */
-	@SuppressWarnings("unused")
 	private final String SECRETKEY = "vlP0oZtV4m5GGBzzvnhljVjv1KXfbWM1";
 	/**
 	 * 加密类型
 	 */
-	@SuppressWarnings("unused")
 	private final String HMAC_ALGORITHM = "HmacSHA1";
 	/**
 	 * 编码格式
 	 */
-	@SuppressWarnings("unused")
 	private final String CONTENT_CHARSET = "UTF-8";
 
 	/**
@@ -78,59 +80,59 @@ public class UploadController {
 		}
 	}
 
-	// /**
-	// * 获取腾讯云点播服务上传签名
-	// *
-	// * @return
-	// * @throws Exception
-	// */
-	// @RequestMapping("/getUploadSignature")
-	// @ResponseBody
-	// public String getUploadSignature() throws Exception {
-	// // 最终签名
-	// String strSign = "";
-	// // 签名参数
-	// String contextStr = "";
-	// // 当前时间戳
-	// long currentTime = System.currentTimeMillis() / 1000;
-	// // 随机字符串(随机32位数字)
-	// int random = Integer.valueOf(commentsUtil.getRandomName(32));
-	// // 有效时长(固定)
-	// final int signValidDuration = 7776000;
-	// // 签名失效时间
-	// long endTime = (currentTime + signValidDuration);
-	//
-	// // 拼接参数(进行签名)
-	// contextStr += "secretId=" + java.net.URLEncoder.encode(SECRETID, "utf8");
-	// contextStr += "&currentTimeStamp=" + currentTime;
-	// contextStr += "&expireTime=" + endTime;
-	// contextStr += "&random=" + random;
-	// try {
-	// Mac mac = Mac.getInstance(HMAC_ALGORITHM);
-	// SecretKeySpec secretKey = new
-	// SecretKeySpec(this.SECRETKEY.getBytes(CONTENT_CHARSET), mac.getAlgorithm());
-	// mac.init(secretKey);
-	// byte[] hash = mac.doFinal(contextStr.getBytes(CONTENT_CHARSET));
-	// byte[] sigBuf = byteMerger(hash, contextStr.getBytes("utf8"));
-	// strSign = new String(new BASE64Encoder().encode(sigBuf).getBytes());
-	// strSign = strSign.replace(" ", "").replace("\n", "").replace("\r", "");
-	// } catch (Exception e) {
-	// throw e;
-	// }
-	// return strSign;
-	// }
-	//
-	// /**
-	// * 加密
-	// *
-	// * @param byte1
-	// * @param byte2
-	// * @return
-	// */
-	// public static byte[] byteMerger(byte[] byte1, byte[] byte2) {
-	// byte[] byte3 = new byte[byte1.length + byte2.length];
-	// System.arraycopy(byte1, 0, byte3, 0, byte1.length);
-	// System.arraycopy(byte2, 0, byte3, byte1.length, byte2.length);
-	// return byte3;
-	// }
+	 /**
+	 * 获取腾讯云点播服务上传签名
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	 @RequestMapping("/getUploadSignature")
+	 @ResponseBody
+	 public String getUploadSignature() throws Exception {
+	 // 最终签名
+	 String strSign = "";
+	 // 签名参数
+	 String contextStr = "";
+	 // 当前时间戳
+	 long currentTime = System.currentTimeMillis() / 1000;
+	 // 随机字符串(随机32位数字)
+	 int random = Integer.valueOf(commentsUtil.getRandomName(32));
+	 // 有效时长(固定)
+	 final int signValidDuration = 7776000;
+	 // 签名失效时间
+	 long endTime = (currentTime + signValidDuration);
+	
+	 // 拼接参数(进行签名)
+	 contextStr += "secretId=" + java.net.URLEncoder.encode(SECRETID, "utf8");
+	 contextStr += "&currentTimeStamp=" + currentTime;
+	 contextStr += "&expireTime=" + endTime;
+	 contextStr += "&random=" + random;
+	 try {
+	 Mac mac = Mac.getInstance(HMAC_ALGORITHM);
+	 SecretKeySpec secretKey = new
+	 SecretKeySpec(this.SECRETKEY.getBytes(CONTENT_CHARSET), mac.getAlgorithm());
+	 mac.init(secretKey);
+	 byte[] hash = mac.doFinal(contextStr.getBytes(CONTENT_CHARSET));
+	 byte[] sigBuf = byteMerger(hash, contextStr.getBytes("utf8"));
+	 strSign = new String(new BASE64Encoder().encode(sigBuf).getBytes());
+	 strSign = strSign.replace(" ", "").replace("\n", "").replace("\r", "");
+	 } catch (Exception e) {
+	 throw e;
+	 }
+	 return strSign;
+	 }
+	
+	 /**
+	 * 加密
+	 *
+	 * @param byte1
+	 * @param byte2
+	 * @return
+	 */
+	 public static byte[] byteMerger(byte[] byte1, byte[] byte2) {
+	 byte[] byte3 = new byte[byte1.length + byte2.length];
+	 System.arraycopy(byte1, 0, byte3, 0, byte1.length);
+	 System.arraycopy(byte2, 0, byte3, byte1.length, byte2.length);
+	 return byte3;
+	 }
 }
