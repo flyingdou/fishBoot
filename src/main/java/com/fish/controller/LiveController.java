@@ -59,9 +59,10 @@ public class LiveController {
 	 * @return
 	 */
 	@RequestMapping("/getLiveList")
-	public String getLiveList() {
+	public String getLiveList(String json) {
 		try {
-			List<Map<String, Object>> liveList = liveService.getLiveList();
+			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
+			List<Map<String, Object>> liveList = liveService.getLiveList(param);
 			ResultUtil result = ResultUtil.success(liveList);
 			return JSON.toJSONStringWithDateFormat(result, "yyyy-MM-dd HH:mm");
 		} catch (Exception e) {
@@ -94,9 +95,10 @@ public class LiveController {
 	 * @return
 	 */
 	@RequestMapping("/getVideoList")
-	public String getVideoList() {
+	public String getVideoList(String json) {
 		try {
-			List<Map<String, Object>> videoList = liveService.getVideoList();
+			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
+			List<Map<String, Object>> videoList = liveService.getVideoList(param);
 			ResultUtil result = ResultUtil.success(videoList);
 			return JSON.toJSONStringWithDateFormat(result, "yyyy-MM-dd HH:mm");
 		} catch (Exception e) {

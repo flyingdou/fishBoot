@@ -28,7 +28,7 @@ public interface LiveService {
 	 * 
 	 * @return
 	 */
-	List<Map<String, Object>> getLiveList();
+	List<Map<String, Object>> getLiveList(JSONObject param);
 
 	/**
 	 * 获得直播推流URL
@@ -51,7 +51,7 @@ public interface LiveService {
 	 * 
 	 * @return
 	 */
-	List<Map<String, Object>> getVideoList();
+	List<Map<String, Object>> getVideoList(JSONObject param);
 
 	/**
 	 * 查询直播数据

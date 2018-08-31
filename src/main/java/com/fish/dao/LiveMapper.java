@@ -50,7 +50,7 @@ public interface LiveMapper {
 	 * 
 	 * @return
 	 */
-	List<Map<String, Object>> getLiveList();
+	List<Map<String, Object>> getLiveList(Map<String, Object> param);
 
 	/**
 	 * 根据用户查询直播数据
@@ -73,7 +73,7 @@ public interface LiveMapper {
 	 * 
 	 * @return
 	 */
-	List<Map<String, Object>> getVideoList();
+	List<Map<String, Object>> getVideoList(Map<String, Object> param);
 
 	/**
 	 * 检查用户是否有观看直播的权限

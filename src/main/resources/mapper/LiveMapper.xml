@@ -176,16 +176,24 @@
 	</update>
 
 	<!-- 查询直播列表 -->
-	<select id="getLiveList" resultType="Map">
+	<select id="getLiveList" parameterType="Map" resultType="Map">
 		select l.id, u.id member, u.nick, l.live_name liveName, l.live_cost liveCost, l.live_image liveImage, 
 		l.live_notice liveNotice, l.live_state liveState, l.months, l.tribe_id tribeId
 		from tb_live l inner join tb_user u on l.member = u.id
-		where live_state in(0,1) order by l.live_state desc
+		where live_state in(0,1) 
+		<if test="level != null and level != ''">
+			and u.level = #{level}
+		</if>
+		order by l.live_state desc
 	</select>
 	
 	<!-- 查询视频列表 -->
-	<select id="getVideoList" resultType="Map">
-		select id, name, vid, image, release_date from tb_video order by release_date desc
+	<select id="getVideoList" parameterType="Map" resultType="Map">
+		select id, name, vid, image, release_date from tb_video where 1=1 
+		<if test="type != null and type != ''">
+			and type = #{type}
+		</if>
+		order by release_date desc
 	</select>
 	
 	<!-- 根据用户查询直播数据 -->

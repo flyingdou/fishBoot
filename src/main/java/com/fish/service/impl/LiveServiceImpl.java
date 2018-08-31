@@ -96,8 +96,8 @@ public class LiveServiceImpl implements LiveService {
 	 * 查询直播间列表
 	 */
 	@Override
-	public List<Map<String, Object>> getLiveList() {
-		List<Map<String, Object>> liveList = liveMapper.getLiveList();
+	public List<Map<String, Object>> getLiveList(JSONObject param) {
+		List<Map<String, Object>> liveList = liveMapper.getLiveList(param);
 		for (Map<String, Object> map : liveList) {
 			// 获取当前直播间的观看人数
 			Object total_online = null;
@@ -161,8 +161,8 @@ public class LiveServiceImpl implements LiveService {
 	 * 查询视频列表
 	 */
 	@Override
-	public List<Map<String, Object>> getVideoList() {
-		return liveMapper.getVideoList();
+	public List<Map<String, Object>> getVideoList(JSONObject param) {
+		return liveMapper.getVideoList(param);
 	}
 
 	/**
