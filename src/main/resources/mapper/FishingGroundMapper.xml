@@ -249,7 +249,7 @@
 		and type = #{type}
 	</if>
 	<if test="feeType != null">
-		and feeType = #{feeType}
+		and fee_type = #{feeType}
 	</if>
 	<if test="name != null">
 		and name like '%${name}%'
