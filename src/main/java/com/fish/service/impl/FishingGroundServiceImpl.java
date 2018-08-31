@@ -32,21 +32,7 @@ public class FishingGroundServiceImpl implements FishingGroundService {
 	 */
 	public JSONObject release(JSONObject param) {
 		// 在本地生成一条钓场数据
-		FishingGround fishingGround = new FishingGround();
-		fishingGround.setPoster(param.getString("poster"));
-		fishingGround.setName(param.getString("name"));
-		fishingGround.setType(param.getString("type"));
-		fishingGround.setFeeType(param.getInteger("feeType"));
-		fishingGround.setFee(param.getInteger("fee"));
-		fishingGround.setWaterArea(param.getInteger("waterArea"));
-		fishingGround.setWaterDeep(param.getInteger("waterDeep"));
-		fishingGround.setAddress(param.getString("address"));
-		fishingGround.setLongitude(param.getBigDecimal("longitude"));
-		fishingGround.setLatitude(param.getBigDecimal("latitude"));
-		fishingGround.setTelephone(param.getString("telephone"));
-		fishingGround.setRemark(param.getString("remark"));
-		fishingGround.setCreator(param.getInteger("memberId"));
-		fishingGround.setCity(param.getString("city"));
+		FishingGround fishingGround = JSONObject.toJavaObject(param, FishingGround.class);
 		fishingGround.setWechat_audit(Constants.APPLY_STATUS_AUDITING);
 		fishingGround.setAutoDate(new Date());
 
