@@ -237,8 +237,8 @@
 	(select IFNULL(max(l.fishing_weight), 0) from tb_fishing_logs l inner join tb_sign s on l.sign = s.id where s.fishing_ground = t.id) fishingMaxWeight,
 	ROUND(6378.138 * 2 * ASIN(SQRT(POW(SIN((t.latitude * PI() / 180 - t.mLatitude * PI() / 180) / 2),2) + COS(t.mLatitude * PI() / 180) *
 	COS(t.latitude * PI() / 180) * POW(SIN((t.longitude * PI() / 180 - t.mLongitude * PI() / 180) / 2),2))) * 1000) AS distance
-	from (select id,name,poster,city,address,longitude,latitude, #{longitude} mLongitude, #{latitude} mLatitude from tb_fishing_ground 
-	where wechat_audit = #{audit}
+	from (select id,name,poster,city,address,wechat_audit audit,longitude,latitude, #{longitude} mLongitude, #{latitude} mLatitude from tb_fishing_ground 
+	where 1=1
 	<if test="user != null">
 		and owner = #{user}
 	</if>
@@ -282,8 +282,10 @@
   
   <!-- 根据钓场Id查询钓场所属的活动和垂钓券 -->
   <select id="getFishingTicketByFishingGroundId" parameterType="Map" resultType="Map">
-  	select id,name,poster from tb_active where fishing_ground = #{fishingGroundId}
-	UNION ALL
-	select id,name,poster from tb_fishing_ticket where fit_fish_ground = #{fishingGroundId}
+	select id,name,poster,'active' type from tb_active where fishing_ground = #{fishingGroundId}
+	
+	union all
+	
+	select id,name,poster,'ticket' type from tb_fishing_ticket where fit_fish_ground = #{fishingGroundId}
   </select>
  </mapper>
