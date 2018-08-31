@@ -189,10 +189,10 @@
         wechat_id = #{wechatId,jdbcType=VARCHAR},
       </if>
       <if test="recommend_user != null" >
-        wechat_id = #{recommend_user,jdbcType=VARCHAR},
+        recommend_user = #{recommend_user,jdbcType=VARCHAR},
       </if>
       <if test="level != null" >
-        wechat_id = #{level,jdbcType=VARCHAR},
+        level = #{level,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
