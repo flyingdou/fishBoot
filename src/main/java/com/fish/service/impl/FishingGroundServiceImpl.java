@@ -33,7 +33,7 @@ public class FishingGroundServiceImpl implements FishingGroundService {
 	public JSONObject release(JSONObject param) {
 		// 在本地生成一条钓场数据
 		FishingGround fishingGround = JSONObject.toJavaObject(param, FishingGround.class);
-		fishingGround.setWechat_audit(Constants.APPLY_STATUS_AUDITING);
+		fishingGround.setWechat_audit(Constants.APPLY_STATUS_PASS);
 		fishingGround.setAutoDate(new Date());
 
 		// 保存到数据库
