@@ -65,18 +65,6 @@ public class FishingGroundServiceImpl implements FishingGroundService {
 	public JSONObject getFishingGroundList(JSONObject param) {
 		// 添加参数
 		param.fluentPut("audit", Constants.APPLY_STATUS_PASS);
-		if (param.containsKey("name")) {
-			if (param.containsKey("city")) {
-				param.remove("city");
-			}
-			if (param.containsKey("type")) {
-				param.remove("type");
-			}
-		}
-		
-		if (param.containsKey("selectFishingGround")) {
-			param.remove("type");
-		}
 		// 查询钓场
 		List<Map<String, Object>> fishingGroundList = fishingGroundMapper.getFishingGroundList(param);
 		JSONObject result = new JSONObject();

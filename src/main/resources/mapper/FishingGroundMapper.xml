@@ -248,17 +248,20 @@
 	<if test="type != null">
 		and type = #{type}
 	</if>
+	<if test="feeType != null">
+		and feeType = #{feeType}
+	</if>
 	<if test="name != null">
 		and name like '%${name}%'
 	</if>
 	) t
-	<if test="fishingCount != null">
+	<if test="sort == 'fishingCount'">
 		order by fishingCount desc
 	</if>
-	<if test="userCount != null">
+	<if test="sort == 'userCount'">
 		order by userCount desc
 	</if>
-	<if test="distance != null">
+	<if test="sort == 'distance'">
 		order by distance desc
 	</if>
 	<if test="selectFishingGround">
