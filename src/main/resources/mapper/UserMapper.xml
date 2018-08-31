@@ -245,7 +245,7 @@
   <select id="getRanking" parameterType="Map" resultType="Map">
   	select t.*, (select count(id) from tb_user where recommend_user = t.id) pleaseCount, 
 	(select IFNULL(sum(money), 0) from tb_order where id = 1 and status > 0) income,
-	6 shareIncome
+	0 shareIncome
 	from (
 		select 
 		u.id, u.image, u.nick, u.city, u.county, le.name as level, u.telephone,
@@ -269,7 +269,7 @@
 	) t
 	
 	<if test="recommendUser != null">
-		where where t.recommendUser = #{recommendUser}
+		where recommendUser = #{recommendUser}
 	</if>
 	
 	<if test="limit == 'fishCount'">
