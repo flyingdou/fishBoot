@@ -153,12 +153,14 @@
 		       p.content, GROUP_CONCAT(pim.image) as images,
 		       IFNULL(pxx.praiseCount,0) as praiseCount, 
 		       IFNULL(e.evalCount,0) as evalCount,
-		       IFNULL(r.reCount,0) as rewardCount,  
-		       ROUND(
-		              6378.138 * 2 * ASIN(SQRT(POW(SIN((#{latitude} * PI() / 180 - p.latitude * PI() / 180) / 2 ),
-		                    2) + COS(#{latitude} * PI() / 180) * COS(p.latitude * PI() / 180) * POW(
-		                    SIN((#{longitude} * PI() / 180 - p.longitude * PI() / 180) / 2), 2))) * 1000
-		            ) AS distance
+		       IFNULL(r.reCount,0) as rewardCount  
+		       <if test = " latitude != null || latitude != '' ">
+			       ,ROUND(
+			              6378.138 * 2 * ASIN(SQRT(POW(SIN((#{latitude} * PI() / 180 - p.latitude * PI() / 180) / 2 ),
+			                    2) + COS(#{latitude} * PI() / 180) * COS(p.latitude * PI() / 180) * POW(
+			                    SIN((#{longitude} * PI() / 180 - p.longitude * PI() / 180) / 2), 2))) * 1000
+			            ) AS distance
+		       </if>
 	  FROM
 		        tb_post p INNER JOIN tb_user u ON p.user = u.id 
 			              LEFT JOIN tb_post_image pim ON p.id = pim.post 
@@ -188,10 +190,22 @@
 	GROUP BY 
 	            u.id, pim.post    
 	
-	ORDER BY
-	    		distance ASC 
-  
-  
+	<!-- 最新的数据 -->
+	<if test = " searchType == 'lastest' ">
+			ORDER BY p.poster_date desc 
+	</if>
+	
+	<!-- 离我最近 -->
+	<if test = " searchType == 'closer' ">
+			ORDER BY distance asc 
+	</if>
+	
+	<!-- 精华帖 (用户点赞最多) -->
+	<if test = " searchType == 'nice' ">
+			ORDER BY  praiseCount desc  
+	</if>
+	
+	
   </select>
 
 
