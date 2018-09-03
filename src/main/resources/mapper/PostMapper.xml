@@ -191,7 +191,7 @@
 	            u.id, pim.post    
 	
 	<!-- 最新的数据 -->
-	<if test = " searchType == 'lastest' ">
+	<if test = " searchType == 'latest' ">
 			ORDER BY p.poster_date desc 
 	</if>
 	
