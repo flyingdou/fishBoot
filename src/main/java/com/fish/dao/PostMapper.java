@@ -1,14 +1,25 @@
 package com.fish.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import com.fish.pojo.Post;
 
 public interface PostMapper {
-    int deleteByPrimaryKey(Integer id);
+	int deleteByPrimaryKey(Integer id);
 
-    int insertSelective(Post record);
+	int insertSelective(Post record);
 
-    Post selectByPrimaryKey(Integer id);
+	Post selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Post record);
+	int updateByPrimaryKeySelective(Post record);
+
+	/**
+	 * 查询帖子列表
+	 * 
+	 * @param param
+	 * @return
+	 */
+	List<Map<String, Object>> postList(Map<String, Object> param);
 
 }

@@ -1,12 +1,15 @@
 package com.fish.service.impl;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fish.constants.Constants;
 import com.fish.dao.PostImageMapper;
 import com.fish.dao.PostMapper;
 import com.fish.pojo.Post;
@@ -21,14 +24,13 @@ import com.fish.service.PostService;
 @Service
 @Transactional
 public class PostServiceImpl implements PostService {
-	
+
 	/**
 	 * 注入postMapper对象
 	 */
 	@Autowired
 	private PostMapper postMapper;
-	
-	
+
 	/**
 	 * 注入postImageMapper对象
 	 */
@@ -40,47 +42,47 @@ public class PostServiceImpl implements PostService {
 	 */
 	@Override
 	public JSONObject releasePost(JSONObject param) {
-		
+
 		JSONObject result = new JSONObject();
-		
+
 		// 初始化post对象
 		Post post = new Post();
-		
+
 		// 发帖内容
 		if (param.containsKey("content")) {
 			post.setContent(param.getString("content"));
 		}
-		
+
 		// 发帖人
 		post.setUser(param.getInteger("userId"));
-		
+
 		// 视频url
 		if (param.containsKey("video_url")) {
 			post.setVideoUrl(param.getString("video_url"));
 		}
-		
+
 		// 钓法
 		if (param.containsKey("fishMethod")) {
 			post.setFishingMethod(param.getString("fishMethod"));
 		}
-		
+
 		// 鱼的种类
 		if (param.containsKey("fishGrain")) {
 			post.setFishingGrain(param.getString("fishGrain"));
 		}
-		
+
 		// 经纬度
 		if (param.containsKey("longitude") && param.containsKey("latitude")) {
 			post.setLongitude(param.getDouble("longitude"));
 			post.setLatitude(param.getDouble("latitude"));
 		}
-		
+
 		// 发帖时间
 		post.setPosterDate(new Date());
-		
+
 		// 持久化数据
 		postMapper.insertSelective(post);
-		
+
 		// 帖子图片处理
 		if (param.containsKey("pictures")) {
 			String pictures = param.getString("pictures");
@@ -90,17 +92,28 @@ public class PostServiceImpl implements PostService {
 				pi.setPost(post.getId());
 				pi.setImage(string);
 				pi.setAutoDate(new Date());
-				
+
 				// 持久化数据
 				postImageMapper.insertSelective(pi);
-				
+
 			}
-			
+
 		}
-		
+
 		result.fluentPut("key", post.getId());
-		
+
 		return result;
+	}
+
+	/**
+	 * 查询帖子列表
+	 */
+	@Override
+	public List<Map<String, Object>> postList(JSONObject param) {
+		param.fluentPut("status", Constants.VALID_STATUS);
+		param.fluentPut("parent_code", Constants.USER_LEVEL_CODE);
+		param.fluentPut("reward_type", Constants.ORDER_TYPE_REWARD);
+		return postMapper.postList(param);
 	}
 
 }

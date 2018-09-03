@@ -5,6 +5,9 @@ package com.fish.service;
  * desc: 帖子逻辑接口
  * */
 
+import java.util.List;
+import java.util.Map;
+
 import com.alibaba.fastjson.JSONObject;
 
 public interface PostService {
@@ -15,5 +18,14 @@ public interface PostService {
 	 * @return
 	 */
 	JSONObject releasePost (JSONObject param);
+	
+	
+	
+	/**
+	 * 帖子列表
+	 * @param param
+	 * @return
+	 */
+	List<Map<String, Object>> postList (JSONObject param);
 
 }

@@ -185,4 +185,23 @@ public class Constants {
 	 */
 	public static final String USER_LEVEL_CODE = "user_level";
 	
+	
+	/**
+	 * 状态(有效)
+	 */
+	public static final Integer VALID_STATUS = 1;
+	
+	
+	/**
+	 * 状态(无效)
+	 */
+	public static final Integer INVALID_STATUS = 0;
+	
+	
+	
+	/**
+	 * 订单类型(打赏)
+	 */
+	public static final String ORDER_TYPE_REWARD = "C";
+	
 }

@@ -21,34 +21,51 @@ import com.fish.util.ResultUtil;
 @Controller
 @RequestMapping("/post")
 public class PostController {
-	
-	
+
 	/**
 	 * 注入postService对象
 	 */
 	@Autowired
 	private PostService postService;
-	
-	
-	
+
 	/**
 	 * 发布帖子
+	 * 
 	 * @param json
 	 * @return
 	 */
 	@RequestMapping("/releasePost")
-	public String releasePost (String json) {
+	public String releasePost(String json) {
 		try {
 			// 处理请求参数
 			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
 			ResultUtil rs = ResultUtil.success(postService.releasePost(param));
 			return JSON.toJSONString(rs);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return JSON.toJSONString(e);
 		}
-		
+
+	}
+
+	/**
+	 * 查询帖子列表
+	 * 
+	 * @param json
+	 * @return
+	 */
+	@RequestMapping("/postList")
+	public String postList(String json) {
+		try {
+			// 处理请求参数
+			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
+			ResultUtil rs = ResultUtil.success(postService.postList(param));
+			return JSON.toJSONString(rs);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return JSON.toJSONString(e);
+		}
 		
 	}
 	
@@ -57,6 +74,5 @@ public class PostController {
 	
 	
 	
-	
-	
+
 }
