@@ -188,13 +188,13 @@
 						              ) r ON r.product_id = p.id 
 	WHERE 
 	           1 = 1 
-	           <if test="chooseMethodStr and chooseMethodStr != null and chooseMethodStr != '' ">
+	           <if test="chooseMethodStr and chooseMethodStr != null">
 	          		and p.fishing_method in (
 	          		   <foreach collection="chooseMethodStr" item="method" separator=",">#{method}</foreach>
 	          		)
 	           </if>
 	           
-	           <if test="chooseClassStr and chooseClassStr != null and chooseClassStr != '' ">
+	           <if test="chooseClassStr and chooseClassStr != null">
 	          		and p.fishing_grain in (
 	          			<foreach collection="chooseClassStr" item="class" separator=",">#{class}</foreach>
 	          		)
