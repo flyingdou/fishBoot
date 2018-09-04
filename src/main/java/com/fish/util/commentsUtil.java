@@ -12,6 +12,7 @@ import java.security.Key;
 import java.security.MessageDigest;
 import java.security.Security;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -369,4 +370,24 @@ public class commentsUtil {
 			return null;
 		}
 	}
+	
+	
+	
+	/**
+	 * string 字符串转Integer list
+	 * @param strings
+	 * @return
+	 */
+	public static List<Integer> getIntegers (String strings) {
+		String[] stringx = strings.split(",");
+		List<Integer> list = new ArrayList<Integer>();
+		for (String string : stringx) {
+			list.add(Integer.valueOf(string));
+		}
+		return list;
+		
+	}
+	
+	
+	
 }

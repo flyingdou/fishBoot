@@ -15,6 +15,7 @@ import com.fish.dao.PostMapper;
 import com.fish.pojo.Post;
 import com.fish.pojo.PostImage;
 import com.fish.service.PostService;
+import com.fish.util.commentsUtil;
 
 /*
  * 作者: dou
@@ -113,6 +114,17 @@ public class PostServiceImpl implements PostService {
 		param.fluentPut("status", Constants.VALID_STATUS);
 		param.fluentPut("parent_code", Constants.USER_LEVEL_CODE);
 		param.fluentPut("reward_type", Constants.ORDER_TYPE_REWARD);
+		if (param.containsKey("chooseMethodStr")) {
+			String chooseMethods = param.getString("chooseMethodStr");
+			List<Integer> chooseList = commentsUtil.getIntegers(chooseMethods);
+			param.fluentPut("chooseMethodStr", chooseList);
+		}
+		
+		if (param.containsKey("chooseClassStr")) {
+			String chooseClass = param.getString("chooseClassStr");
+			List<Integer> chooseList = commentsUtil.getIntegers(chooseClass);
+			param.fluentPut("chooseClassStr", chooseList);
+		}
 		return postMapper.postList(param);
 	}
 
