@@ -27,6 +27,7 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
@@ -382,7 +383,9 @@ public class commentsUtil {
 		String[] stringx = strings.split(",");
 		List<Integer> list = new ArrayList<Integer>();
 		for (String string : stringx) {
-			list.add(Integer.valueOf(string));
+			if (StringUtils.isNotBlank(string)) {
+				list.add(Integer.valueOf(string));
+			}
 		}
 		return list;
 		
