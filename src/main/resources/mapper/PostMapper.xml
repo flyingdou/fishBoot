@@ -188,11 +188,11 @@
 						              ) r ON r.product_id = p.id 
 	WHERE 
 	           1 = 1 
-	           <if test=" chooseMethodStr && chooseMethodStr != null && chooseMethodStr != '' ">
+	           <if test="chooseMethodStr and chooseMethodStr != null and chooseMethodStr != '' ">
 	          		and p.fishing_method in (#{chooseMethodStr})
 	           </if>
 	           
-	           <if test="chooseClassStr && chooseClassStr != null && chooseClassStr != '' ">
+	           <if test="chooseClassStr and chooseClassStr != null and chooseClassStr != '' ">
 	          		and p.fishing_grain in (#{chooseClassStr})
 	           </if>
             
