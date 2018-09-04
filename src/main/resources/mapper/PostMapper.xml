@@ -185,7 +185,17 @@
 			              LEFT JOIN 
 						              (
 						                  select rx.product_id, count(rx.id) as reCount from tb_order rx where rx.product_type = #{reward_type} AND rx.status = #{status} GROUP BY rx.product_id
-						              ) r ON r.product_id = p.id             
+						              ) r ON r.product_id = p.id 
+	WHERE 
+	           1 = 1 
+	           <if test="chooseMethodStr != null || chooseMethodStr != '' ">
+	          		and p.fishing_method in #{chooseMethodStr}
+	           </if>
+	           
+	           <if test="chooseClassStr != null || chooseClassStr != '' ">
+	          		and p.fishing_grain in #{chooseClassStr}
+	           </if>
+            
 		
 	GROUP BY 
 	            u.id, pim.post    
