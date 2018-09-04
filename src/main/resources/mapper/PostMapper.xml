@@ -189,11 +189,11 @@
 	WHERE 
 	           1 = 1 
 	           <if test="chooseMethodStr != null || chooseMethodStr != '' ">
-	          		and p.fishing_method in #{chooseMethodStr}
+	          		and p.fishing_method in (#{chooseMethodStr})
 	           </if>
 	           
 	           <if test="chooseClassStr != null || chooseClassStr != '' ">
-	          		and p.fishing_grain in #{chooseClassStr}
+	          		and p.fishing_grain in (#{chooseClassStr})
 	           </if>
             
 		
