@@ -10,8 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fish.constants.Constants;
+import com.fish.dao.EvaluateMapper;
+import com.fish.dao.OrderMapper;
 import com.fish.dao.PostImageMapper;
 import com.fish.dao.PostMapper;
+import com.fish.dao.PraiseMapper;
 import com.fish.pojo.Post;
 import com.fish.pojo.PostImage;
 import com.fish.service.PostService;
@@ -31,13 +34,40 @@ public class PostServiceImpl implements PostService {
 	 */
 	@Autowired
 	private PostMapper postMapper;
+	
+	
 
 	/**
 	 * 注入postImageMapper对象
 	 */
 	@Autowired
 	private PostImageMapper postImageMapper;
+	
+	
 
+	/**
+	 * 注入praiseMapper对象
+	 */
+	@Autowired
+	private PraiseMapper praiseMapper; 
+	
+	
+	/**
+	 * 注入evaluateMapper对象
+	 */
+	@Autowired
+	private EvaluateMapper evaluateMapper; 
+	
+	
+	/**
+	 * 注入orderMapper对象
+	 */
+	@Autowired
+	private OrderMapper orderMapper;
+	
+	
+	
+	
 	/**
 	 * 发布帖子
 	 */
@@ -126,6 +156,38 @@ public class PostServiceImpl implements PostService {
 			param.fluentPut("chooseClassStr", chooseList);
 		}
 		return postMapper.postList(param);
+	}
+
+	/**
+	 * 帖子详情
+	 */
+	@Override
+	public JSONObject postDetail(JSONObject param) {
+		param.fluentPut("parent_code", Constants.USER_LEVEL_CODE)
+		     .fluentPut("status", Constants.VALID_STATUS)
+		     .fluentPut("product_type", Constants.ORDER_TYPE_REWARD)
+		     ;
+		// 查询帖子自身详情
+		Map<String, Object> postDetail = postMapper.postDetail(param);
+		
+		// 查询帖子有效点赞列表
+		List<Map<String, Object>> praiseList = praiseMapper.praiseListByPost(param);
+		
+		// 查询帖子评论列表
+		List<Map<String, Object>> evaluateList = evaluateMapper.evaluateListByPost(param);
+		
+		// 查询帖子打赏列表
+		List<Map<String, Object>> rewardList = orderMapper.rewardListByPost(param);
+		
+		
+		
+		JSONObject result = new JSONObject();
+		result.fluentPut("postDetail", postDetail)
+		      .fluentPut("praiseList", praiseList)
+		      .fluentPut("evaluateList", evaluateList)
+		      .fluentPut("rewardList", rewardList)
+		      ;
+		return result;
 	}
 
 }

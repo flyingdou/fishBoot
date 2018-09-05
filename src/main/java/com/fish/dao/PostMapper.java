@@ -22,4 +22,22 @@ public interface PostMapper {
 	 */
 	List<Map<String, Object>> postList(Map<String, Object> param);
 
+	
+	
+	/**
+	 * 帖子详情
+	 * 
+	 * @param param
+	 * @return
+	 */
+	Map<String, Object> postDetail(Map<String, Object> param);
+	
+	
+	
+	
+	
+	
+	
+	
+
 }

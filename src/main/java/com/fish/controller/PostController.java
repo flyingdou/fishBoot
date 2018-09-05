@@ -48,6 +48,8 @@ public class PostController {
 		}
 
 	}
+	
+	
 
 	/**
 	 * 查询帖子列表
@@ -66,11 +68,30 @@ public class PostController {
 			e.printStackTrace();
 			return JSON.toJSONString(e);
 		}
+
+	}
+
+	
+	
+	/**
+	 * 查询帖子详情
+	 * 
+	 * @param json
+	 * @return
+	 */
+	@RequestMapping("/postDetail")
+	public String postDetail(String json) {
+		try {
+			// 处理请求参数
+			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
+			ResultUtil rs = ResultUtil.success(postService.postDetail(param));
+			return JSON.toJSONString(rs);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return JSON.toJSONString(e);
+		}
 		
 	}
-	
-	
-	
 	
 	
 	

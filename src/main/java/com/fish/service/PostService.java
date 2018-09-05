@@ -11,21 +11,29 @@ import java.util.Map;
 import com.alibaba.fastjson.JSONObject;
 
 public interface PostService {
-	
+
 	/**
 	 * 发布帖子
+	 * 
 	 * @param param
 	 * @return
 	 */
-	JSONObject releasePost (JSONObject param);
-	
-	
-	
+	JSONObject releasePost(JSONObject param);
+
 	/**
 	 * 帖子列表
+	 * 
 	 * @param param
 	 * @return
 	 */
-	List<Map<String, Object>> postList (JSONObject param);
+	List<Map<String, Object>> postList(JSONObject param);
+
+	/**
+	 * 帖子详情
+	 * 
+	 * @param param
+	 * @return
+	 */
+	JSONObject postDetail(JSONObject param);
 
 }

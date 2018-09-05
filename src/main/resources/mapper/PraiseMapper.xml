@@ -96,4 +96,33 @@
 			        p.post = #{post} 
 			        AND p.status = #{status} 
 	</select>
+	
+	
+	<!-- 查询帖子的有效点赞列表 -->
+	<select id="praiseListByPost" parameterType="Map" resultType="Map">
+			SELECT 
+			        p.id, u.image, u.nick  
+			  FROM 
+			        tb_praise p INNER JOIN tb_user u ON p.user = u.id AND p.status = #{status} 
+			 WHERE
+			        p.post = #{post} 
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

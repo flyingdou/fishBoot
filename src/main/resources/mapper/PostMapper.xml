@@ -149,8 +149,7 @@
 		       TIMESTAMPDIFF(Month, u.frist_fishing_date ,now()) as monthDiff, 
 		       IFNULL(s.fishCount,0) as fishCount, 
 		       IFNULL(sum(fl.fishing_count), 0) as totalCount,
-			   IFNULL(sum(fl.fishing_weight), 0) as totalWeight, 
-			   IFNULL(tell.single_max_weight,0) as single_max_weight,
+			   IFNULL(sum(fl.fishing_weight), 0) as totalWeight,
 		       p.content, GROUP_CONCAT(pim.image) as images,
 		       IFNULL(pxx.praiseCount,0) as praiseCount, 
 		       IFNULL(e.evalCount,0) as evalCount,
@@ -174,10 +173,6 @@
 						              (
 						                   select count(s.id) as fishCount, s.user from tb_sign s 
 						              ) s on s.user = p.user 
-			              LEFT JOIN 
-									  (
-									  		select l.post, l.single_max_weight from tb_fishing_logs l order by l.single_max_weight desc LIMIT 1	
-									  ) tell ON tell.post = p.id 
 						  LEFT JOIN 
 								      (
 									        select pa.id, pa.name, pa.code from  tb_parameter pa left join tb_parameter prt on pa.parent = prt.id 
@@ -235,6 +230,47 @@
 	</if>
 	
 	
+  </select>
+  
+  
+  
+  <!-- 帖子详情 -->
+  <select id="postDetail" parameterType="Map" resultType="Map">
+		SELECT 
+			       p.id, u.image, u.nick, le.name as level, DATE_FORMAT(poster_date,'%H:%i') as time, 
+			       TIMESTAMPDIFF(Month, u.frist_fishing_date ,now()) as monthDiff, 
+			       p.content, GROUP_CONCAT(pim.image) as images,
+			       IFNULL(s.fishCount,0) as fishCount, 
+			       IFNULL(sum(fl.fishing_count), 0) as totalCount,
+				   IFNULL(sum(fl.fishing_weight), 0) as totalWeight,
+			       IFNULL(prax.id,null) as praiseId, 
+			       IFNULL(prax.status,0) as praiseStatus
+		 FROM
+		      tb_post p LEFT JOIN tb_user u ON p.user = u.id 
+		                LEFT JOIN tb_post_image pim ON p.id = pim.post 
+		                LEFT JOIN tb_fishing_logs fl ON fl.post = p.id 
+						LEFT JOIN 
+					                (
+					                   select count(s.id) as fishCount, s.user from tb_sign s 
+					                ) s on s.user = p.user
+					    LEFT JOIN 
+								    (
+								        select pa.id, pa.name, pa.code from  tb_parameter pa left join tb_parameter prt on pa.parent = prt.id 
+								            where  prt.code = #{parent_code} 
+								    ) le ON u.level = le.code
+		                LEFT JOIN 
+					                (
+					                    select pra.id, pra.user, pra.status, pra.post from tb_praise pra where pra.user = #{userId}   
+					                ) prax ON prax.post = p.id 
+		WHERE 
+		        p.id = #{post} 
+		         
+		
+		GROUP BY  
+					pim.post 
+  
+  
+  
   </select>
 
 

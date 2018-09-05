@@ -1,14 +1,25 @@
 package com.fish.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import com.fish.pojo.Order;
 
 public interface OrderMapper {
-    int deleteByPrimaryKey(Integer id);
+	int deleteByPrimaryKey(Integer id);
 
-    int insertSelective(Order record);
+	int insertSelective(Order record);
 
-    Order selectByPrimaryKey(Integer id);
+	Order selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Order record);
+	int updateByPrimaryKeySelective(Order record);
+
+	/**
+	 * 帖子打赏列表
+	 * 
+	 * @param param
+	 * @return
+	 */
+	List<Map<String, Object>> rewardListByPost(Map<String, Object> param);
 
 }

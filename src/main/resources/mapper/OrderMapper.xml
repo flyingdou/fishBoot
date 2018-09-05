@@ -126,4 +126,29 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+  
+  <!-- 帖子打赏列表 -->
+  <select id="rewardListByPost" parameterType="Map" resultType="Map">
+		SELECT 
+		          o.id, u.nick, u.image 
+		  FROM 
+		          tb_order o INNER JOIN tb_user u ON o.from_user = u.id  
+		 WHERE 
+		          o.status = #{status} 
+		          AND o.product_type = #{product_type}
+		          AND o.product_id = #{post} 
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </mapper>

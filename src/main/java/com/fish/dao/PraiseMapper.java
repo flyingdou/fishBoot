@@ -1,5 +1,6 @@
 package com.fish.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import com.fish.pojo.Praise;
@@ -20,5 +21,14 @@ public interface PraiseMapper {
 	 * @return
 	 */
 	Map<String, Object> praiseCount(Map<String, Object> param);
+	
+	
+	
+	/**
+	 * 查询帖子的有效点赞列表
+	 * @param param
+	 * @return
+	 */
+	List<Map<String, Object>> praiseListByPost (Map<String, Object> param);
 
 }

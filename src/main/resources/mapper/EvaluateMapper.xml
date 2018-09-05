@@ -86,4 +86,53 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+  
+  <!-- 查询帖子的评论列表 -->
+  <select id = "evaluateListByPost" parameterType = "Map" resultType = "Map">
+		SELECT 
+		         	 e.id, u.nick, u.image, e.content, e.parent,
+		         	 DATE_FORMAT(e.auto_date,'%H:%i') as time,
+					 TIMESTAMPDIFF(Month, u.frist_fishing_date ,now()) as monthDiff, 
+					 IFNULL(s.fishCount,0) as fishCount, 
+					 IFNULL(sum(fl.fishing_count), 0) as totalCount,
+					 IFNULL(sum(fl.fishing_weight), 0) as totalWeight
+		FROM  
+		         	 tb_evaluate e LEFT JOIN tb_user u ON e.user = u.id 
+		                       	   LEFT JOIN tb_fishing_logs fl ON fl.post = e.post 
+								   LEFT JOIN 
+											 (
+												 select count(s.id) as fishCount, s.user from tb_sign s 
+											 ) s on s.user = e.user 
+					                       
+		WHERE 
+		          	 e.post = #{post} 
+		GROUP BY 
+		          	 e.user 
+  
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </mapper>
