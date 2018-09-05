@@ -146,7 +146,8 @@
   <select id="postList" resultType = "Map" parameterType = "Map" >
 	SELECT 
 		       p.id, u.image, u.nick, le.name as level, DATE_FORMAT(poster_date,'%H:%i') as time, 
-		       TIMESTAMPDIFF(Month, u.frist_fishing_date ,now()) as monthDiff, count(p.id) as fishCount, 
+		       TIMESTAMPDIFF(Month, u.frist_fishing_date ,now()) as monthDiff, 
+		       IFNULL(s.fishCount,0) as fishCount, 
 		       IFNULL(sum(fl.fishing_count), 0) as totalCount,
 			   IFNULL(sum(fl.fishing_weight), 0) as totalWeight, 
 			   IFNULL(tell.single_max_weight,0) as single_max_weight,
@@ -169,6 +170,10 @@
 		        tb_post p INNER JOIN tb_user u ON p.user = u.id 
 			              LEFT JOIN tb_post_image pim ON p.id = pim.post 
 			              LEFT JOIN tb_fishing_logs fl ON fl.post = p.id 
+			              LEFT JOIN 
+						              (
+						                   select count(s.id) as fishCount, s.user from tb_sign s 
+						              ) s on s.user = p.user 
 			              LEFT JOIN 
 									  (
 									  		select l.post, l.single_max_weight from tb_fishing_logs l order by l.single_max_weight desc LIMIT 1	
