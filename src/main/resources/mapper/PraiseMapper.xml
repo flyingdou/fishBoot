@@ -82,4 +82,18 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
+	
+	
+	
+	
+	<!-- 查询单个帖子有效点赞数 -->
+	<select id="praiseCount" parameterType="Map" resultType="Map">
+			SELECT 
+			        count(p.id) as praiseCount 
+			  FROM 
+			        tb_praise p 
+			 WHERE  
+			        p.post = #{post} 
+			        AND p.status = #{status} 
+	</select>
 </mapper>

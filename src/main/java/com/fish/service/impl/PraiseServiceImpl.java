@@ -1,6 +1,7 @@
 package com.fish.service.impl;
 
 import java.util.Date;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fish.constants.Constants;
 import com.fish.dao.PraiseMapper;
 import com.fish.pojo.Praise;
 import com.fish.service.PraiseService;
@@ -56,7 +58,16 @@ public class PraiseServiceImpl implements PraiseService {
 			// 新增数据
 			praiseMapper.insertSelective(praise);
 		}
-		result.fluentPut("id", praise.getId());
+		
+		// 获取当前帖子的点赞数
+		JSONObject countParam = new JSONObject();
+		countParam.fluentPut("post", param.getInteger("post"))
+		          .fluentPut("status", Constants.VALID_STATUS)
+		          ;
+		Map<String, Object> praiseCountMap = praiseMapper.praiseCount(countParam);
+		result.fluentPut("id", praise.getId())
+		      .fluentPut("praiseCount", praiseCountMap.get("praiseCount"))
+		      ;
 
 		return result;
 	}
