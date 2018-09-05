@@ -237,7 +237,8 @@
   <!-- 帖子详情 -->
   <select id="postDetail" parameterType="Map" resultType="Map">
 		SELECT 
-			       p.id, u.image, u.nick, le.name as level, DATE_FORMAT(poster_date,'%H:%i') as time, 
+			       p.id, u.image, u.nick, le.name as level, p.longitude, p.latitude,
+			       DATE_FORMAT(poster_date,'%H:%i') as time, 
 			       TIMESTAMPDIFF(Month, u.frist_fishing_date ,now()) as monthDiff, 
 			       p.content, GROUP_CONCAT(pim.image) as images,
 			       IFNULL(s.fishCount,0) as fishCount, 
