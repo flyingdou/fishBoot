@@ -153,8 +153,12 @@
 		       p.content, GROUP_CONCAT(pim.image) as images,
 		       IFNULL(pxx.praiseCount,0) as praiseCount, 
 		       IFNULL(e.evalCount,0) as evalCount,
-		       IFNULL(r.reCount,0) as rewardCount  
-		       <if test = " latitude != null || latitude != '' ">
+		       IFNULL(r.reCount,0) as rewardCount
+		       <if test="userId != null and userId != '' " >
+					,IFNULL(prax.id,null) as praiseId, IFNULL(prax.status,0) as praiseStatus 
+			   </if>  
+			   
+		       <if test = " latitude != null and latitude != '' ">
 			       ,ROUND(
 			              6378.138 * 2 * ASIN(SQRT(POW(SIN((#{latitude} * PI() / 180 - p.latitude * PI() / 180) / 2 ),
 			                    2) + COS(#{latitude} * PI() / 180) * COS(p.latitude * PI() / 180) * POW(
@@ -186,6 +190,12 @@
 						              (
 						                  select rx.product_id, count(rx.id) as reCount from tb_order rx where rx.product_type = #{reward_type} AND rx.status = #{status} GROUP BY rx.product_id
 						              ) r ON r.product_id = p.id 
+					<if test="userId != null and userId != '' " >
+						  LEFT JOIN 
+						              (
+						                   select pra.id, pra.user, pra.status, pra.post from tb_praise pra where pra.user = #{userId}  
+						              ) prax ON prax.post = p.id 
+					</if>
 	WHERE 
 	           1 = 1 
 	           <if test="chooseMethodStr and chooseMethodStr != null and chooseMethodStr.size() > 0">
