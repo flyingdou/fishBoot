@@ -19,6 +19,7 @@ import com.fish.util.ResultUtil;
  * */
 @RestController
 @Controller
+@RequestMapping("/praise")
 public class PraiseController {
 
 	/**
