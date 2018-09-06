@@ -184,7 +184,7 @@
 						              ) pxx ON pxx.post = p.id 
 			              LEFT JOIN 
 						              (
-						                    select ev.post, count(ev.id) as evalCount from tb_evaluate ev GROUP BY ev.post  
+						                    select ev.post, count(ev.id) as evalCount from tb_evaluate ev where ISNULL(ev.parent) GROUP BY ev.post  
 						              ) e ON e.post = p.id 
 			              LEFT JOIN 
 						              (
