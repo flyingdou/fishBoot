@@ -106,6 +106,8 @@
 			        tb_praise p INNER JOIN tb_user u ON p.user = u.id AND p.status = #{status} 
 			 WHERE
 			        p.post = #{post} 
+		  ORDER BY 
+			        auto_date desc 
 	</select>
 	
 	
