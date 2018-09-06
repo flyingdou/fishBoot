@@ -1,6 +1,7 @@
 package com.fish.service.impl;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -71,5 +72,19 @@ public class PraiseServiceImpl implements PraiseService {
 
 		return result;
 	}
+
+	
+	
+	/**
+	 * 查询帖子点赞列表
+	 */
+	@Override
+	public List<Map<String, Object>> praiseList(JSONObject param) {
+		param.fluentPut("status", Constants.VALID_STATUS);
+		List<Map<String, Object>> praiseList = praiseMapper.praiseListByPost(param);
+		return praiseList;
+	}
+	
+	
 
 }

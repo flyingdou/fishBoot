@@ -27,8 +27,7 @@ public class PraiseController {
 	 */
 	@Autowired
 	private PraiseService praiseService;
-	
-	
+
 	/**
 	 * 点赞或取消点赞
 	 * 
@@ -47,9 +46,27 @@ public class PraiseController {
 			e.printStackTrace();
 			return JSON.toJSONString(e);
 		}
-		
+
 	}
-	
+
+	/**
+	 * 帖子点赞列表
+	 * 
+	 * @param json
+	 * @return
+	 */
+	@RequestMapping("/praiseList")
+	public String praiseList(String json) {
+		try {
+			// 处理请求参数
+			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
+			ResultUtil rs = ResultUtil.success(praiseService.praiseList(param));
+			return JSON.toJSONString(rs);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return JSON.toJSONString(e);
+		}
+	}
 	
 	
 	

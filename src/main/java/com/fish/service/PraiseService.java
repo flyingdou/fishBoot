@@ -5,6 +5,9 @@ package com.fish.service;
  * desc: 点赞业务逻辑接口
  * */
 
+import java.util.List;
+import java.util.Map;
+
 import com.alibaba.fastjson.JSONObject;
 
 public interface PraiseService {
@@ -16,5 +19,13 @@ public interface PraiseService {
 	 * @return
 	 */
 	JSONObject praise(JSONObject param);
+
+	/**
+	 * 帖子点赞列表
+	 * 
+	 * @param param
+	 * @return
+	 */
+	List<Map<String, Object>> praiseList(JSONObject param);
 
 }
