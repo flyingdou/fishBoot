@@ -3,7 +3,6 @@ package com.fish.controller;
 import java.net.URLDecoder;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +17,6 @@ import com.fish.util.ResultUtil;
  * desc: 参数处理控制器
  * */
 @RestController
-@Controller
 @RequestMapping("/parameter")
 public class ParameterController {
 

@@ -4,7 +4,6 @@ import java.net.URLDecoder;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +17,6 @@ import com.fish.service.CityService;
  * @author 华文
  *
  */
-@Controller
 @RestController
 public class CityController {
 	
