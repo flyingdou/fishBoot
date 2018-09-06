@@ -7,7 +7,6 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -87,7 +86,6 @@ public class UploadController {
 	 * @throws Exception
 	 */
 	 @RequestMapping("/getUploadSignature")
-	 @ResponseBody
 	 public String getUploadSignature() throws Exception {
 	 // 最终签名
 	 String strSign = "";

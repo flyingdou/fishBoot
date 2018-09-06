@@ -10,13 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fish.constants.Constants;
-import com.fish.dao.EvaluateMapper;
 import com.fish.dao.OrderMapper;
 import com.fish.dao.PostImageMapper;
 import com.fish.dao.PostMapper;
 import com.fish.dao.PraiseMapper;
 import com.fish.pojo.Post;
 import com.fish.pojo.PostImage;
+import com.fish.service.EvaluateService;
 import com.fish.service.PostService;
 import com.fish.util.commentsUtil;
 
@@ -53,10 +53,10 @@ public class PostServiceImpl implements PostService {
 	
 	
 	/**
-	 * 注入evaluateMapper对象
+	 * 注入evaluateService对象
 	 */
 	@Autowired
-	private EvaluateMapper evaluateMapper; 
+	private EvaluateService evaluateService; 
 	
 	
 	/**
@@ -174,7 +174,7 @@ public class PostServiceImpl implements PostService {
 		List<Map<String, Object>> praiseList = praiseMapper.praiseListByPost(param);
 		
 		// 查询帖子评论列表
-		List<Map<String, Object>> evaluateList = evaluateMapper.evaluateListByPost(param);
+		List<Map<String, Object>> evaluateList = evaluateService.evaluateList(param);
 		
 		// 查询帖子打赏列表
 		List<Map<String, Object>> rewardList = orderMapper.rewardListByPost(param);

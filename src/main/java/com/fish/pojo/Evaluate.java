@@ -22,7 +22,7 @@ public class Evaluate {
     private Integer post;
 
     /**
-     * 被回复的评论
+     * 被回复的回复
      */
     private Integer parent;
 
@@ -35,7 +35,19 @@ public class Evaluate {
      * 时间
      */
     private Date autoDate;
+    
+    
+    /**
+     * 被回复的父回复
+     */
+    private Integer evaluate_parent;
+    
+    
 
+    /**
+     * setter && getter 
+     * @return
+     */
     public Integer getId() {
         return id;
     }
@@ -83,4 +95,12 @@ public class Evaluate {
     public void setAutoDate(Date autoDate) {
         this.autoDate = autoDate;
     }
+
+	public Integer getEvaluate_parent() {
+		return evaluate_parent;
+	}
+
+	public void setEvaluate_parent(Integer evaluate_parent) {
+		this.evaluate_parent = evaluate_parent;
+	}
 }

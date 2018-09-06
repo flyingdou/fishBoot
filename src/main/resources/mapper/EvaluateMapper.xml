@@ -8,9 +8,10 @@
     <result column="parent" property="parent" jdbcType="INTEGER" />
     <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="auto_date" property="autoDate" jdbcType="TIMESTAMP" />
+    <result column="evaluate_parent" property="evaluate_parent" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, user, post, parent, content, auto_date
+    id, user, post, parent, content, auto_date, evaluate_parent
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -43,6 +44,9 @@
       <if test="autoDate != null" >
         auto_date,
       </if>
+      <if test="evaluate_parent != null" >
+        evaluate_parent,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -62,6 +66,9 @@
       </if>
       <if test="autoDate != null" >
         #{autoDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="evaluate_parent != null" >
+        #{evaluate_parent,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -83,6 +90,9 @@
       <if test="autoDate != null" >
         auto_date = #{autoDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="evaluate_parent != null" >
+        evaluate_parent = #{evaluate_parent,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -92,7 +102,7 @@
   <!-- 查询帖子的评论列表 -->
   <select id = "evaluateListByPost" parameterType = "Map" resultType = "Map">
 		SELECT 
-		         	 e.id, u.nick, u.image, e.content, e.parent,
+		         	 e.id, u.nick, u.image, e.content,
 		         	 DATE_FORMAT(e.auto_date,'%H:%i') as time,
 					 TIMESTAMPDIFF(Month, u.frist_fishing_date ,now()) as monthDiff, 
 					 IFNULL(s.fishCount,0) as fishCount, 
@@ -107,11 +117,36 @@
 											 ) s on s.user = e.user 
 					                       
 		WHERE 
-		          	 e.post = #{post} 
+		          	 e.post = #{post} and ISNULL(e.parent)
 		GROUP BY 
 		          	 e.user 
   
   </select>
+  
+  
+  
+  
+  <!-- 评论的回复 -->
+  <select id="replyList" parameterType="Map" resultType="Map">
+		SELECT 
+		          e.id, e.content, u.image, u.nick, e.parent,
+		          ru.nick ruNick, ru.image ruImage   
+		FROM 
+		          tb_evaluate e LEFT JOIN tb_user u ON e.user = u.id 
+		                        LEFT JOIN tb_evaluate re ON re.id = e.parent 
+		                        LEFT JOIN tb_user ru ON ru.id = re.user 
+		WHERE     
+		          e.evaluate_parent = #{parent} 
+		ORDER BY 
+		          e.auto_date ASC 
+  
+  
+  </select>
+  
+  
+  
+  
+  
   
   
   
