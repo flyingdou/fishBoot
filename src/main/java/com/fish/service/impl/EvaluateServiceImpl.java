@@ -1,13 +1,16 @@
 package com.fish.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fish.dao.EvaluateMapper;
+import com.fish.pojo.Evaluate;
 import com.fish.service.EvaluateService;
 
 /*
@@ -23,7 +26,34 @@ public class EvaluateServiceImpl implements EvaluateService {
 	 */
 	@Autowired
 	private EvaluateMapper evaluateMapper;
-
+	
+	
+	/**
+	 * 评论、回复
+	 */
+	@Override
+	public JSONObject evaluate(JSONObject param) {
+		// 初始化评论对象
+		Evaluate eval = new Evaluate();
+		eval.setContent(param.getString("content"));
+		eval.setPost(param.getInteger("post"));
+		eval.setUser(param.getInteger("userId"));
+		eval.setAutoDate(new Date());
+		
+		// 没有parent则为单独对帖子的评论，有则为对他人的评论、回复进行回复
+		if (param.containsKey("parent") && StringUtils.isNotBlank(param.getString("parent"))) {
+			eval.setParent(param.getInteger("parent"));
+			eval.setEvaluate_parent(param.getInteger("evaluate_parent"));
+		}
+		
+		// 持久化数据
+		evaluateMapper.insertSelective(eval);
+		JSONObject result = new JSONObject();
+		result.fluentPut("id", eval.getId());
+		return result;
+	}
+	
+	
 	/**
 	 * 查询帖子评论列表
 	 */
@@ -42,5 +72,7 @@ public class EvaluateServiceImpl implements EvaluateService {
 
 		return evaluatelist;
 	}
+
+	
 
 }

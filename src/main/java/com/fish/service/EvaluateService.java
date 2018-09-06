@@ -13,6 +13,14 @@ import com.alibaba.fastjson.JSONObject;
 public interface EvaluateService {
 
 	/**
+	 * 评论、回复
+	 * 
+	 * @param param
+	 * @return
+	 */
+	JSONObject evaluate(JSONObject param);
+
+	/**
 	 * 帖子评论列表
 	 * 
 	 * @param param

@@ -27,6 +27,25 @@ public class EvaluateController {
 	private EvaluateService evaluateService;
 
 	/**
+	 * 评论、回复
+	 * 
+	 * @param json
+	 * @return
+	 */
+	@RequestMapping("/evaluate")
+	public String evaluate(String json) {
+		try {
+			// 处理请求参数
+			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json,"UTF-8"));
+			ResultUtil rs = ResultUtil.success(evaluateService.evaluate(param));
+			return JSON.toJSONString(rs);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return JSON.toJSONString(e);
+		}
+	}
+
+	/**
 	 * 帖子评论列表
 	 * 
 	 * @param json
