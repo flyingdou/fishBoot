@@ -19,6 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -406,6 +407,17 @@ public class commentsUtil {
 		}
 		
 		return dateFormat(new Date(), format) + str;
+	}
+	
+	
+	/**
+	 * 获取指定长度的随机字符串
+	 * @param length
+	 * @return
+	 */
+	public static String getNonceStr (int length) {
+		String nonce_str = MD5(UUID.randomUUID().toString()).substring(0, length);
+		return nonce_str;
 	}
 
 }

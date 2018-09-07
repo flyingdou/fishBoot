@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.UUID;
 
 import org.apache.commons.codec.binary.Base64;
 import org.dom4j.Document;
@@ -147,7 +146,7 @@ public class WeChatAPI {
 	public static String paySign(PayRequest payRequest, Order order) throws Exception {
 		// 获取发送给微信的参数
 		// 随机字符串
-		String nonce_str = UUID.randomUUID().toString();
+		String nonce_str = commentsUtil.getNonceStr(10);
 		// 商品描述
 		String body = "fish";
 		// 商品订单号
