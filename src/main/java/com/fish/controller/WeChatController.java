@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,6 +35,7 @@ public class WeChatController {
 	/**
 	 * 注入orderService
 	 */
+	@Autowired
 	private OrderService orderService;
 	
 	

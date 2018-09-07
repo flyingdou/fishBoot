@@ -4,6 +4,7 @@ import java.net.URLDecoder;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +23,7 @@ public class OrderController {
 	/**
 	 * 注入orderService对象
 	 */
+	@Autowired
 	private OrderService orderService;
 
 	/**
