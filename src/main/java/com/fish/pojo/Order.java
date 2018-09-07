@@ -1,6 +1,5 @@
 package com.fish.pojo;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -19,7 +18,7 @@ public class Order {
 	/**
 	 * 订单金额
 	 */
-	private BigDecimal money;
+	private Double money;
 
 	/**
 	 * 商品类型(A:拜师, B:参加活动, C:打赏, D:结算, E:提现, F:卡券, L:直播)
@@ -56,6 +55,11 @@ public class Order {
 	 */
 	private Date autoDate;
 
+	
+	/**
+	 * setter && getter
+	 * @return
+	 */
 	public Integer getId() {
 		return id;
 	}
@@ -72,11 +76,11 @@ public class Order {
 		this.no = no == null ? null : no.trim();
 	}
 
-	public BigDecimal getMoney() {
+	public Double getMoney() {
 		return money;
 	}
 
-	public void setMoney(BigDecimal money) {
+	public void setMoney(Double money) {
 		this.money = money;
 	}
 

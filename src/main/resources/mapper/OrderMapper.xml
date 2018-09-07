@@ -137,8 +137,19 @@
 		          tb_order o INNER JOIN tb_user u ON o.from_user = u.id  
 		 WHERE 
 		          o.status = #{status} 
-		          AND o.product_type = #{product_type}
+		          AND o.product_type = #{product_type} 
 		          AND o.product_id = #{post} 
+  </select>
+  
+  
+  <!-- 根据订单号，查询订单 -->
+  <select id="getOrderByNo" parameterType="String" resultMap="BaseResultMap">
+		select 
+		            <include refid="Base_Column_List" />
+		  from 
+		       		tb_order
+		 where 
+		            no = #{no}
   </select>
   
   

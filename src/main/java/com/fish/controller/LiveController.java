@@ -18,8 +18,8 @@ import com.fish.pojo.Order;
 import com.fish.service.LiveService;
 import com.fish.util.ResultUtil;
 import com.fish.util.commentsUtil;
-import com.fish.wechat.PayManager;
 import com.fish.wechat.PayRequest;
+import com.fish.wechat.WeChatAPI;
 
 /**
  * 
@@ -214,9 +214,8 @@ public class LiveController {
 			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
 			Order order = liveService.createLiveOrder(param);
 			PayRequest payRequest = new PayRequest(Constants.APPID, Constants.MCH_ID, Constants.KEY,
-					param.getString("openId"));
-			PayManager payManager = new PayManager(request);
-			return payManager.paySign(payRequest, order);
+					param.getString("openId"),request);
+			return WeChatAPI.paySign(payRequest, order);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return JSON.toJSONString(e);

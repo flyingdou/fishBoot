@@ -236,7 +236,7 @@ public class commentsUtil {
 		os.close();
 		is.close();
 	}
-	
+
 	/**
 	 * 时间相加的方法
 	 * 
@@ -371,15 +371,14 @@ public class commentsUtil {
 			return null;
 		}
 	}
-	
-	
-	
+
 	/**
 	 * string 字符串转Integer list
+	 * 
 	 * @param strings
 	 * @return
 	 */
-	public static List<Integer> getIntegers (String strings) {
+	public static List<Integer> getIntegers(String strings) {
 		String[] stringx = strings.split(",");
 		List<Integer> list = new ArrayList<Integer>();
 		for (String string : stringx) {
@@ -388,9 +387,25 @@ public class commentsUtil {
 			}
 		}
 		return list;
-		
+
 	}
-	
-	
-	
+
+	/**
+	 * 指定尾数长度，指定格式的随机数(适用于生成订单编号)
+	 * 
+	 * @param format // 日期格式
+	 * @param length // 尾数长度
+	 * @return
+	 */
+
+	public static String getRandomNo(String format, int length) {
+		String str = "";
+		for (int i = 0; i < length; i++) {
+			Double v = Math.random() * 10;
+			str += String.valueOf(v.intValue());
+		}
+		
+		return dateFormat(new Date(), format) + str;
+	}
+
 }

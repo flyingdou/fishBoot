@@ -16,11 +16,14 @@ public class Constants {
 	public static String APP_SECRET = "c46624d7b33293cd30a7e008986e4cd2";
 	
 	/**
-	 * 支付商户号
+	 * 支付商户号(与funcoin相同)
 	 */
-	public static String MCH_ID = "1481442902";
+	public static String MCH_ID = "1500513322";
 	
-	public static String KEY = "";
+	/**
+	 * API_KEY(与funcoin相同)
+	 */
+	public static String KEY = "EA233E18C858BDE96DE1FFF3C510A68B";
 
 
 	/**
@@ -198,10 +201,10 @@ public class Constants {
 	public static final Integer INVALID_STATUS = 0;
 	
 	
-	
 	/**
-	 * 订单类型(打赏)
+	 * SUCCESS
 	 */
-	public static final String ORDER_TYPE_REWARD = "C";
+	public static final String SUCCESS = "SUCCESS";
+	
 	
 }

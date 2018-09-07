@@ -1,15 +1,24 @@
 package com.fish.controller;
 
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.dom4j.Document;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fish.constants.Constants;
+import com.fish.service.OrderService;
 import com.fish.util.HttpRequestUtils;
 import com.fish.util.commentsUtil;
 
@@ -21,6 +30,14 @@ import com.fish.util.commentsUtil;
 @RestController
 @RequestMapping("/wechat")
 public class WeChatController {
+	
+	/**
+	 * 注入orderService
+	 */
+	private OrderService orderService;
+	
+	
+	
 
 	/**
 	 * 解密手机号
@@ -90,5 +107,61 @@ public class WeChatController {
 			return JSON.toJSONString(e);
 		}
 	}
+	
+	
+	
+	/**
+	 * 微信支付回调
+	 * @param request
+	 * @param response
+	 */
+	@SuppressWarnings({ "unchecked" })
+	@RequestMapping("/updateOrder")
+	public void updateOrder (HttpServletRequest request, HttpServletResponse response) {
+	       try {
+	    	   // 解析结果存储在HashMap
+				Map<String, String> map = new HashMap<String, String>();
+				InputStream inputStream = request.getInputStream();
+				// 读取输入流
+				SAXReader reader = new SAXReader();
+				Document document = reader.read(inputStream);
+				// 得到xml根元素
+				Element root = document.getRootElement();
+				// 得到根元素的所有子节点
+				List<Element> elementList = root.elements();
+		
+				// 遍历所有子节点
+				for (Element e : elementList)
+					map.put(e.getName(), e.getText());
+		
+				// 释放资源
+				inputStream.close();
+				inputStream = null;
+				String resultcode = map.get("result_code");
+				String orderno = map.get("out_trade_no");
+				
+				// 支付成功，更新订单数据
+				if (Constants.SUCCESS.equals(resultcode)) {
+					orderService.updateOrderStatus(orderno);
+				}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

@@ -143,7 +143,7 @@ public class PostServiceImpl implements PostService {
 	public List<Map<String, Object>> postList(JSONObject param) {
 		param.fluentPut("status", Constants.VALID_STATUS);
 		param.fluentPut("parent_code", Constants.USER_LEVEL_CODE);
-		param.fluentPut("reward_type", Constants.ORDER_TYPE_REWARD);
+		param.fluentPut("reward_type", Constants.PRODUCT_TYPE_AWARD);
 		if (param.containsKey("chooseMethodStr")) {
 			String chooseMethods = param.getString("chooseMethodStr");
 			List<Integer> chooseList = commentsUtil.getIntegers(chooseMethods);
@@ -165,7 +165,7 @@ public class PostServiceImpl implements PostService {
 	public JSONObject postDetail(JSONObject param) {
 		param.fluentPut("parent_code", Constants.USER_LEVEL_CODE)
 		     .fluentPut("status", Constants.VALID_STATUS)
-		     .fluentPut("product_type", Constants.ORDER_TYPE_REWARD)
+		     .fluentPut("product_type", Constants.PRODUCT_TYPE_AWARD)
 		     ;
 		// 查询帖子自身详情
 		Map<String, Object> postDetail = postMapper.postDetail(param);

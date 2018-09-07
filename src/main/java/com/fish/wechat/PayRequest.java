@@ -1,10 +1,12 @@
 package com.fish.wechat;
 
+import javax.servlet.http.HttpServletRequest;
+
+import com.fish.util.commentsUtil;
+
 public class PayRequest {
 	
 	private String appId;
-	
-	private String appSecret;
 	
 	private String MCH_ID;
 	
@@ -12,26 +14,9 @@ public class PayRequest {
 	
 	private String openId;
 	
+	private String ip;
 	
 
-	/**
-	 * 全量参数
-	 * @param appId
-	 * @param appSecret
-	 * @param mCH_ID
-	 * @param key
-	 * @param openId
-	 */
-	public PayRequest(String appId, String appSecret, String mCH_ID, String key, String openId) {
-		super();
-		this.appId = appId;
-		this.appSecret = appSecret;
-		MCH_ID = mCH_ID;
-		this.key = key;
-		this.openId = openId;
-	}
-	
-	
 	/**
 	 * 不需要appSecret的构造
 	 * @param appId
@@ -39,12 +24,13 @@ public class PayRequest {
 	 * @param key
 	 * @param openId
 	 */
-	public PayRequest(String appId, String mCH_ID, String key, String openId) {
+	public PayRequest(String appId, String mCH_ID, String key, String openId, HttpServletRequest request) {
 		super();
 		this.appId = appId;
 		MCH_ID = mCH_ID;
 		this.key = key;
 		this.openId = openId;
+		this.ip = commentsUtil.getIpAddr(request);
 	}
 	
 
@@ -57,14 +43,6 @@ public class PayRequest {
 
 	public void setAppId(String appId) {
 		this.appId = appId;
-	}
-
-	public String getAppSecret() {
-		return appSecret;
-	}
-
-	public void setAppSecret(String appSecret) {
-		this.appSecret = appSecret;
 	}
 
 	public String getMCH_ID() {
@@ -89,6 +67,14 @@ public class PayRequest {
 
 	public void setOpenId(String openId) {
 		this.openId = openId;
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 	
 	
