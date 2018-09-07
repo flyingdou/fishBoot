@@ -16,14 +16,14 @@ public class Constants {
 	public static String APP_SECRET = "c46624d7b33293cd30a7e008986e4cd2";
 	
 	/**
-	 * 支付商户号(与funcoin相同)
+	 * 支付商户号(与E卡通app相同)
 	 */
-	public static String MCH_ID = "1500513322";
+	public static String MCH_ID = "1481442902";
 	
 	/**
-	 * API_KEY(与funcoin相同)
+	 * API_KEY(与E卡通app相同)
 	 */
-	public static String KEY = "EA233E18C858BDE96DE1FFF3C510A68B";
+	public static String KEY = "ArdCol1949com1010jsZGNessfit7u8i";
 
 
 	/**
