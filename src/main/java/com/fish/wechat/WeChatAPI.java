@@ -152,7 +152,7 @@ public class WeChatAPI {
 		// 商品订单号
 		String out_trade_no = order.getNo();
 		// 商品价格(单位:分)
-		String total_fee = "" + order.getMoney().intValue() * 100;
+		String total_fee = "" + new Double((order.getMoney()* 100)).intValue();
 		// 交易类型
 		String trade_type = "JSAPI";
 		// 微信回调通知地址

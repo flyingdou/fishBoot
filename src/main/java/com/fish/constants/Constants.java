@@ -20,6 +20,7 @@ public class Constants {
 	 */
 	public static String MCH_ID = "1481442902";
 	
+	
 	/**
 	 * API_KEY(与E卡通app相同)
 	 */
