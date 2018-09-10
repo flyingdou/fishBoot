@@ -22,6 +22,7 @@ import sun.misc.BASE64Encoder;
  * @author 华文
  *
  */
+@SuppressWarnings("restriction")
 @RestController
 public class UploadController {
 
@@ -85,7 +86,6 @@ public class UploadController {
 	 * @return
 	 * @throws Exception
 	 */
-	 @SuppressWarnings("restriction")
 	@RequestMapping("/getUploadSignature")
 	 public String getUploadSignature() throws Exception {
 	 // 最终签名
