@@ -85,7 +85,8 @@ public class UploadController {
 	 * @return
 	 * @throws Exception
 	 */
-	 @RequestMapping("/getUploadSignature")
+	 @SuppressWarnings("restriction")
+	@RequestMapping("/getUploadSignature")
 	 public String getUploadSignature() throws Exception {
 	 // 最终签名
 	 String strSign = "";
