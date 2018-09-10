@@ -5,6 +5,9 @@ package com.fish.service;
  * desc: 订单业务逻辑接口
  */
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.alibaba.fastjson.JSONObject;
@@ -26,6 +29,23 @@ public interface OrderService {
 	 * @param orderno
 	 */
 	void updateOrderStatus(String orderno);
+	
+	
+	
+	/**
+	 * 
+	 * @param param
+	 * @return
+	 */
+	List<Map<String, Object>> rewardListByPost (JSONObject param);
+	
+
+	
+	
+	
+	
+	
+	
 	
 	
 	

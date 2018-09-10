@@ -1,6 +1,8 @@
 package com.fish.service.impl;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -82,17 +84,6 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * 微信支付回调修改订单状态
 	 */
@@ -120,5 +111,19 @@ public class OrderServiceImpl implements OrderService {
 		orderMapper.updateByPrimaryKeySelective(order);
 		
 	}
+	
+
+	/**
+	 * 帖子打赏列表
+	 */
+	@Override
+	public List<Map<String, Object>> rewardListByPost(JSONObject param) {
+		param.fluentPut("status", Constants.ORDER_STATUS_PAYED)
+		     .fluentPut("product_type", Constants.PRODUCT_TYPE_AWARD)
+		     ;
+		List<Map<String, Object>> rewardList = orderMapper.rewardListByPost(param);
+		return rewardList;
+	}
+	
 
 }

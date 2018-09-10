@@ -45,4 +45,24 @@ public class OrderController {
 		}
 	}
 
+	/**
+	 * 帖子打赏列表
+	 * 
+	 * @param json
+	 * @return
+	 */
+	@RequestMapping("/rewardList")
+	public String rewardList(String json) {
+		try {
+			// 处理请求参数
+			JSONObject param = JSONObject.parseObject(URLDecoder.decode(json, "UTF-8"));
+			ResultUtil rs = ResultUtil.success(orderService.rewardListByPost(param));
+			return JSON.toJSONString(rs);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return JSON.toJSONString(e);
+		}
+
+	}
+
 }
