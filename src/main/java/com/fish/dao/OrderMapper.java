@@ -21,16 +21,14 @@ public interface OrderMapper {
 	 * @return
 	 */
 	List<Map<String, Object>> rewardListByPost(Map<String, Object> param);
-	
-	
-	
+
 	/**
 	 * 根据订单号查询订单
-	 * @param no // 订单号
+	 * 
+	 * @param param
 	 * @return
 	 */
-	 
-	Order getOrderByNo (String no);
-	
+
+	Order getOrderByNo(Map<String, Object> param);
 
 }

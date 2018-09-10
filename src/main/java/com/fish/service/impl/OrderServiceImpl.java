@@ -99,8 +99,12 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void updateOrderStatus(String orderno) {
 		
-		// 将order查询出来
-		Order order = orderMapper.getOrderByNo(orderno);
+		// 将回调order查询出来
+		JSONObject param = new JSONObject();
+		param.fluentPut("no", orderno)
+		     .fluentPut("status", Constants.ORDER_STATUS_BEPAY)
+		     ;
+		Order order = orderMapper.getOrderByNo(param);
 		order.setPayTime(new Date());
 		order.setStatus(Constants.ORDER_STATUS_PAYED);
 		

@@ -119,9 +119,10 @@ public class WeChatController {
 	 */
 	@SuppressWarnings({ "unchecked" })
 	@RequestMapping("/updateOrder")
-	public void updateOrder (HttpServletRequest request, HttpServletResponse response) {
-	       try {
-	    	   // 解析结果存储在HashMap
+	public String updateOrder (HttpServletRequest request, HttpServletResponse response) {
+		       String result = "";
+	    	   try {
+    		    // 解析结果存储在HashMap
 				Map<String, String> map = new HashMap<String, String>();
 				InputStream inputStream = request.getInputStream();
 				// 读取输入流
@@ -142,13 +143,24 @@ public class WeChatController {
 				String resultcode = map.get("result_code");
 				String orderno = map.get("out_trade_no");
 				
+				
 				// 支付成功，更新订单数据
 				if (Constants.SUCCESS.equals(resultcode)) {
+					// 告诉微信支付成功，以免微信多次回调
+					result = "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
 					orderService.updateOrderStatus(orderno);
+				} else {
+					result = "<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[error]]></return_msg></xml>";
 				}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			} catch (Exception e) {
+				e.printStackTrace();
+				result = "<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[error]]></return_msg></xml>";
+				
+			}
+	    	return result;
+		
+	    
+	    
 		
 		
 	}

@@ -143,13 +143,14 @@
   
   
   <!-- 根据订单号，查询订单 -->
-  <select id="getOrderByNo" parameterType="String" resultMap="BaseResultMap">
+  <select id="getOrderByNo" parameterType="Map" resultMap="BaseResultMap">
 		select 
 		            <include refid="Base_Column_List" />
 		  from 
 		       		tb_order
 		 where 
-		            no = #{no}
+		            no = #{no} 
+		            and status = #{status}
   </select>
   
   
